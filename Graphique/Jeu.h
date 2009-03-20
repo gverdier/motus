@@ -76,4 +76,14 @@ void jeu_enleverEltTab (char tab[7], int* nbElt, char elt);
  */
 int jeu_corrigerMot (Mot* menu_mot, int ligne, int taille_mot);
 
+/**
+ * \brief Tire un mot au hasard dans le dictionnaire.
+ * \param mot Il y est mis le mot tiré.
+ * \param taille_mot La taille du mot que l'on veut.
+ * \param diabolique Booléen indiquant si le mode diabolique est activé ou non.
+ * \return 0 en cas de fin normale, un nombre positif en cas d'erreur.
+ * \warning Cette fonction utilise la fonction rand. Il faut penser à appeler srand au début du programme.
+ */
+int jeu_tirerMot (char* mot, int taille_mot, int diabolique);
+
 #endif

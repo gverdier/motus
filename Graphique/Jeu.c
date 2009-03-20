@@ -135,3 +135,28 @@ int jeu_initialiserNouvellePartie (Partie* partie)
 	
 	return 0;
 }
+
+int jeu_tirerMot (char* mot, int taille_mot, int diabolique) {
+	char nomDictio[19] ;
+	FILE *dictio ;
+	long taille ; /* La taille du fichier */
+	long nblignes ; /* Le nombre de lignes dans le fichier */
+	long numligne ; /* Le numero de la ligne choisie au hasard */
+	
+	if (diabolique)
+		sprintf (nomDictio, "Dictionnaire%dD.txt", taille_mot) ;
+	else
+		sprintf (nomDictio, "Dictionnaire%d.txt", taille_mot) ;
+	if (!(dictio = fopen (nomDictio, "rt"))) {
+		fprintf (stderr, "Impossible d'ouvrir le dictionnaire %s.\n", nomDictio) ;
+		return 1 ;
+	}
+	fseek (dictio, 0, SEEK_END) ;
+	taille = ftell (dictio) ;
+	nblignes = taille / (taille_mot + 1) ; /* Chaque lettre prend 1 octet + 1 octet pour le saut de ligne */
+	numligne = rand () % nblignes ;
+	fseek (dictio, numligne * (taille_mot + 1) - 1, SEEK_SET) ; /* On va a la ligne correspondante */
+	fscanf (dictio, "%s", mot) ;
+	fclose (dictio) ;
+	return 0 ;
+}

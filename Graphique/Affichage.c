@@ -4,6 +4,7 @@ void lancer_motus (int* argc, char*** argv)
 {
 	Partie partie;
 	gtk_init(argc,argv);
+	srand(time(NULL));
 	affichage_initialiser(&partie);
 	gtk_main();
 }
@@ -162,6 +163,7 @@ void affichage_nouvellePartie (GtkWidget* appelant, gpointer param_partie)
 void affichage_nouveauMot (Partie* partie)
 {
 	/* Dans le mode final, le mot sera tiré dans un dictionnaire. */
+	/*
 	GtkWidget* dialogue;
 	GtkWidget* entry;
 
@@ -177,6 +179,8 @@ void affichage_nouveauMot (Partie* partie)
 	strcpy(partie->motCourant.mot,(char*)gtk_entry_get_text(GTK_ENTRY(entry)));
 
 	gtk_widget_destroy(dialogue);
+	*/
+	jeu_tirerMot(partie->motCourant.mot,partie->options.lettresParMot,partie->options.modeDiabolique);
 	
 	partie->motCourant.essaisRestants=partie->options.nbEssais;
 	partie->motCourant.motTrouve[0]=1; /* On connait dès le début la première lettre du mot. */
@@ -393,6 +397,8 @@ void affichage_saisieMot (GtkWidget* entry, gpointer param_partie)
 	
 	for (i=0;i<partie->options.lettresParMot;++i) {
 		char str[2];
+		GdkRectangle rect;
+		
 		str[0]=partie->motCourant.motsSaisis[ligne][i];
 		str[1]='\0';
 		gtk_label_set_label(GTK_LABEL(partie->widgets.caseslabels[ligne][i]),str);
@@ -404,6 +410,13 @@ void affichage_saisieMot (GtkWidget* entry, gpointer param_partie)
 				gtk_widget_modify_bg(partie->widgets.casesevents[ligne][i],GTK_STATE_NORMAL,&mauvaisePosition);
 				break;
 		}
+		g_usleep(G_USEC_PER_SEC / 8);
+		rect.x=0;
+		rect.y=0;
+		gtk_window_get_default_size(GTK_WINDOW(partie->widgets.fenetre),&rect.width,&rect.height);
+		/* Il faudrait trouver une autre méthode pour forcer le rafraichissement de la fenêtre : cette fonction est obsolète depuis GTK 1.2 */
+		gtk_widget_draw(partie->widgets.table,&rect);
+		g_usleep(G_USEC_PER_SEC / 8);
 	}
 	
 	if (gagne) {
@@ -420,9 +433,10 @@ void affichage_saisieMot (GtkWidget* entry, gpointer param_partie)
 	if (!partie->motCourant.essaisRestants) {
 		/* Il n'y a plus d'essai disponible. */
 		GtkWidget* dialogue;
+		char str[45];
 		
-		dialogue=gtk_message_dialog_new(GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,
-				"Vous avez perdu.");
+		sprintf (str,"Vous avez perdu.\nLe mot était : %s",partie->motCourant.mot);
+		dialogue=gtk_message_dialog_new(GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,str);
 		gtk_dialog_run(GTK_DIALOG(dialogue));
 		gtk_widget_destroy(dialogue);
 		affichage_terminer(NULL,partie);

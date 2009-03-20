@@ -37,11 +37,11 @@
 /**
  * \brief Taux de vert dans la couleur de fond d'une lettre présente dans le mot mais placée à la mauvaise position.
  */
-#define COULEUR_MAUVAISE_POS_GREEN 0
+#define COULEUR_MAUVAISE_POS_GREEN 65535
 /**
  * \brief Taux de bleu dans la couleur de fond d'une lettre présente dans le mot mais placée à la mauvaise position.
  */
-#define COULEUR_MAUVAISE_POS_BLUE 65535
+#define COULEUR_MAUVAISE_POS_BLUE 0
 /**
  * \brief Taux de rouge dans la couleur de fond par défaut.
  */
