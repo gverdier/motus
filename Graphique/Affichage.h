@@ -100,6 +100,20 @@ void affichage_erreur (const char* message);
 /* Fonctions de rappel (callback) */
 
 /**
+ * \brief Détruit l'écran de démarrage et lance la partie.
+ * \param partie Les données sur la partie en cours.
+ * \return Booléen utilisé par GTK+ pour savoir s'il faut arrêter le timer appelant cette fonction.
+ */
+gboolean affichage_splashDestroy (gpointer partie);
+
+/**
+ * \brief Affiche une à une les lettres du mot saisi par l'utilisateur.
+ * \param partie Les données sur la partie en cours.
+ * \return Booléen utilisé par GTK+ pour savoir s'il faut arrêter le timer appelant cette fonction.
+ */
+gboolean affichage_tableLettres (gpointer partie);
+
+/**
  * \brief Commence une nouvelle partie.
  * \param appelant Le widget appelant la fonction de rappel (NULL si elle n'est pas appelée par callback GTK+).
  * \param partie Les données sur la partie en cours.

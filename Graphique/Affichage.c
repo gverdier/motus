@@ -3,9 +3,26 @@
 void lancer_motus (int* argc, char*** argv)
 {
 	Partie partie;
+	GtkWidget* image;
+	
 	gtk_init(argc,argv);
 	srand(time(NULL));
-	affichage_initialiser(&partie);
+	
+	partie.widgets.splash=gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	if (partie.widgets.splash==NULL) {
+		affichage_erreur("Impossible d'ouvrir l'écran de démarrage.\n");
+	} else {
+		image=gtk_image_new_from_file("./Motus.jpg");
+		if (image==NULL) {
+			affichage_erreur("Impossible de charger l'écran de démarrage.\n");
+		} else {
+			gtk_window_set_decorated(GTK_WINDOW(partie.widgets.splash),FALSE);
+			gtk_window_set_position(GTK_WINDOW(partie.widgets.splash),GTK_WIN_POS_CENTER);
+			gtk_container_add(GTK_CONTAINER(partie.widgets.splash),image);
+			gtk_widget_show_all(partie.widgets.splash);
+			g_timeout_add(1000,(GSourceFunc)affichage_splashDestroy,&partie);
+		}
+	}
 	gtk_main();
 }
 
@@ -14,7 +31,8 @@ void affichage_initialiser (Partie* partie)
 	/* Création des widgets */
 	partie->widgets.fenetre=gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	VERIFIER_ALLOCATION(partie->widgets.fenetre,"Impossible de créer la fenêtre.\n",partie)
-	gtk_window_set_default_size(GTK_WINDOW(partie->widgets.fenetre),200,200);
+	gtk_window_set_position(GTK_WINDOW(partie->widgets.fenetre),GTK_WIN_POS_CENTER);
+	gtk_window_set_default_size(GTK_WINDOW(partie->widgets.fenetre),200,150);
 	partie->widgets.boxprincipale=gtk_vbox_new(FALSE,0);
 	VERIFIER_ALLOCATION(partie->widgets.boxprincipale,"Impossible de créer la box principale.\n",partie)
 	
@@ -162,25 +180,8 @@ void affichage_nouvellePartie (GtkWidget* appelant, gpointer param_partie)
 
 void affichage_nouveauMot (Partie* partie)
 {
-	/* Dans le mode final, le mot sera tiré dans un dictionnaire. */
-	/*
-	GtkWidget* dialogue;
-	GtkWidget* entry;
-
-	dialogue=gtk_dialog_new_with_buttons("Mot à chercher",GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,GTK_STOCK_OK,GTK_RESPONSE_OK,NULL);
-	VERIFIER_ALLOCATION(dialogue,"Impossible de créer la boîte de dialogue.\n",partie);
-	entry=gtk_entry_new_with_max_length(partie->options.lettresParMot);
-	VERIFIER_ALLOCATION(entry,"Impossible de créer la zone de saisie.\n",partie);
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialogue)->vbox),entry,FALSE,FALSE,0);
-
-	gtk_widget_show_all(GTK_DIALOG(dialogue)->vbox);
-	gtk_dialog_run(GTK_DIALOG(dialogue));
-
-	strcpy(partie->motCourant.mot,(char*)gtk_entry_get_text(GTK_ENTRY(entry)));
-
-	gtk_widget_destroy(dialogue);
-	*/
-	jeu_tirerMot(partie->motCourant.mot,partie->options.lettresParMot,partie->options.modeDiabolique);
+	if (jeu_tirerMot(partie->motCourant.mot,partie->options.lettresParMot,partie->options.modeDiabolique))
+		affichage_terminer(NULL,partie);
 	
 	partie->motCourant.essaisRestants=partie->options.nbEssais;
 	partie->motCourant.motTrouve[0]=1; /* On connait dès le début la première lettre du mot. */
@@ -342,6 +343,15 @@ void affichage_indications (Partie* partie, int ligne) {
 	}
 }
 
+gboolean affichage_splashDestroy (gpointer param_partie) {
+	Partie* partie=(Partie*)param_partie;
+	
+	gtk_widget_destroy(partie->widgets.splash);
+	affichage_initialiser(partie);
+	
+	return FALSE;
+}
+
 void affichage_nouvelleSuperPartie (GtkWidget* appelant, gpointer param_partie)
 {
 	GtkWidget* dialogue;
@@ -375,8 +385,76 @@ void affichage_aPropos (GtkWidget* appelant, gpointer fenetre)
 void affichage_saisieMot (GtkWidget* entry, gpointer param_partie)
 {
 	Partie* partie=(Partie*)param_partie;
-	int i,gagne;
+	static int gagne;
+	static int ligne;
+	
+	if (entry!=NULL) {
+		--partie->motCourant.essaisRestants;
+		ligne=partie->options.nbEssais - partie->motCourant.essaisRestants - 1;
+		
+		strcpy(partie->motCourant.motsSaisis[ligne],(char*)gtk_entry_get_text(GTK_ENTRY(entry)));
+		gagne=jeu_corrigerMot(&(partie->motCourant),ligne,partie->options.lettresParMot);
+		
+		/*for (i=0;i<partie->options.lettresParMot;++i) {
+			char str[2];
+			GdkRectangle rect;
+			
+			str[0]=partie->motCourant.motsSaisis[ligne][i];
+			str[1]='\0';
+			gtk_label_set_label(GTK_LABEL(partie->widgets.caseslabels[ligne][i]),str);
+			switch (partie->motCourant.corrections[ligne][i]) {
+				case CORRECTION_BONNE_PLACE:
+					gtk_widget_modify_bg(partie->widgets.casesevents[ligne][i],GTK_STATE_NORMAL,&OK);
+					break;
+				case CORRECTION_MAUVAISE_PLACE:
+					gtk_widget_modify_bg(partie->widgets.casesevents[ligne][i],GTK_STATE_NORMAL,&mauvaisePosition);
+					break;
+			}
+			g_usleep(G_USEC_PER_SEC / 8);
+			rect.x=0;
+			rect.y=0;
+			gtk_window_get_default_size(GTK_WINDOW(partie->widgets.fenetre),&rect.width,&rect.height);
+			gtk_widget_draw(partie->widgets.table,&rect);
+			g_usleep(G_USEC_PER_SEC / 8);
+		}*/
+		
+		g_timeout_add(500,(GSourceFunc)affichage_tableLettres,partie);
+	} else {
+		if (gagne) {
+			GtkWidget* dialogue;
+			
+			dialogue=gtk_message_dialog_new(GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,
+					"Bravo, vous avez gagné !");
+			gtk_dialog_run(GTK_DIALOG(dialogue));
+			gtk_widget_destroy(dialogue);
+			affichage_terminer(NULL,partie);
+			return;
+		}
+		
+		if (!partie->motCourant.essaisRestants) {
+			/* Il n'y a plus d'essai disponible. */
+			GtkWidget* dialogue;
+			
+			dialogue=gtk_message_dialog_new(GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,
+					"Vous avez perdu.\nLe mot était : %s.",partie->motCourant.mot);
+			gtk_dialog_run(GTK_DIALOG(dialogue));
+			gtk_widget_destroy(dialogue);
+			affichage_terminer(NULL,partie);
+			return;
+		}
+		
+		/* Sinon, on affiche les indications pour le mot suivant. */
+		affichage_indications(partie, ligne+1);
+		
+		gtk_entry_set_text(GTK_ENTRY(partie->widgets.entree),"");
+	}
+}
+
+gboolean affichage_tableLettres (gpointer param_partie) {
+	Partie* partie=(Partie*)param_partie;
+	static int numLettre=0;
 	int ligne;
+	char str[2];
 	GdkColor OK,mauvaisePosition,defaut;
 	
 	OK.red=COULEUR_OK_RED;
@@ -389,64 +467,25 @@ void affichage_saisieMot (GtkWidget* entry, gpointer param_partie)
 	defaut.green=COULEUR_DEFAUT_GREEN;
 	defaut.blue=COULEUR_DEFAUT_BLUE;
 	
-	--partie->motCourant.essaisRestants;
 	ligne=partie->options.nbEssais - partie->motCourant.essaisRestants - 1;
-	
-	strcpy(partie->motCourant.motsSaisis[ligne],(char*)gtk_entry_get_text(GTK_ENTRY(entry)));
-	gagne=jeu_corrigerMot(&(partie->motCourant),ligne,partie->options.lettresParMot);
-	
-	for (i=0;i<partie->options.lettresParMot;++i) {
-		char str[2];
-		GdkRectangle rect;
-		
-		str[0]=partie->motCourant.motsSaisis[ligne][i];
-		str[1]='\0';
-		gtk_label_set_label(GTK_LABEL(partie->widgets.caseslabels[ligne][i]),str);
-		switch (partie->motCourant.corrections[ligne][i]) {
-			case CORRECTION_BONNE_PLACE:
-				gtk_widget_modify_bg(partie->widgets.casesevents[ligne][i],GTK_STATE_NORMAL,&OK);
-				break;
-			case CORRECTION_MAUVAISE_PLACE:
-				gtk_widget_modify_bg(partie->widgets.casesevents[ligne][i],GTK_STATE_NORMAL,&mauvaisePosition);
-				break;
-		}
-		g_usleep(G_USEC_PER_SEC / 8);
-		rect.x=0;
-		rect.y=0;
-		gtk_window_get_default_size(GTK_WINDOW(partie->widgets.fenetre),&rect.width,&rect.height);
-		/* Il faudrait trouver une autre méthode pour forcer le rafraichissement de la fenêtre : cette fonction est obsolète depuis GTK 1.2 */
-		gtk_widget_draw(partie->widgets.table,&rect);
-		g_usleep(G_USEC_PER_SEC / 8);
+	str[0]=partie->motCourant.motsSaisis[ligne][numLettre];
+	str[1]='\0';
+	gtk_label_set_label(GTK_LABEL(partie->widgets.caseslabels[ligne][numLettre]),str);
+	switch (partie->motCourant.corrections[ligne][numLettre]) {
+		case CORRECTION_BONNE_PLACE:
+			gtk_widget_modify_bg(partie->widgets.casesevents[ligne][numLettre],GTK_STATE_NORMAL,&OK);
+			break;
+		case CORRECTION_MAUVAISE_PLACE:
+			gtk_widget_modify_bg(partie->widgets.casesevents[ligne][numLettre],GTK_STATE_NORMAL,&mauvaisePosition);
+			break;
 	}
 	
-	if (gagne) {
-		GtkWidget* dialogue;
-		
-		dialogue=gtk_message_dialog_new(GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,
-				"Bravo, vous avez gagné !");
-		gtk_dialog_run(GTK_DIALOG(dialogue));
-		gtk_widget_destroy(dialogue);
-		affichage_terminer(NULL,partie);
-		return;
+	if (++numLettre==partie->options.lettresParMot) {
+		numLettre=0;
+		affichage_saisieMot(NULL,partie);
+		return FALSE;
 	}
-	
-	if (!partie->motCourant.essaisRestants) {
-		/* Il n'y a plus d'essai disponible. */
-		GtkWidget* dialogue;
-		char str[45];
-		
-		sprintf (str,"Vous avez perdu.\nLe mot était : %s",partie->motCourant.mot);
-		dialogue=gtk_message_dialog_new(GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,str);
-		gtk_dialog_run(GTK_DIALOG(dialogue));
-		gtk_widget_destroy(dialogue);
-		affichage_terminer(NULL,partie);
-		return;
-	}
-	
-	/* Sinon, on affiche les indications pour le mot suivant. */
-	affichage_indications(partie, ligne+1);
-	
-	gtk_entry_set_text(GTK_ENTRY(partie->widgets.entree),"");
+	return TRUE;
 }
 
 void affichage_terminer (GtkWidget* appelant, gpointer param_partie)
