@@ -40,6 +40,11 @@ void affichage_initialiser (Partie* partie)
 	
 	partie->widgets.scores=gtk_label_new("");
 	VERIFIER_ALLOCATION(partie->widgets.scores,"Impossible de créer le label d'affichage des scores.\n",partie)
+	partie->widgets.timerlabel=gtk_label_new("");
+	VERIFIER_ALLOCATION(partie->widgets.timerlabel,"Impossible de créer le label d'affichage du timer.\n",partie)
+	
+	partie->widgets.timer=g_timer_new();
+	VERIFIER_ALLOCATION(partie->widgets.timer,"Impossible de créer le timer.\n",partie)
 	
 	/* La grille de motus et les cases ne seront crées qu'au début de la partie (pas au début du jeu). */
 	partie->widgets.table=NULL;
@@ -50,6 +55,7 @@ void affichage_initialiser (Partie* partie)
 	g_signal_connect(G_OBJECT(partie->widgets.fenetre),"delete-event",G_CALLBACK(affichage_terminer),partie);
 	
 	gtk_box_pack_start(GTK_BOX(partie->widgets.boxprincipale),partie->widgets.scores,FALSE,FALSE,0);
+	gtk_box_pack_start(GTK_BOX(partie->widgets.boxprincipale),partie->widgets.timerlabel,FALSE,FALSE,0);
 	gtk_container_add(GTK_CONTAINER(partie->widgets.fenetre),partie->widgets.boxprincipale);
 	gtk_widget_show_all(partie->widgets.fenetre);
 	
@@ -175,7 +181,7 @@ void affichage_nouvellePartie (GtkWidget* appelant, gpointer param_partie)
 	
 	gtk_widget_show_all(partie->widgets.fenetre);
 	
-	affichage_indications(partie,0); /* Indications pour la première saisie. */
+	affichage_saisieMot (NULL, partie); /* Sert à lancer la parte (initialise ce qui doit l'être) */
 }
 
 void affichage_nouveauMot (Partie* partie)
@@ -329,7 +335,8 @@ int affichage_saisieOptions (Partie* partie)
 	return 0;
 }
 
-void affichage_indications (Partie* partie, int ligne) {
+void affichage_indications (Partie* partie, int ligne)
+{
 	int i;
 	
 	for (i=0;i<partie->options.lettresParMot;++i) {
@@ -343,7 +350,8 @@ void affichage_indications (Partie* partie, int ligne) {
 	}
 }
 
-gboolean affichage_splashDestroy (gpointer param_partie) {
+gboolean affichage_splashDestroy (gpointer param_partie)
+{
 	Partie* partie=(Partie*)param_partie;
 	
 	gtk_widget_destroy(partie->widgets.splash);
@@ -377,7 +385,7 @@ void affichage_aPropos (GtkWidget* appelant, gpointer fenetre)
 	GtkWidget* dialogue;
 	
 	dialogue=gtk_message_dialog_new(GTK_WINDOW(fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,
-			"Jeu programmé par Guillaume Verdier et Thomas Fock-Chow-Tho.");
+			"Jeu programmé par Guillaume Verdier et Thomas Fock-Chow-Tho.\nCe programme utilise la bibliothèque GTK+ version 2.");
 	gtk_dialog_run(GTK_DIALOG(dialogue));
 	gtk_widget_destroy(dialogue);
 }
@@ -385,38 +393,18 @@ void affichage_aPropos (GtkWidget* appelant, gpointer fenetre)
 void affichage_saisieMot (GtkWidget* entry, gpointer param_partie)
 {
 	Partie* partie=(Partie*)param_partie;
-	static int gagne;
-	static int ligne;
+	static int gagne=0;
+	int ligne;
+	static int timeoutnum=-1;
 	
 	if (entry!=NULL) {
+		if(timeoutnum!=-1)
+			g_source_remove(timeoutnum);
 		--partie->motCourant.essaisRestants;
 		ligne=partie->options.nbEssais - partie->motCourant.essaisRestants - 1;
 		
 		strcpy(partie->motCourant.motsSaisis[ligne],(char*)gtk_entry_get_text(GTK_ENTRY(entry)));
 		gagne=jeu_corrigerMot(&(partie->motCourant),ligne,partie->options.lettresParMot);
-		
-		/*for (i=0;i<partie->options.lettresParMot;++i) {
-			char str[2];
-			GdkRectangle rect;
-			
-			str[0]=partie->motCourant.motsSaisis[ligne][i];
-			str[1]='\0';
-			gtk_label_set_label(GTK_LABEL(partie->widgets.caseslabels[ligne][i]),str);
-			switch (partie->motCourant.corrections[ligne][i]) {
-				case CORRECTION_BONNE_PLACE:
-					gtk_widget_modify_bg(partie->widgets.casesevents[ligne][i],GTK_STATE_NORMAL,&OK);
-					break;
-				case CORRECTION_MAUVAISE_PLACE:
-					gtk_widget_modify_bg(partie->widgets.casesevents[ligne][i],GTK_STATE_NORMAL,&mauvaisePosition);
-					break;
-			}
-			g_usleep(G_USEC_PER_SEC / 8);
-			rect.x=0;
-			rect.y=0;
-			gtk_window_get_default_size(GTK_WINDOW(partie->widgets.fenetre),&rect.width,&rect.height);
-			gtk_widget_draw(partie->widgets.table,&rect);
-			g_usleep(G_USEC_PER_SEC / 8);
-		}*/
 		
 		g_timeout_add(500,(GSourceFunc)affichage_tableLettres,partie);
 	} else {
@@ -443,14 +431,41 @@ void affichage_saisieMot (GtkWidget* entry, gpointer param_partie)
 			return;
 		}
 		
-		/* Sinon, on affiche les indications pour le mot suivant. */
+		/* Sinon, on affiche les indications pour le mot suivant et on relance les timers. */
+		ligne=partie->options.nbEssais - partie->motCourant.essaisRestants - 1;
 		affichage_indications(partie, ligne+1);
+		g_timer_start(partie->widgets.timer);
+		timeoutnum=g_timeout_add(1000,(GSourceFunc)affichage_rafraichissementTimer,partie);
 		
 		gtk_entry_set_text(GTK_ENTRY(partie->widgets.entree),"");
 	}
 }
 
-gboolean affichage_tableLettres (gpointer param_partie) {
+gboolean affichage_rafraichissementTimer (gpointer param_partie)
+{
+	Partie* partie=(Partie*)param_partie;
+	int tempsRestant;
+	char str[20];
+	
+	tempsRestant=partie->options.tempsReponse-(int)g_timer_elapsed(partie->widgets.timer,NULL);
+	sprintf(str,"Temps restant : %d",tempsRestant);
+	gtk_label_set_label(GTK_LABEL(partie->widgets.timerlabel),str);
+	if (!tempsRestant) { /* Temps écoulé */
+		GtkWidget* dialogue;
+		
+		dialogue=gtk_message_dialog_new(GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,
+				"Vous n'avez pas répondu dans les délais.");
+		gtk_dialog_run(GTK_DIALOG(dialogue));
+		gtk_widget_destroy(dialogue);
+		--partie->motCourant.essaisRestants;
+		affichage_saisieMot(NULL,partie);
+		return FALSE;
+	}
+	return TRUE;
+}
+
+gboolean affichage_tableLettres (gpointer param_partie)
+{
 	Partie* partie=(Partie*)param_partie;
 	static int numLettre=0;
 	int ligne;

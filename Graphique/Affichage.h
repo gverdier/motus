@@ -114,6 +114,13 @@ gboolean affichage_splashDestroy (gpointer partie);
 gboolean affichage_tableLettres (gpointer partie);
 
 /**
+ * \brief Mets à jour le label indiquant le temps de réponse restant et vérifie que le temps de réponse n'est pas écoulé.
+ * \param partie Les données sur la partie en cours.
+ * \return Booléen utilisé par GTK+ pour savoir s'il faut arrêter le timer appelant cette fonction.
+ */
+gboolean affichage_rafraichissementTimer (gpointer partie);
+
+/**
  * \brief Commence une nouvelle partie.
  * \param appelant Le widget appelant la fonction de rappel (NULL si elle n'est pas appelée par callback GTK+).
  * \param partie Les données sur la partie en cours.
