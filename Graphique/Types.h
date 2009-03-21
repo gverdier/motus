@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include <gtk/gtk.h>
 
 /**
@@ -68,10 +69,13 @@ typedef struct _Widgets {
 	GtkWidget* fenetre; /**< \brief La fenêtre principale. */
 	GtkWidget* boxprincipale; /**< \brief La « boîte » principale de la fenêtre. */
 	GtkWidget* scores; /**< \brief Label indiquant le(s) score(s) du (des) joueur(s). */
+	GtkWidget* timerlabel; /**< \brief Label indiquant le temps restant pour répondre. */
 	GtkWidget* table; /**< \brief Le tableau contenant la grille de motus. */
 	GtkWidget*** casesevents; /**< \brief Tableau des « boîte d'évènement » utilisées pour changer la couleur de fond des cases de la grille de motus. */
 	GtkWidget*** caseslabels; /**< \brief Tableau des labels utilisés pour afficher la lettre d'une case de motus. */
 	GtkWidget* entree; /**< \brief La zone de saisie du mot. */
+	GtkWidget* splash; /**< \brief L'écran de démarrage (splash screen).*/
+	GTimer* timer; /**< \brief Timer pour pouvoir indiquer au joueur combien de temps il lui reste. */
 } Widgets;
 
 /**
