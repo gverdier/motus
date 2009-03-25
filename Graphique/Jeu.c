@@ -53,7 +53,6 @@ void jeu_enleverEltTab (char tab[7], int* nbElt, char elt)
 
 }
 
-
 int jeu_corrigerMot (Mot* menu_mot, int ligne, int taille_mot)
 {
 	char* tab;
@@ -67,21 +66,26 @@ int jeu_corrigerMot (Mot* menu_mot, int ligne, int taille_mot)
 		tab[i]=menu_mot->mot[i];
 		nbElt++;
 	}
-
+	
 	for (i=0;i<taille_mot;i++) {
 		if (menu_mot->motsSaisis[ligne][i]==menu_mot->mot[i]) {
 			menu_mot->corrections[ligne][i]=CORRECTION_BONNE_PLACE;
 			menu_mot->motTrouve[i]=1;
 			nbBonsElt++;
 			jeu_enleverEltTab(tab,&nbElt,menu_mot->motsSaisis[ligne][i]);
-		} else {
-			if (jeu_appartientTab(tab,nbElt,(*menu_mot).motsSaisis[ligne][i])) {
+		}
+	}
+
+
+	for (i=0;i<taille_mot;i++) {
+			if ((jeu_appartientTab(tab,nbElt,(*menu_mot).motsSaisis[ligne][i]))&&(menu_mot->corrections[ligne][i]!='O')) {
 				menu_mot->corrections[ligne][i]=CORRECTION_MAUVAISE_PLACE;
 				jeu_enleverEltTab(tab,&nbElt,menu_mot->motsSaisis[ligne][i]);
-			} else {
-				menu_mot->corrections[ligne][i]=CORRECTION_NON_PRESENT;
+			}else{
+				if (menu_mot->corrections[ligne][i]!=CORRECTION_BONNE_PLACE) {
+					menu_mot->corrections[ligne][i]=CORRECTION_NON_PRESENT;
+				}
 			}
-		}
 	}
 	
 	free(tab);

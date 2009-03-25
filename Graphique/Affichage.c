@@ -28,6 +28,19 @@ void lancer_motus (int* argc, char*** argv)
 
 void affichage_initialiser (Partie* partie)
 {
+	jeu_initialiser(partie);
+	
+	/* Initialisation des couleurs de fond */
+	partie->options.couleurDefaut.red=0;
+	partie->options.couleurDefaut.green=0;
+	partie->options.couleurDefaut.blue=65535;
+	partie->options.couleurOK.red=65535;
+	partie->options.couleurOK.green=0;
+	partie->options.couleurOK.blue=0;
+	partie->options.couleurMauvaisePos.red=65535;
+	partie->options.couleurMauvaisePos.green=65535;
+	partie->options.couleurMauvaisePos.blue=0;
+	
 	/* Création des widgets */
 	partie->widgets.fenetre=gtk_window_new(GTK_WINDOW_TOPLEVEL);
 	VERIFIER_ALLOCATION(partie->widgets.fenetre,"Impossible de créer la fenêtre.\n",partie)
@@ -40,8 +53,10 @@ void affichage_initialiser (Partie* partie)
 	
 	partie->widgets.scores=gtk_label_new("");
 	VERIFIER_ALLOCATION(partie->widgets.scores,"Impossible de créer le label d'affichage des scores.\n",partie)
-	partie->widgets.timerlabel=gtk_label_new("");
-	VERIFIER_ALLOCATION(partie->widgets.timerlabel,"Impossible de créer le label d'affichage du timer.\n",partie)
+	partie->widgets.affichageTimer=gtk_progress_bar_new();
+	VERIFIER_ALLOCATION(partie->widgets.affichageTimer,"Impossible de créer la barre de progression d'affichage du timer.\n",partie)
+	gtk_progress_bar_set_text(GTK_PROGRESS_BAR(partie->widgets.affichageTimer),"Temps restant");
+	gtk_progress_bar_set_orientation(GTK_PROGRESS_BAR(partie->widgets.affichageTimer),GTK_PROGRESS_RIGHT_TO_LEFT);
 	
 	partie->widgets.timer=g_timer_new();
 	VERIFIER_ALLOCATION(partie->widgets.timer,"Impossible de créer le timer.\n",partie)
@@ -55,11 +70,11 @@ void affichage_initialiser (Partie* partie)
 	g_signal_connect(G_OBJECT(partie->widgets.fenetre),"delete-event",G_CALLBACK(affichage_terminer),partie);
 	
 	gtk_box_pack_start(GTK_BOX(partie->widgets.boxprincipale),partie->widgets.scores,FALSE,FALSE,0);
-	gtk_box_pack_start(GTK_BOX(partie->widgets.boxprincipale),partie->widgets.timerlabel,FALSE,FALSE,0);
+	gtk_box_pack_start(GTK_BOX(partie->widgets.boxprincipale),partie->widgets.affichageTimer,FALSE,FALSE,0);
 	gtk_container_add(GTK_CONTAINER(partie->widgets.fenetre),partie->widgets.boxprincipale);
-	gtk_widget_show_all(partie->widgets.fenetre);
-	
-	jeu_initialiser(partie);
+	/* Il ne faut pas tout afficher (la barre de progression pour le timer, notamment, doit rester cachée). */
+	gtk_widget_show(partie->widgets.boxprincipale);
+	gtk_widget_show(partie->widgets.fenetre);
 }
 
 void affichage_creerMenu (Partie* partie)
@@ -95,15 +110,28 @@ void affichage_creerMenu (Partie* partie)
 	gtk_menu_shell_append(GTK_MENU_SHELL(barremenu),eltmenu);
 	
 	menu=gtk_menu_new();
+	VERIFIER_ALLOCATION(menu,"Impossible de créer le menu pour le menu \"Options\".\n",partie)
+	
+	eltmenu=gtk_menu_item_new_with_label("Couleurs");
+	VERIFIER_ALLOCATION(eltmenu,"Impossible de créer l'élément de menu \"Couleurs\".\n",partie)
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu),eltmenu);
+	g_signal_connect(G_OBJECT(eltmenu),"activate",G_CALLBACK(affichage_changerCouleurs),partie);
+	
+	eltmenu=gtk_menu_item_new_with_label("Options");
+	VERIFIER_ALLOCATION(eltmenu,"Impossible de créer le menu \"Options\".\n",partie);
+	gtk_menu_item_set_submenu(GTK_MENU_ITEM(eltmenu),menu);
+	gtk_menu_shell_append(GTK_MENU_SHELL(barremenu),eltmenu);
+	
+	menu=gtk_menu_new();
 	VERIFIER_ALLOCATION(menu,"Impossible de créer le menu pour le menu \"Aide\".\n",partie)
 	
 	eltmenu=gtk_menu_item_new_with_label("Règles du jeu");
-	VERIFIER_ALLOCATION(menu,"Impossible de créer l'élément de menu \"Règles du jeu\".\n",partie)
+	VERIFIER_ALLOCATION(eltmenu,"Impossible de créer l'élément de menu \"Règles du jeu\".\n",partie)
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu),eltmenu);
 	g_signal_connect(G_OBJECT(eltmenu),"activate",G_CALLBACK(affichage_reglesJeu),partie);
 	
 	eltmenu=gtk_menu_item_new_with_label("À propos");
-	VERIFIER_ALLOCATION(menu,"Impossible de créer l'élément de menu \"À propos\".\n",partie)
+	VERIFIER_ALLOCATION(eltmenu,"Impossible de créer l'élément de menu \"À propos\".\n",partie)
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu),eltmenu);
 	g_signal_connect(G_OBJECT(eltmenu),"activate",G_CALLBACK(affichage_aPropos),partie->widgets.fenetre);
 	
@@ -113,6 +141,36 @@ void affichage_creerMenu (Partie* partie)
 	gtk_menu_shell_append(GTK_MENU_SHELL(barremenu),eltmenu);
 	
 	gtk_box_pack_start(GTK_BOX(partie->widgets.boxprincipale),barremenu,FALSE,FALSE,0);
+	gtk_widget_show_all(barremenu);
+}
+
+void affichage_rafraichirFond (Partie* partie)
+{
+	if (partie->widgets.table) { /* Le rafraîchissement ne se fait que si une partie a été commencée. */
+		int i,j;
+		
+		for (i=0;i<partie->options.nbEssais-partie->motCourant.essaisRestants;++i) {
+			for(j=0;j<partie->options.lettresParMot;++j) {
+				switch (partie->motCourant.corrections[i][j]) {
+					case CORRECTION_BONNE_PLACE:
+						gtk_widget_modify_bg(partie->widgets.casesevents[i][j],GTK_STATE_NORMAL,&partie->options.couleurOK);
+						break;
+					case CORRECTION_MAUVAISE_PLACE:
+						gtk_widget_modify_bg(partie->widgets.casesevents[i][j],GTK_STATE_NORMAL,&partie->options.couleurMauvaisePos);
+						break;
+					case CORRECTION_NON_PRESENT:
+						gtk_widget_modify_bg(partie->widgets.casesevents[i][j],GTK_STATE_NORMAL,&partie->options.couleurDefaut);
+						break;
+				}
+			}
+		}
+		
+		for (;i<partie->options.nbEssais;++i) {
+			for(j=0;j<partie->options.lettresParMot;++j) {
+				gtk_widget_modify_bg(partie->widgets.casesevents[i][j],GTK_STATE_NORMAL,&partie->options.couleurDefaut);
+			}
+		}
+	}
 }
 
 void affichage_erreur (const char* message)
@@ -123,7 +181,6 @@ void affichage_erreur (const char* message)
 void affichage_nouvellePartie (GtkWidget* appelant, gpointer param_partie)
 {
 	Partie* partie=(Partie*)param_partie;
-	GdkColor OK,mauvaisePosition,defaut;
 	char scoresLabel[12];
 	int i,j;
 	
@@ -146,16 +203,6 @@ void affichage_nouvellePartie (GtkWidget* appelant, gpointer param_partie)
 	
 	affichage_nouveauMot(partie);
 	
-	OK.red=COULEUR_OK_RED;
-	OK.green=COULEUR_OK_GREEN;
-	OK.blue=COULEUR_OK_BLUE;
-	mauvaisePosition.red=COULEUR_MAUVAISE_POS_RED;
-	mauvaisePosition.green=COULEUR_MAUVAISE_POS_GREEN;
-	mauvaisePosition.blue=COULEUR_MAUVAISE_POS_BLUE;
-	defaut.red=COULEUR_DEFAUT_RED;
-	defaut.green=COULEUR_DEFAUT_GREEN;
-	defaut.blue=COULEUR_DEFAUT_BLUE;
-	
 	sprintf(scoresLabel,"Score : %d",partie->joueur1.score);
 	gtk_label_set_label(GTK_LABEL(partie->widgets.scores),scoresLabel);
 	
@@ -168,7 +215,7 @@ void affichage_nouvellePartie (GtkWidget* appelant, gpointer param_partie)
 			partie->widgets.caseslabels[i][j]=gtk_label_new(" ");
 			VERIFIER_ALLOCATION(partie->widgets.caseslabels[i][j],"Impossible de créer un label.\n",partie);
 			
-			gtk_widget_modify_bg(partie->widgets.casesevents[i][j],GTK_STATE_NORMAL,&defaut);
+			gtk_widget_modify_bg(partie->widgets.casesevents[i][j],GTK_STATE_NORMAL,&partie->options.couleurDefaut);
 			gtk_container_add(GTK_CONTAINER(partie->widgets.casesevents[i][j]),partie->widgets.caseslabels[i][j]);
 			gtk_table_attach_defaults(GTK_TABLE(partie->widgets.table),partie->widgets.casesevents[i][j],j,j+1,i,i+1);
 		}
@@ -176,6 +223,7 @@ void affichage_nouvellePartie (GtkWidget* appelant, gpointer param_partie)
 	gtk_box_pack_start(GTK_BOX(partie->widgets.boxprincipale),partie->widgets.table,FALSE,FALSE,0);
 	
 	partie->widgets.entree=gtk_entry_new();
+	VERIFIER_ALLOCATION(partie->widgets.entree,"Impossible de créer la zone de saisie.\n",partie)
 	g_signal_connect(G_OBJECT(partie->widgets.entree),"activate",G_CALLBACK(affichage_saisieMot),partie);
 	gtk_box_pack_start(GTK_BOX(partie->widgets.boxprincipale),partie->widgets.entree,FALSE,FALSE,0);
 	
@@ -366,8 +414,88 @@ void affichage_nouvelleSuperPartie (GtkWidget* appelant, gpointer param_partie)
 	
 	dialogue=gtk_message_dialog_new(GTK_WINDOW(((Partie*)(param_partie))->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
 			"Le mode super partie n'est pas encore disponible.");
+	VERIFIER_ALLOCATION(dialogue,"Impossible de créer la boîte de message.\n",(Partie*)param_partie)
 	gtk_dialog_run(GTK_DIALOG(dialogue));
 	gtk_widget_destroy(dialogue);
+}
+
+void affichage_changerCouleurs (GtkWidget* appelant, gpointer param_partie)
+{
+	Partie* partie=(Partie*)param_partie;
+	GtkWidget* dialogue;
+	GtkWidget* bouton;
+	
+	dialogue=gtk_dialog_new_with_buttons("Choix des couleurs",GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,
+			GTK_STOCK_CLOSE,GTK_RESPONSE_CLOSE,NULL);
+	VERIFIER_ALLOCATION(dialogue,"Impossible de créer la boîte de dialogue.\n",partie)
+	
+	bouton=gtk_button_new_with_label("Couleur par défaut");
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialogue)->vbox),bouton,FALSE,FALSE,20);
+	g_signal_connect(G_OBJECT(bouton),"clicked",G_CALLBACK(affichage_changerCouleurDefaut),partie);
+	
+	bouton=gtk_button_new_with_label("Couleur des lettres bien placées");
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialogue)->vbox),bouton,FALSE,FALSE,20);
+	g_signal_connect(G_OBJECT(bouton),"clicked",G_CALLBACK(affichage_changerCouleurOK),partie);
+	
+	bouton=gtk_button_new_with_label("Couleur des lettres mal placées");
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialogue)->vbox),bouton,FALSE,FALSE,20);
+	g_signal_connect(G_OBJECT(bouton),"clicked",G_CALLBACK(affichage_changerCouleurMauvaisePos),partie);
+	
+	gtk_widget_show_all (GTK_DIALOG(dialogue)->vbox);
+	
+	gtk_dialog_run(GTK_DIALOG(dialogue));
+	gtk_widget_destroy(dialogue);
+}
+
+void affichage_changerCouleurDefaut (GtkWidget* appelant, gpointer param_partie)
+{
+	Partie* partie=(Partie*)param_partie;
+	GtkWidget* dialogue;
+	GtkWidget* selection;
+	
+	dialogue=gtk_color_selection_dialog_new("Couleur par défaut");
+	gtk_dialog_run(GTK_DIALOG(dialogue));
+	
+	selection=gtk_color_selection_dialog_get_color_selection(GTK_COLOR_SELECTION_DIALOG(dialogue));
+	gtk_color_selection_get_current_color(GTK_COLOR_SELECTION(selection),&partie->options.couleurDefaut);
+	
+	gtk_widget_destroy(dialogue);
+	
+	affichage_rafraichirFond(partie);
+}
+
+void affichage_changerCouleurOK (GtkWidget* appelant, gpointer param_partie)
+{
+	Partie* partie=(Partie*)param_partie;
+	GtkWidget* dialogue;
+	GtkWidget* selection;
+	
+	dialogue=gtk_color_selection_dialog_new("Couleur des lettres bien placées");
+	gtk_dialog_run(GTK_DIALOG(dialogue));
+	
+	selection=gtk_color_selection_dialog_get_color_selection(GTK_COLOR_SELECTION_DIALOG(dialogue));
+	gtk_color_selection_get_current_color(GTK_COLOR_SELECTION(selection),&partie->options.couleurOK);
+	
+	gtk_widget_destroy(dialogue);
+	
+	affichage_rafraichirFond(partie);
+}
+
+void affichage_changerCouleurMauvaisePos (GtkWidget* appelant, gpointer param_partie)
+{
+	Partie* partie=(Partie*)param_partie;
+	GtkWidget* dialogue;
+	GtkWidget* selection;
+	
+	dialogue=gtk_color_selection_dialog_new("Couleur des lettres mal placées");
+	gtk_dialog_run(GTK_DIALOG(dialogue));
+	
+	selection=gtk_color_selection_dialog_get_color_selection(GTK_COLOR_SELECTION_DIALOG(dialogue));
+	gtk_color_selection_get_current_color(GTK_COLOR_SELECTION(selection),&partie->options.couleurMauvaisePos);
+	
+	gtk_widget_destroy(dialogue);
+	
+	affichage_rafraichirFond(partie);
 }
 
 void affichage_reglesJeu (GtkWidget* appelant, gpointer param_partie)
@@ -376,6 +504,7 @@ void affichage_reglesJeu (GtkWidget* appelant, gpointer param_partie)
 	
 	dialogue=gtk_message_dialog_new(GTK_WINDOW(((Partie*)(param_partie))->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
 			"Non disponible");
+	VERIFIER_ALLOCATION(dialogue,"Impossible de créer la boîte de message.\n",(Partie*)param_partie)
 	gtk_dialog_run(GTK_DIALOG(dialogue));
 	gtk_widget_destroy(dialogue);
 }
@@ -435,7 +564,7 @@ void affichage_saisieMot (GtkWidget* entry, gpointer param_partie)
 		ligne=partie->options.nbEssais - partie->motCourant.essaisRestants - 1;
 		affichage_indications(partie, ligne+1);
 		g_timer_start(partie->widgets.timer);
-		timeoutnum=g_timeout_add(1000,(GSourceFunc)affichage_rafraichissementTimer,partie);
+		timeoutnum=g_timeout_add(50,(GSourceFunc)affichage_rafraichissementTimer,partie);
 		
 		gtk_entry_set_text(GTK_ENTRY(partie->widgets.entree),"");
 	}
@@ -444,13 +573,11 @@ void affichage_saisieMot (GtkWidget* entry, gpointer param_partie)
 gboolean affichage_rafraichissementTimer (gpointer param_partie)
 {
 	Partie* partie=(Partie*)param_partie;
-	int tempsRestant;
-	char str[20];
+	double tempsRestant;
+	/*char str[20];*/
 	
-	tempsRestant=partie->options.tempsReponse-(int)g_timer_elapsed(partie->widgets.timer,NULL);
-	sprintf(str,"Temps restant : %d",tempsRestant);
-	gtk_label_set_label(GTK_LABEL(partie->widgets.timerlabel),str);
-	if (!tempsRestant) { /* Temps écoulé */
+	tempsRestant=(double)partie->options.tempsReponse-g_timer_elapsed(partie->widgets.timer,NULL);
+	if (tempsRestant<=0) { /* Temps écoulé */
 		GtkWidget* dialogue;
 		
 		dialogue=gtk_message_dialog_new(GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,
@@ -461,6 +588,7 @@ gboolean affichage_rafraichissementTimer (gpointer param_partie)
 		affichage_saisieMot(NULL,partie);
 		return FALSE;
 	}
+	gtk_progress_bar_set_fraction(GTK_PROGRESS_BAR(partie->widgets.affichageTimer),tempsRestant/(gdouble)(partie->options.tempsReponse));
 	return TRUE;
 }
 
@@ -470,17 +598,6 @@ gboolean affichage_tableLettres (gpointer param_partie)
 	static int numLettre=0;
 	int ligne;
 	char str[2];
-	GdkColor OK,mauvaisePosition,defaut;
-	
-	OK.red=COULEUR_OK_RED;
-	OK.green=COULEUR_OK_GREEN;
-	OK.blue=COULEUR_OK_BLUE;
-	mauvaisePosition.red=COULEUR_MAUVAISE_POS_RED;
-	mauvaisePosition.green=COULEUR_MAUVAISE_POS_GREEN;
-	mauvaisePosition.blue=COULEUR_MAUVAISE_POS_BLUE;
-	defaut.red=COULEUR_DEFAUT_RED;
-	defaut.green=COULEUR_DEFAUT_GREEN;
-	defaut.blue=COULEUR_DEFAUT_BLUE;
 	
 	ligne=partie->options.nbEssais - partie->motCourant.essaisRestants - 1;
 	str[0]=partie->motCourant.motsSaisis[ligne][numLettre];
@@ -488,10 +605,10 @@ gboolean affichage_tableLettres (gpointer param_partie)
 	gtk_label_set_label(GTK_LABEL(partie->widgets.caseslabels[ligne][numLettre]),str);
 	switch (partie->motCourant.corrections[ligne][numLettre]) {
 		case CORRECTION_BONNE_PLACE:
-			gtk_widget_modify_bg(partie->widgets.casesevents[ligne][numLettre],GTK_STATE_NORMAL,&OK);
+			gtk_widget_modify_bg(partie->widgets.casesevents[ligne][numLettre],GTK_STATE_NORMAL,&partie->options.couleurOK);
 			break;
 		case CORRECTION_MAUVAISE_PLACE:
-			gtk_widget_modify_bg(partie->widgets.casesevents[ligne][numLettre],GTK_STATE_NORMAL,&mauvaisePosition);
+			gtk_widget_modify_bg(partie->widgets.casesevents[ligne][numLettre],GTK_STATE_NORMAL,&partie->options.couleurMauvaisePos);
 			break;
 	}
 	

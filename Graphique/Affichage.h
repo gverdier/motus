@@ -19,43 +19,6 @@
 }
 
 /**
- * \brief Taux de rouge dans la couleur de fond d'une lettre placée à la bonne position.
- */
-#define COULEUR_OK_RED 65535
-/**
- * \brief Taux de vert dans la couleur de fond d'une lettre placée à la bonne position.
- */
-#define COULEUR_OK_GREEN 0
-/**
- * \brief Taux de bleu dans la couleur de fond d'une lettre placée à la bonne position.
- */
-#define COULEUR_OK_BLUE 0
-/**
- * \brief Taux de rouge dans la couleur de fond d'une lettre présente dans le mot mais placée à la mauvaise position.
- */
-#define COULEUR_MAUVAISE_POS_RED 65535
-/**
- * \brief Taux de vert dans la couleur de fond d'une lettre présente dans le mot mais placée à la mauvaise position.
- */
-#define COULEUR_MAUVAISE_POS_GREEN 65535
-/**
- * \brief Taux de bleu dans la couleur de fond d'une lettre présente dans le mot mais placée à la mauvaise position.
- */
-#define COULEUR_MAUVAISE_POS_BLUE 0
-/**
- * \brief Taux de rouge dans la couleur de fond par défaut.
- */
-#define COULEUR_DEFAUT_RED 0
-/**
- * \brief Taux de vert dans la couleur de fond par défaut.
- */
-#define COULEUR_DEFAUT_GREEN 0
-/**
- * \brief Taux de bleu dans la couleur de fond par défaut.
- */
-#define COULEUR_DEFAUT_BLUE 65535
-
-/**
  * \brief Lance le jeu de Motus.
  * \param argc Le premier paramètre du main.
  * \param argv Le second paramètre du main.
@@ -88,6 +51,12 @@ void affichage_nouveauMot (Partie* partie);
  * \param ligne Le numéro de la ligne sur laquelle afficher les indications.
  */
 void affichage_indications (Partie* partie, int ligne);
+
+/**
+ * \brief Rafraichit le fond de la grille de motus (à appeler, notamment, après modifications des couleurs dans les options).
+ * \param partie Les données sur la partie en cours.
+ */
+void affichage_rafraichirFond (Partie* partie);
 
 /**
  * \brief Permet d'afficher un message d'erreur.
@@ -140,6 +109,34 @@ int affichage_saisieOptions (Partie* partie);
  * \param partie Les données sur la partie en cours.
  */
 void affichage_nouvelleSuperPartie (GtkWidget* appelant, gpointer partie);
+
+/**
+ * \brief Propose au joueur de modifier les couleurs pour la grille de motus.
+ * \param appelant Le widget appelant la fonction de rappel (NULL si elle n'est pas appelée par callback GTK+).
+ * \param partie Les données sur la partie en cours.
+ */
+void affichage_changerCouleurs (GtkWidget* appelant, gpointer partie);
+
+/**
+ * \brief Propose à l'utilisateur de changer la couleur de fond par défaut.
+ * \param appelant Le widget appelant la fonction de rappel (NULL si elle n'est pas appelée par callback GTK+).
+ * \param partie Les données sur la partie en cours.
+ */
+void affichage_changerCouleurDefaut (GtkWidget* appelant, gpointer partie);
+
+/**
+ * \brief Propose à l'utilisateur de changer la couleur de fond pour les lettres bien placées.
+ * \param appelant Le widget appelant la fonction de rappel (NULL si elle n'est pas appelée par callback GTK+).
+ * \param partie Les données sur la partie en cours.
+ */
+void affichage_changerCouleurOK (GtkWidget* appelant, gpointer partie);
+
+/**
+ * \brief Propose à l'utilisateur de changer la couleur de fond pour les lettres mal placées.
+ * \param appelant Le widget appelant la fonction de rappel (NULL si elle n'est pas appelée par callback GTK+).
+ * \param partie Les données sur la partie en cours.
+ */
+void affichage_changerCouleurMauvaisePos (GtkWidget* appelant, gpointer partie);
 
 /**
  * \brief Affiche les règles du jeu.

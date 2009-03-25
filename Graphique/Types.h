@@ -40,6 +40,9 @@ typedef struct _Options {
 	 * \warning L'historique n'est pas disponible dans ce mode.
 	 */
 	int historique;
+	GdkColor couleurDefaut; /**< \brief La couleur de fond par défaut. */
+	GdkColor couleurOK; /**< \brief La couleur de fond pour les lettres à la bonne place. */
+	GdkColor couleurMauvaisePos; /**< \brief La couleur de fond pour les lettres mal placées. */
 } Options;
 
 /**
@@ -69,7 +72,7 @@ typedef struct _Widgets {
 	GtkWidget* fenetre; /**< \brief La fenêtre principale. */
 	GtkWidget* boxprincipale; /**< \brief La « boîte » principale de la fenêtre. */
 	GtkWidget* scores; /**< \brief Label indiquant le(s) score(s) du (des) joueur(s). */
-	GtkWidget* timerlabel; /**< \brief Label indiquant le temps restant pour répondre. */
+	GtkWidget* affichageTimer; /**< \brief Pour afficher le timer (barre de progression). */
 	GtkWidget* table; /**< \brief Le tableau contenant la grille de motus. */
 	GtkWidget*** casesevents; /**< \brief Tableau des « boîte d'évènement » utilisées pour changer la couleur de fond des cases de la grille de motus. */
 	GtkWidget*** caseslabels; /**< \brief Tableau des labels utilisés pour afficher la lettre d'une case de motus. */
