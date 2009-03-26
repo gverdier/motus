@@ -40,9 +40,9 @@ typedef struct _Options {
 	 * \warning L'historique n'est pas disponible dans ce mode.
 	 */
 	int historique;
-	GdkColor couleurDefaut; /**< \brief La couleur de fond par défaut. */
-	GdkColor couleurOK; /**< \brief La couleur de fond pour les lettres à la bonne place. */
-	GdkColor couleurMauvaisePos; /**< \brief La couleur de fond pour les lettres mal placées. */
+	/*GdkColor couleurDefaut;*/ /**< \brief La couleur de fond par défaut. */
+	/*GdkColor couleurOK;*/ /**< \brief La couleur de fond pour les lettres à la bonne place. */
+	/*GdkColor couleurMauvaisePos;*/ /**< \brief La couleur de fond pour les lettres mal placées. */
 } Options;
 
 /**
@@ -73,11 +73,14 @@ typedef struct _Widgets {
 	GtkWidget* boxprincipale; /**< \brief La « boîte » principale de la fenêtre. */
 	GtkWidget* scores; /**< \brief Label indiquant le(s) score(s) du (des) joueur(s). */
 	GtkWidget* affichageTimer; /**< \brief Pour afficher le timer (barre de progression). */
-	GtkWidget* table; /**< \brief Le tableau contenant la grille de motus. */
-	GtkWidget*** casesevents; /**< \brief Tableau des « boîte d'évènement » utilisées pour changer la couleur de fond des cases de la grille de motus. */
+	GtkWidget* layout; /**< \brief Les différents éléments de la grille (images, lettres) y sont affichés. */
+	GtkWidget*** casesimages; /**< \brief Les images de fond (elles seront créées à partir de imageDefaut, imageOK et imageMauvaisePos). */
 	GtkWidget*** caseslabels; /**< \brief Tableau des labels utilisés pour afficher la lettre d'une case de motus. */
 	GtkWidget* entree; /**< \brief La zone de saisie du mot. */
 	GtkWidget* splash; /**< \brief L'écran de démarrage (splash screen).*/
+	GdkPixbuf* imgDefaut; /**< \brief Correspond à l'image de fond par défaut. */
+	GdkPixbuf* imgOK; /**< \brief Correspond à l'image de fond pour une lettre bien placée. */
+	GdkPixbuf* imgMauvaisePos; /**< \brief Correspond à l'image de fond pour une lettre mal placée. */
 	GTimer* timer; /**< \brief Timer pour pouvoir indiquer au joueur combien de temps il lui reste. */
 } Widgets;
 

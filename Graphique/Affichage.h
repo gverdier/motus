@@ -11,6 +11,11 @@
 #include "Jeu.h"
 
 /**
+ * \brief La taille des images de fond (carrées).
+ */
+#define TAILLE_IMAGE 32
+
+/**
  * \brief Vérifie qu'un pointeur a correctement été alloué. Si ce n'est pas le cas, affiche un message d'erreur puis termine le programme.
  */
 #define VERIFIER_ALLOCATION(pointeur,message,partie) if(pointeur==NULL) {\

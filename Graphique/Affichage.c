@@ -12,7 +12,7 @@ void lancer_motus (int* argc, char*** argv)
 	if (partie.widgets.splash==NULL) {
 		affichage_erreur("Impossible d'ouvrir l'écran de démarrage.\n");
 	} else {
-		image=gtk_image_new_from_file("./Motus.jpg");
+		image=gtk_image_new_from_file("Motus.jpg");
 		if (image==NULL) {
 			affichage_erreur("Impossible de charger l'écran de démarrage.\n");
 		} else {
@@ -28,18 +28,19 @@ void lancer_motus (int* argc, char*** argv)
 
 void affichage_initialiser (Partie* partie)
 {
+	GtkWidget* image; /* Pour charger les images de fond */
 	jeu_initialiser(partie);
-	
-	/* Initialisation des couleurs de fond */
-	partie->options.couleurDefaut.red=0;
-	partie->options.couleurDefaut.green=0;
-	partie->options.couleurDefaut.blue=65535;
-	partie->options.couleurOK.red=65535;
-	partie->options.couleurOK.green=0;
-	partie->options.couleurOK.blue=0;
-	partie->options.couleurMauvaisePos.red=65535;
-	partie->options.couleurMauvaisePos.green=65535;
-	partie->options.couleurMauvaisePos.blue=0;
+
+	/* Chargement des images de base */
+	image=gtk_image_new_from_file ("FondDefaut.png");
+	VERIFIER_ALLOCATION(image,"Impossible de charger l'image \"FondDefaut.png\".",partie)
+	partie->widgets.imgDefaut=gtk_image_get_pixbuf(GTK_IMAGE(image));
+	image=gtk_image_new_from_file ("FondOK.png");
+	VERIFIER_ALLOCATION(image,"Impossible de charger l'image \"FondOK.png\".",partie)
+	partie->widgets.imgOK=gtk_image_get_pixbuf(GTK_IMAGE(image));
+	image=gtk_image_new_from_file ("FondMauvaisePos.png");
+	VERIFIER_ALLOCATION(image,"Impossible de charger l'image \"FondMauvaisePos.png\".",partie)
+	partie->widgets.imgMauvaisePos=gtk_image_get_pixbuf(GTK_IMAGE(image));
 	
 	/* Création des widgets */
 	partie->widgets.fenetre=gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -62,9 +63,7 @@ void affichage_initialiser (Partie* partie)
 	VERIFIER_ALLOCATION(partie->widgets.timer,"Impossible de créer le timer.\n",partie)
 	
 	/* La grille de motus et les cases ne seront crées qu'au début de la partie (pas au début du jeu). */
-	partie->widgets.table=NULL;
-	partie->widgets.casesevents=NULL;
-	partie->widgets.caseslabels=NULL;
+	partie->widgets.layout=NULL;
 	
 	/* Connexion des signaux aux fonctions de rappel */
 	g_signal_connect(G_OBJECT(partie->widgets.fenetre),"delete-event",G_CALLBACK(affichage_terminer),partie);
@@ -108,20 +107,7 @@ void affichage_creerMenu (Partie* partie)
 	VERIFIER_ALLOCATION(eltmenu,"Impossible de créer le menu \"Jeu\".\n",partie)
 	gtk_menu_item_set_submenu(GTK_MENU_ITEM(eltmenu),menu);
 	gtk_menu_shell_append(GTK_MENU_SHELL(barremenu),eltmenu);
-	
-	menu=gtk_menu_new();
-	VERIFIER_ALLOCATION(menu,"Impossible de créer le menu pour le menu \"Options\".\n",partie)
-	
-	eltmenu=gtk_menu_item_new_with_label("Couleurs");
-	VERIFIER_ALLOCATION(eltmenu,"Impossible de créer l'élément de menu \"Couleurs\".\n",partie)
-	gtk_menu_shell_append(GTK_MENU_SHELL(menu),eltmenu);
-	g_signal_connect(G_OBJECT(eltmenu),"activate",G_CALLBACK(affichage_changerCouleurs),partie);
-	
-	eltmenu=gtk_menu_item_new_with_label("Options");
-	VERIFIER_ALLOCATION(eltmenu,"Impossible de créer le menu \"Options\".\n",partie);
-	gtk_menu_item_set_submenu(GTK_MENU_ITEM(eltmenu),menu);
-	gtk_menu_shell_append(GTK_MENU_SHELL(barremenu),eltmenu);
-	
+
 	menu=gtk_menu_new();
 	VERIFIER_ALLOCATION(menu,"Impossible de créer le menu pour le menu \"Aide\".\n",partie)
 	
@@ -146,20 +132,20 @@ void affichage_creerMenu (Partie* partie)
 
 void affichage_rafraichirFond (Partie* partie)
 {
-	if (partie->widgets.table) { /* Le rafraîchissement ne se fait que si une partie a été commencée. */
+	if (partie->widgets.layout) { /* Le rafraîchissement ne se fait que si une partie a été commencée. */
 		int i,j;
 		
 		for (i=0;i<partie->options.nbEssais-partie->motCourant.essaisRestants;++i) {
 			for(j=0;j<partie->options.lettresParMot;++j) {
 				switch (partie->motCourant.corrections[i][j]) {
 					case CORRECTION_BONNE_PLACE:
-						gtk_widget_modify_bg(partie->widgets.casesevents[i][j],GTK_STATE_NORMAL,&partie->options.couleurOK);
+						gtk_image_set_from_pixbuf(GTK_IMAGE(partie->widgets.casesimages[i][j]),partie->widgets.imgOK);
 						break;
 					case CORRECTION_MAUVAISE_PLACE:
-						gtk_widget_modify_bg(partie->widgets.casesevents[i][j],GTK_STATE_NORMAL,&partie->options.couleurMauvaisePos);
+						gtk_image_set_from_pixbuf(GTK_IMAGE(partie->widgets.casesimages[i][j]),partie->widgets.imgMauvaisePos);
 						break;
 					case CORRECTION_NON_PRESENT:
-						gtk_widget_modify_bg(partie->widgets.casesevents[i][j],GTK_STATE_NORMAL,&partie->options.couleurDefaut);
+						gtk_image_set_from_pixbuf(GTK_IMAGE(partie->widgets.casesimages[i][j]),partie->widgets.imgDefaut);
 						break;
 				}
 			}
@@ -167,7 +153,7 @@ void affichage_rafraichirFond (Partie* partie)
 		
 		for (;i<partie->options.nbEssais;++i) {
 			for(j=0;j<partie->options.lettresParMot;++j) {
-				gtk_widget_modify_bg(partie->widgets.casesevents[i][j],GTK_STATE_NORMAL,&partie->options.couleurDefaut);
+				gtk_image_set_from_pixbuf(GTK_IMAGE(partie->widgets.casesimages[i][j]),partie->widgets.imgDefaut);
 			}
 		}
 	}
@@ -190,15 +176,15 @@ void affichage_nouvellePartie (GtkWidget* appelant, gpointer param_partie)
 	/* Allocations dynamiques des tableaux nécessaires au jeu. */
 	if (jeu_initialiserNouvellePartie(partie))
 		affichage_erreur("Erreur à l'allocation dynamique des champs de la structure Mot.\n");
-	partie->widgets.casesevents=malloc(partie->options.nbEssais*sizeof(GtkWidget**));
-	VERIFIER_ALLOCATION(partie->widgets.casesevents,"Impossible d'allouer le tableau de GtkEventBox.\n",partie);
+	partie->widgets.casesimages=malloc(partie->options.nbEssais*sizeof(GtkWidget**));
+	VERIFIER_ALLOCATION(partie->widgets.casesimages,"Impossible d'allouer le tableau de images.\n",partie);
 	partie->widgets.caseslabels=malloc(partie->options.nbEssais*sizeof(GtkWidget**));
 	VERIFIER_ALLOCATION(partie->widgets.caseslabels,"Impossible d'allouer le tableau de GtkEventBox.\n",partie);
 	for(i=0;i<partie->options.nbEssais;++i) {
-		partie->widgets.casesevents[i]=malloc(partie->options.lettresParMot*sizeof(GtkWidget*));
-		VERIFIER_ALLOCATION(partie->widgets.casesevents[i],"Impossible d'allouer le tableau de GtkEventBox.\n",partie);
+		partie->widgets.casesimages[i]=malloc(partie->options.lettresParMot*sizeof(GtkWidget*));
+		VERIFIER_ALLOCATION(partie->widgets.casesimages[i],"Impossible d'allouer le tableau d'images.\n",partie);
 		partie->widgets.caseslabels[i]=malloc(partie->options.lettresParMot*sizeof(GtkWidget*));
-		VERIFIER_ALLOCATION(partie->widgets.caseslabels[i],"Impossible d'allouer le tableau de GtkEventBox.\n",partie);
+		VERIFIER_ALLOCATION(partie->widgets.caseslabels[i],"Impossible d'allouer le tableau de labels.\n",partie);
 	}
 	
 	affichage_nouveauMot(partie);
@@ -206,24 +192,26 @@ void affichage_nouvellePartie (GtkWidget* appelant, gpointer param_partie)
 	sprintf(scoresLabel,"Score : %d",partie->joueur1.score);
 	gtk_label_set_label(GTK_LABEL(partie->widgets.scores),scoresLabel);
 	
-	partie->widgets.table=gtk_table_new(partie->options.nbEssais,partie->options.lettresParMot,TRUE);
-	VERIFIER_ALLOCATION(partie->widgets.table,"Impossible d'allouer le tableau.\n",partie);
+	partie->widgets.layout=gtk_layout_new(NULL,NULL);
+	VERIFIER_ALLOCATION(partie->widgets.layout,"Impossible d'allouer le layout.\n",partie);
 	for (i=0;i<partie->options.nbEssais;++i) {
 		for(j=0;j<partie->options.lettresParMot;++j) {
-			partie->widgets.casesevents[i][j]=gtk_event_box_new();
-			VERIFIER_ALLOCATION(partie->widgets.casesevents[i][j],"Impossible de créer une « EventBox ».\n",partie);
+			partie->widgets.casesimages[i][j]=gtk_image_new_from_pixbuf(partie->widgets.imgDefaut);
+			VERIFIER_ALLOCATION(partie->widgets.casesimages[i][j],"Impossible de créer une image.\n",partie);
 			partie->widgets.caseslabels[i][j]=gtk_label_new(" ");
 			VERIFIER_ALLOCATION(partie->widgets.caseslabels[i][j],"Impossible de créer un label.\n",partie);
 			
-			gtk_widget_modify_bg(partie->widgets.casesevents[i][j],GTK_STATE_NORMAL,&partie->options.couleurDefaut);
-			gtk_container_add(GTK_CONTAINER(partie->widgets.casesevents[i][j]),partie->widgets.caseslabels[i][j]);
-			gtk_table_attach_defaults(GTK_TABLE(partie->widgets.table),partie->widgets.casesevents[i][j],j,j+1,i,i+1);
+			gtk_layout_put(GTK_LAYOUT(partie->widgets.layout),partie->widgets.casesimages[i][j],TAILLE_IMAGE*j,TAILLE_IMAGE*i);
+			gtk_layout_put(GTK_LAYOUT(partie->widgets.layout),partie->widgets.caseslabels[i][j],10+TAILLE_IMAGE*j,3+TAILLE_IMAGE*i);
 		}
 	}
-	gtk_box_pack_start(GTK_BOX(partie->widgets.boxprincipale),partie->widgets.table,FALSE,FALSE,0);
+	gtk_box_pack_start(GTK_BOX(partie->widgets.boxprincipale),partie->widgets.layout,TRUE,TRUE,0);
+	
+	gtk_window_resize(GTK_WINDOW(partie->widgets.fenetre),partie->options.lettresParMot*32,120+partie->options.nbEssais*32);
 	
 	partie->widgets.entree=gtk_entry_new();
 	VERIFIER_ALLOCATION(partie->widgets.entree,"Impossible de créer la zone de saisie.\n",partie)
+	gtk_widget_set_tooltip_text(partie->widgets.entree,"Saisissez votre mot ici.");
 	g_signal_connect(G_OBJECT(partie->widgets.entree),"activate",G_CALLBACK(affichage_saisieMot),partie);
 	gtk_box_pack_start(GTK_BOX(partie->widgets.boxprincipale),partie->widgets.entree,FALSE,FALSE,0);
 	
@@ -342,6 +330,7 @@ int affichage_saisieOptions (Partie* partie)
 	gtk_box_pack_start(GTK_BOX(hbox),label,FALSE,FALSE,0);
 	tempsReponse=gtk_spin_button_new_with_range(5,20,1);
 	VERIFIER_ALLOCATION(tempsReponse,"Impossible de créer le « spin button ».\n",partie);
+	gtk_widget_set_tooltip_text(tempsReponse,"Le nombre de secondes dont vous disposez pour répondre");
 	gtk_box_pack_start(GTK_BOX(hbox),tempsReponse,FALSE,FALSE,0);
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialogue)->vbox),hbox,FALSE,FALSE,0);
 	gtk_spin_button_set_value(GTK_SPIN_BUTTON(tempsReponse),partie->options.tempsReponse);
@@ -349,12 +338,14 @@ int affichage_saisieOptions (Partie* partie)
 	/* Diabolique */
 	diabolique=gtk_check_button_new_with_label("Mode diabolique ?");
 	VERIFIER_ALLOCATION(diabolique,"Impossible de créer la case à cocher \"Mode diabolique ?\".\n",partie);
+	gtk_widget_set_tooltip_text(diabolique,"Dans le mode diabolique, les mots seront plus difficiles à trouver (mots rares, à l'orthographe particulière, ...)");
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialogue)->vbox),diabolique,FALSE,FALSE,0);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(diabolique),(partie->options.modeDiabolique ? TRUE : FALSE));
 	
 	/* Bingo */
 	bingo=gtk_check_button_new_with_label("Bingo ?");
 	VERIFIER_ALLOCATION(bingo,"Impossible de créer la case à cocher \"Bingo ?\".\n",partie);
+	gtk_widget_set_tooltip_text(bingo,"Indique si vous souhaitez que les bingos soient présents après avoir trouvé un mot.");
 	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialogue)->vbox),bingo,FALSE,FALSE,0);
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(bingo),(partie->options.bingo ? TRUE : FALSE));
 	
@@ -389,11 +380,10 @@ void affichage_indications (Partie* partie, int ligne)
 	
 	for (i=0;i<partie->options.lettresParMot;++i) {
 		if (partie->motCourant.motTrouve[i]) {
-			char str[2];
+			char str[40];
 			
-			str[0]=partie->motCourant.mot[i];
-			str[1]='\0';
-			gtk_label_set_label(GTK_LABEL(partie->widgets.caseslabels[ligne][i]),str);
+			sprintf(str,"<span size=\"x-large\">%c</span>",partie->motCourant.mot[i]);
+			gtk_label_set_markup(GTK_LABEL(partie->widgets.caseslabels[ligne][i]),str);
 		}
 	}
 }
@@ -417,85 +407,6 @@ void affichage_nouvelleSuperPartie (GtkWidget* appelant, gpointer param_partie)
 	VERIFIER_ALLOCATION(dialogue,"Impossible de créer la boîte de message.\n",(Partie*)param_partie)
 	gtk_dialog_run(GTK_DIALOG(dialogue));
 	gtk_widget_destroy(dialogue);
-}
-
-void affichage_changerCouleurs (GtkWidget* appelant, gpointer param_partie)
-{
-	Partie* partie=(Partie*)param_partie;
-	GtkWidget* dialogue;
-	GtkWidget* bouton;
-	
-	dialogue=gtk_dialog_new_with_buttons("Choix des couleurs",GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,
-			GTK_STOCK_CLOSE,GTK_RESPONSE_CLOSE,NULL);
-	VERIFIER_ALLOCATION(dialogue,"Impossible de créer la boîte de dialogue.\n",partie)
-	
-	bouton=gtk_button_new_with_label("Couleur par défaut");
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialogue)->vbox),bouton,FALSE,FALSE,20);
-	g_signal_connect(G_OBJECT(bouton),"clicked",G_CALLBACK(affichage_changerCouleurDefaut),partie);
-	
-	bouton=gtk_button_new_with_label("Couleur des lettres bien placées");
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialogue)->vbox),bouton,FALSE,FALSE,20);
-	g_signal_connect(G_OBJECT(bouton),"clicked",G_CALLBACK(affichage_changerCouleurOK),partie);
-	
-	bouton=gtk_button_new_with_label("Couleur des lettres mal placées");
-	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialogue)->vbox),bouton,FALSE,FALSE,20);
-	g_signal_connect(G_OBJECT(bouton),"clicked",G_CALLBACK(affichage_changerCouleurMauvaisePos),partie);
-	
-	gtk_widget_show_all (GTK_DIALOG(dialogue)->vbox);
-	
-	gtk_dialog_run(GTK_DIALOG(dialogue));
-	gtk_widget_destroy(dialogue);
-}
-
-void affichage_changerCouleurDefaut (GtkWidget* appelant, gpointer param_partie)
-{
-	Partie* partie=(Partie*)param_partie;
-	GtkWidget* dialogue;
-	GtkWidget* selection;
-	
-	dialogue=gtk_color_selection_dialog_new("Couleur par défaut");
-	gtk_dialog_run(GTK_DIALOG(dialogue));
-	
-	selection=gtk_color_selection_dialog_get_color_selection(GTK_COLOR_SELECTION_DIALOG(dialogue));
-	gtk_color_selection_get_current_color(GTK_COLOR_SELECTION(selection),&partie->options.couleurDefaut);
-	
-	gtk_widget_destroy(dialogue);
-	
-	affichage_rafraichirFond(partie);
-}
-
-void affichage_changerCouleurOK (GtkWidget* appelant, gpointer param_partie)
-{
-	Partie* partie=(Partie*)param_partie;
-	GtkWidget* dialogue;
-	GtkWidget* selection;
-	
-	dialogue=gtk_color_selection_dialog_new("Couleur des lettres bien placées");
-	gtk_dialog_run(GTK_DIALOG(dialogue));
-	
-	selection=gtk_color_selection_dialog_get_color_selection(GTK_COLOR_SELECTION_DIALOG(dialogue));
-	gtk_color_selection_get_current_color(GTK_COLOR_SELECTION(selection),&partie->options.couleurOK);
-	
-	gtk_widget_destroy(dialogue);
-	
-	affichage_rafraichirFond(partie);
-}
-
-void affichage_changerCouleurMauvaisePos (GtkWidget* appelant, gpointer param_partie)
-{
-	Partie* partie=(Partie*)param_partie;
-	GtkWidget* dialogue;
-	GtkWidget* selection;
-	
-	dialogue=gtk_color_selection_dialog_new("Couleur des lettres mal placées");
-	gtk_dialog_run(GTK_DIALOG(dialogue));
-	
-	selection=gtk_color_selection_dialog_get_color_selection(GTK_COLOR_SELECTION_DIALOG(dialogue));
-	gtk_color_selection_get_current_color(GTK_COLOR_SELECTION(selection),&partie->options.couleurMauvaisePos);
-	
-	gtk_widget_destroy(dialogue);
-	
-	affichage_rafraichirFond(partie);
 }
 
 void affichage_reglesJeu (GtkWidget* appelant, gpointer param_partie)
@@ -527,12 +438,16 @@ void affichage_saisieMot (GtkWidget* entry, gpointer param_partie)
 	static int timeoutnum=-1;
 	
 	if (entry!=NULL) {
+		int i;
+		
 		if(timeoutnum!=-1)
 			g_source_remove(timeoutnum);
 		--partie->motCourant.essaisRestants;
 		ligne=partie->options.nbEssais - partie->motCourant.essaisRestants - 1;
 		
 		strcpy(partie->motCourant.motsSaisis[ligne],(char*)gtk_entry_get_text(GTK_ENTRY(entry)));
+		for (i=(int)strlen(partie->motCourant.motsSaisis[ligne]);i<partie->options.lettresParMot;++i)
+			partie->motCourant.motsSaisis[ligne][i]='\0';
 		gagne=jeu_corrigerMot(&(partie->motCourant),ligne,partie->options.lettresParMot);
 		
 		g_timeout_add(500,(GSourceFunc)affichage_tableLettres,partie);
@@ -597,18 +512,24 @@ gboolean affichage_tableLettres (gpointer param_partie)
 	Partie* partie=(Partie*)param_partie;
 	static int numLettre=0;
 	int ligne;
-	char str[2];
+	char str[40];
 	
 	ligne=partie->options.nbEssais - partie->motCourant.essaisRestants - 1;
-	str[0]=partie->motCourant.motsSaisis[ligne][numLettre];
-	str[1]='\0';
-	gtk_label_set_label(GTK_LABEL(partie->widgets.caseslabels[ligne][numLettre]),str);
+	
+	if (partie->motCourant.motsSaisis[ligne][numLettre]=='\0') {
+		numLettre=0;
+		affichage_saisieMot(NULL,partie);
+		return FALSE;
+	}
+	
+	sprintf(str,"<span size=\"x-large\">%c</span>",partie->motCourant.motsSaisis[ligne][numLettre]);
+	gtk_label_set_markup(GTK_LABEL(partie->widgets.caseslabels[ligne][numLettre]),str);
 	switch (partie->motCourant.corrections[ligne][numLettre]) {
 		case CORRECTION_BONNE_PLACE:
-			gtk_widget_modify_bg(partie->widgets.casesevents[ligne][numLettre],GTK_STATE_NORMAL,&partie->options.couleurOK);
+			gtk_image_set_from_pixbuf(GTK_IMAGE(partie->widgets.casesimages[ligne][numLettre]),partie->widgets.imgOK);
 			break;
 		case CORRECTION_MAUVAISE_PLACE:
-			gtk_widget_modify_bg(partie->widgets.casesevents[ligne][numLettre],GTK_STATE_NORMAL,&partie->options.couleurMauvaisePos);
+			gtk_image_set_from_pixbuf(GTK_IMAGE(partie->widgets.casesimages[ligne][numLettre]),partie->widgets.imgMauvaisePos);
 			break;
 	}
 	
@@ -625,12 +546,12 @@ void affichage_terminer (GtkWidget* appelant, gpointer param_partie)
 	Partie* partie=(Partie*)param_partie;
 	int i;
 	
-	if (partie->widgets.table) {
+	if (partie->widgets.layout) {
 		for (i=0;i<partie->options.nbEssais;++i) {
-			free(partie->widgets.casesevents[i]);
+			free(partie->widgets.casesimages[i]);
 			free(partie->widgets.caseslabels[i]);
 		}
-		free(partie->widgets.casesevents);
+		free(partie->widgets.casesimages);
 		free(partie->widgets.caseslabels);
 	}
 	
