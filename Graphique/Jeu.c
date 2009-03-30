@@ -62,12 +62,6 @@ int jeu_corrigerMot (Mot* menu_mot, int ligne, int taille_mot)
 	
 	tab=malloc(taille_mot);
 	memcpy(tab,menu_mot->mot,taille_mot);
-	/*
-	for (i=0;i<taille_mot;i++) {
-		tab[i]=menu_mot->mot[i];
-		nbElt++;
-	}
-	*/
 	
 	for (i=0;i<taille_mot;i++) {
 		if (menu_mot->motsSaisis[ligne][i]==menu_mot->mot[i]) {

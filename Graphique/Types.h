@@ -33,7 +33,13 @@ typedef struct _Options {
 	int nbJoueurs;
 	int nbEssais; /**< \brief Le nombre d'essais laissés au joueur pour trouver un mot. */
 	int modeDiabolique; /**< \brief Booléen indiquant si le mode diabolique est activé. */
-	int tempsReponse; /**< \brief Le nombre de secondes laissées au joueur pour répondre en mode normal. */
+	/**
+	 * \brief Le temps que la joueur a pour répondre.
+	 * 
+	 * En partie normale, il indiquera le temps (en secondes) laissé au joueur pour donner un mot.
+	 * En super-partie, il indiquera le nombre de secondes total laissé au joueur pour trouver 10 mots.
+	 */
+	int tempsReponse;
 	int bingo; /**< \brief Booléen indiquant si le bingo est activé. */
 	/**
 	 * \brief Booléen indiquant si les résultats doivent être ajoutés à l'historique. 
@@ -89,6 +95,7 @@ typedef struct _Partie {
 	Joueur joueur1; /**< \brief Le premier joueur (le seul utilisé en mode solo). */
 	Joueur joueur2; /**< \brief Le second joueur (pour le mode 2 joueurs seulement). */
 	Mot motCourant; /**< \brief Le mot actuellement joué. */
+	int superPartie; /**< \brief Booléen indiquant si on joue une partie simple ou une super-partie. */
 	Widgets widgets; /**< \brief Les widgets GTK+. */
 } Partie;
 

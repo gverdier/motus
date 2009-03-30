@@ -1,7 +1,9 @@
 # Makefile écrit par Guillaume Verdier pour le projet Motus
 
-DEBUG=true# Mettre à true pour compiler en mode debug (options de débogage)
-RELEASE=false# Mettre à true pour compiler en mode release (options d'optimisation)
+# Mettre à true pour compiler en mode debug (options de débogage)
+DEBUG=true
+# Mettre à true pour compiler en mode release (options d'optimisation)
+RELEASE=false
 
 CC=gcc # Le compilateur C
 # Les options de compilation générales
@@ -9,12 +11,13 @@ CFLAGS=-ansi -pedantic -W -Wall -Wno-unused-parameter `pkg-config --cflags gtk+-
 # Les options de compilation spécifiques au mode (debug/release)
 # Si RELEASE et DEBUG sont tous deux à true, seul debug sera activé
 ifeq ($(RELEASE), true)
-	$CFLAGS2=-03
+	CFLAGS2=-03
 endif
 ifeq ($(DEBUG), true)
-	$CFLAGS2=-g
+	CFLAGS2=-g
 endif
-LDFLAGS=`pkg-config --libs gtk+-2.0` # Les options de l'éditeur de liens
+# Les options de l'éditeur de liens
+LDFLAGS=`pkg-config --libs gtk+-2.0`
 EXEC=Motus # Le nom de l'exécutable
 SRC=$(wildcard *.c) # Les fichiers source
 OBJ=$(SRC:.c=.o) # Les fichiers objet

@@ -72,6 +72,30 @@ void affichage_terminerPartie (Partie* partie);
 void affichage_motSuivant (Partie* partie);
 
 /**
+ * \brief Demande les options pour une nouvelle partie.
+ * \param partie Les données sur la partie en cours.
+ * \return Booléen indiquant si le joueur a saisi des options ou annulé.
+ */
+int affichage_saisieOptions (Partie* partie);
+
+/**
+ * \brief Demande les options pour une nouvelle super partie.
+ * \param partie Les données sur la partie en cours.
+ * \return Booléen indiquant si le joueur a saisi les options ou annulé.
+ *
+ * Cette fonction demande la saisie de toutes les options de la super-partie.
+ * Dans le cas du passage d'une partie à une super-partie, il faut utiliser affichage_passagePartieSuperPartie()
+ * qui demandera seulement les options différant de celles de la partie (temps de réponse).
+ */
+int affichage_saisieOptionsSuperPartie (Partie* partie);
+
+/**
+ * \brief Passe d'une partie à une super-partie.
+ * \param partie Les données sur la partie en cours.
+ */
+void affichage_passagePartieSuperPartie (Partie* partie);
+
+/**
  * \brief Permet d'afficher un message d'erreur.
  * \param message Le message à afficher.
  *
@@ -110,46 +134,21 @@ gboolean affichage_rafraichissementTimer (gpointer partie);
 void affichage_nouvellePartie (GtkWidget* appelant, gpointer partie);
 
 /**
- * \brief Demande les options pour une nouvelle partie.
- * \param partie Les données sur la partie en cours.
- * \return Booléen indiquant si le joueur a saisi des options ou annulé.
- */
-int affichage_saisieOptions (Partie* partie);
-
-/**
  * \brief Commence une nouvelle super partie.
  * \param appelant Le widget appelant la fonction de rappel (NULL si elle n'est pas appelée par callback GTK+).
  * \param partie Les données sur la partie en cours.
+ *
+ * Cette fonction ne doit être appelée que pour une nouvelle super-partie seule.
+ * Pour une super-partie suivant une partie simple, il faut utiliser affichage_passagePartieSuperPartie().
  */
 void affichage_nouvelleSuperPartie (GtkWidget* appelant, gpointer partie);
 
 /**
- * \brief Propose au joueur de modifier les couleurs pour la grille de motus.
+ * \brief Appelé quand l'utilisateur demande la fin de la partie en cours
  * \param appelant Le widget appelant la fonction de rappel (NULL si elle n'est pas appelée par callback GTK+).
  * \param partie Les données sur la partie en cours.
  */
-void affichage_changerCouleurs (GtkWidget* appelant, gpointer partie);
-
-/**
- * \brief Propose à l'utilisateur de changer la couleur de fond par défaut.
- * \param appelant Le widget appelant la fonction de rappel (NULL si elle n'est pas appelée par callback GTK+).
- * \param partie Les données sur la partie en cours.
- */
-void affichage_changerCouleurDefaut (GtkWidget* appelant, gpointer partie);
-
-/**
- * \brief Propose à l'utilisateur de changer la couleur de fond pour les lettres bien placées.
- * \param appelant Le widget appelant la fonction de rappel (NULL si elle n'est pas appelée par callback GTK+).
- * \param partie Les données sur la partie en cours.
- */
-void affichage_changerCouleurOK (GtkWidget* appelant, gpointer partie);
-
-/**
- * \brief Propose à l'utilisateur de changer la couleur de fond pour les lettres mal placées.
- * \param appelant Le widget appelant la fonction de rappel (NULL si elle n'est pas appelée par callback GTK+).
- * \param partie Les données sur la partie en cours.
- */
-void affichage_changerCouleurMauvaisePos (GtkWidget* appelant, gpointer partie);
+void affichage_menuTerminerPartie (GtkWidget* appelant, gpointer partie);
 
 /**
  * \brief Affiche les règles du jeu.
