@@ -58,10 +58,18 @@ void affichage_nouveauMot (Partie* partie);
 void affichage_indications (Partie* partie, int ligne);
 
 /**
- * \brief Rafraichit le fond de la grille de motus (à appeler, notamment, après modifications des couleurs dans les options).
- * \param partie Les données sur la partie en cours.
+ * \brief Termine une partie (enlève les grilles, etc.).
+ * \param partie Les données sur la partie à terminer.
+ *
+ * Attention, il ne faut appeler cette fonction que si la partie est déjà commencée !
  */
-void affichage_rafraichirFond (Partie* partie);
+void affichage_terminerPartie (Partie* partie);
+
+/**
+ * \brief Passe au mot suivant ou termine la partie si on a atteint les 10 mots.
+ * \param partie Les données sur la partie où il faut passer au mot suivant.
+ */
+void affichage_motSuivant (Partie* partie);
 
 /**
  * \brief Permet d'afficher un message d'erreur.

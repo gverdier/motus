@@ -86,4 +86,16 @@ int jeu_corrigerMot (Mot* menu_mot, int ligne, int taille_mot);
  */
 int jeu_tirerMot (char* mot, int taille_mot, int diabolique);
 
+/**
+ * \brief Indique si un mot est présent dans le dictionnaire.
+ * \param mot Le mot dans on veut savoir s'il est dans le dictionnaire.
+ * \param taille_mot La taille du mot.
+ * \param diabolique Booléen indiquant si le mode diabolique est activé.
+ * \return
+ * - -1 en cas d'erreur
+ * - 0 si le mot n'est pas présent
+ * - 1 si le mot est présent
+ */
+int jeu_motPresent(const char* mot, int taille_mot, int diabolique);
+
 #endif

@@ -57,15 +57,17 @@ int jeu_corrigerMot (Mot* menu_mot, int ligne, int taille_mot)
 {
 	char* tab;
 	int i;
-	int nbElt=0;
+	int nbElt=taille_mot;
 	int nbBonsElt=0;
 	
 	tab=malloc(taille_mot);
-
+	memcpy(tab,menu_mot->mot,taille_mot);
+	/*
 	for (i=0;i<taille_mot;i++) {
 		tab[i]=menu_mot->mot[i];
 		nbElt++;
 	}
+	*/
 	
 	for (i=0;i<taille_mot;i++) {
 		if (menu_mot->motsSaisis[ligne][i]==menu_mot->mot[i]) {
@@ -163,4 +165,53 @@ int jeu_tirerMot (char* mot, int taille_mot, int diabolique) {
 	fscanf (dictio, "%s", mot) ;
 	fclose (dictio) ;
 	return 0 ;
+}
+
+int jeu_motPresent(const char* mot, int taille_mot, int diabolique)
+{
+	char nomDictio[19];
+	FILE *dictio;
+	char* motCourant;
+	long taille; /* La taille du fichier */
+	long nblignes; /* Le nombre de lignes dans le fichier */
+	long a,b; /* Pour la recherche dichotomique */
+	
+	motCourant=malloc(taille_mot + 1);
+	if (!motCourant) {
+		fprintf(stderr,"Impossible d'allouer dynamiquement un mot.\n");
+		return -1;
+	}
+	if (diabolique)
+		sprintf(nomDictio,"Dictionnaire%dD.txt",taille_mot);
+	else
+		sprintf(nomDictio,"Dictionnaire%d.txt",taille_mot);
+	if (!(dictio=fopen(nomDictio,"rt"))) {
+		fprintf(stderr,"Impossible d'ouvrir le dictionnaire %s.\n",nomDictio);
+		return -1;
+	}
+	fseek(dictio,0,SEEK_END);
+	taille=ftell(dictio);
+	nblignes=taille /(taille_mot + 1); /* Chaque lettre prend 1 octet + 1 octet pour le saut de ligne */
+	a=0;
+	b=nblignes - 1;
+	while (b-a>1) {
+		long m=(a+b)/2;
+		int res;
+		
+		fseek(dictio,m*(taille_mot + 1) - 1,SEEK_SET);
+		fscanf(dictio,"%s",motCourant);
+		res=strcmp(motCourant,mot);
+		if (!res) {
+			free(motCourant);
+			fclose(dictio);
+			return 1;
+		}
+		if (res < 0)
+			a=m;
+		else
+			b=m;
+	}
+	free(motCourant);
+	fclose(dictio);
+	return 0;
 }

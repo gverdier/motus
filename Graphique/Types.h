@@ -40,9 +40,6 @@ typedef struct _Options {
 	 * \warning L'historique n'est pas disponible dans ce mode.
 	 */
 	int historique;
-	/*GdkColor couleurDefaut;*/ /**< \brief La couleur de fond par défaut. */
-	/*GdkColor couleurOK;*/ /**< \brief La couleur de fond pour les lettres à la bonne place. */
-	/*GdkColor couleurMauvaisePos;*/ /**< \brief La couleur de fond pour les lettres mal placées. */
 } Options;
 
 /**

@@ -2,25 +2,31 @@
 
 void lancer_motus (int* argc, char*** argv)
 {
-	Partie partie;
+	Partie* partie;
 	GtkWidget* image;
+	
+	partie=malloc(sizeof(Partie));
+	if (!partie) {
+		affichage_erreur("Impossible d'allouer la partie !\n");
+		return;
+	}
 	
 	gtk_init(argc,argv);
 	srand(time(NULL));
 	
-	partie.widgets.splash=gtk_window_new(GTK_WINDOW_TOPLEVEL);
-	if (partie.widgets.splash==NULL) {
+	partie->widgets.splash=gtk_window_new(GTK_WINDOW_TOPLEVEL);
+	if (partie->widgets.splash==NULL) {
 		affichage_erreur("Impossible d'ouvrir l'écran de démarrage.\n");
 	} else {
 		image=gtk_image_new_from_file("Motus.jpg");
 		if (image==NULL) {
 			affichage_erreur("Impossible de charger l'écran de démarrage.\n");
 		} else {
-			gtk_window_set_decorated(GTK_WINDOW(partie.widgets.splash),FALSE);
-			gtk_window_set_position(GTK_WINDOW(partie.widgets.splash),GTK_WIN_POS_CENTER);
-			gtk_container_add(GTK_CONTAINER(partie.widgets.splash),image);
-			gtk_widget_show_all(partie.widgets.splash);
-			g_timeout_add(1000,(GSourceFunc)affichage_splashDestroy,&partie);
+			gtk_window_set_decorated(GTK_WINDOW(partie->widgets.splash),FALSE);
+			gtk_window_set_position(GTK_WINDOW(partie->widgets.splash),GTK_WIN_POS_CENTER);
+			gtk_container_add(GTK_CONTAINER(partie->widgets.splash),image);
+			gtk_widget_show_all(partie->widgets.splash);
+			g_timeout_add(1000,(GSourceFunc)affichage_splashDestroy,partie);
 		}
 	}
 	gtk_main();
@@ -29,7 +35,7 @@ void lancer_motus (int* argc, char*** argv)
 void affichage_initialiser (Partie* partie)
 {
 	GtkWidget* image; /* Pour charger les images de fond */
-	jeu_initialiser(partie);
+	/*jeu_initialiser(partie);*/
 
 	/* Chargement des images de base */
 	image=gtk_image_new_from_file ("FondDefaut.png");
@@ -66,7 +72,7 @@ void affichage_initialiser (Partie* partie)
 	partie->widgets.layout=NULL;
 	
 	/* Connexion des signaux aux fonctions de rappel */
-	g_signal_connect(G_OBJECT(partie->widgets.fenetre),"delete-event",G_CALLBACK(affichage_terminer),partie);
+	g_signal_connect(G_OBJECT(partie->widgets.fenetre),"destroy",G_CALLBACK(affichage_terminer),partie);
 	
 	gtk_box_pack_start(GTK_BOX(partie->widgets.boxprincipale),partie->widgets.scores,FALSE,FALSE,0);
 	gtk_box_pack_start(GTK_BOX(partie->widgets.boxprincipale),partie->widgets.affichageTimer,FALSE,FALSE,0);
@@ -128,35 +134,6 @@ void affichage_creerMenu (Partie* partie)
 	
 	gtk_box_pack_start(GTK_BOX(partie->widgets.boxprincipale),barremenu,FALSE,FALSE,0);
 	gtk_widget_show_all(barremenu);
-}
-
-void affichage_rafraichirFond (Partie* partie)
-{
-	if (partie->widgets.layout) { /* Le rafraîchissement ne se fait que si une partie a été commencée. */
-		int i,j;
-		
-		for (i=0;i<partie->options.nbEssais-partie->motCourant.essaisRestants;++i) {
-			for(j=0;j<partie->options.lettresParMot;++j) {
-				switch (partie->motCourant.corrections[i][j]) {
-					case CORRECTION_BONNE_PLACE:
-						gtk_image_set_from_pixbuf(GTK_IMAGE(partie->widgets.casesimages[i][j]),partie->widgets.imgOK);
-						break;
-					case CORRECTION_MAUVAISE_PLACE:
-						gtk_image_set_from_pixbuf(GTK_IMAGE(partie->widgets.casesimages[i][j]),partie->widgets.imgMauvaisePos);
-						break;
-					case CORRECTION_NON_PRESENT:
-						gtk_image_set_from_pixbuf(GTK_IMAGE(partie->widgets.casesimages[i][j]),partie->widgets.imgDefaut);
-						break;
-				}
-			}
-		}
-		
-		for (;i<partie->options.nbEssais;++i) {
-			for(j=0;j<partie->options.lettresParMot;++j) {
-				gtk_image_set_from_pixbuf(GTK_IMAGE(partie->widgets.casesimages[i][j]),partie->widgets.imgDefaut);
-			}
-		}
-	}
 }
 
 void affichage_erreur (const char* message)
@@ -226,6 +203,7 @@ void affichage_nouveauMot (Partie* partie)
 		affichage_terminer(NULL,partie);
 	
 	partie->motCourant.essaisRestants=partie->options.nbEssais;
+	memset(partie->motCourant.motTrouve,0,partie->options.lettresParMot);
 	partie->motCourant.motTrouve[0]=1; /* On connait dès le début la première lettre du mot. */
 }
 
@@ -244,6 +222,8 @@ int affichage_saisieOptions (Partie* partie)
 	GtkWidget* tempsReponse;
 	GtkWidget* bingo;
 	int i;
+	
+	jeu_initialiser(partie);
 	
 	dialogue=gtk_dialog_new_with_buttons("Choix des options",GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,
 			GTK_STOCK_OK,GTK_RESPONSE_OK,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,NULL);
@@ -388,6 +368,59 @@ void affichage_indications (Partie* partie, int ligne)
 	}
 }
 
+void affichage_terminerPartie (Partie* partie)
+{
+	int i,j;
+	
+	jeu_terminer(partie);
+	
+	for (i=0;i<partie->options.nbEssais;++i) {
+		for(j=0;j<partie->options.lettresParMot;++j) {
+			gtk_widget_destroy(partie->widgets.casesimages[i][j]);
+			gtk_widget_destroy(partie->widgets.caseslabels[i][j]);
+		}
+		free(partie->widgets.casesimages[i]);
+		free(partie->widgets.caseslabels[i]);
+	}
+	free(partie->widgets.casesimages);
+	free(partie->widgets.caseslabels);
+	gtk_widget_destroy(partie->widgets.layout);
+	gtk_widget_hide(partie->widgets.affichageTimer);
+	gtk_widget_destroy(partie->widgets.entree);
+}
+
+void affichage_motSuivant (Partie* partie)
+{
+	static int nbMots=0;
+	
+	if(++nbMots==10) {
+		GtkWidget* dialogue=gtk_message_dialog_new(GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,
+				"Vous avez terminé la partie, votre score est de %d.", partie->joueur1.score);
+		gtk_dialog_run(GTK_DIALOG(dialogue));
+		gtk_widget_destroy(dialogue);
+		affichage_terminerPartie(partie);
+		partie->joueur1.score=0;
+		nbMots=0;
+	} else {
+		char scoresLabel[12];
+		int i,j;
+		
+		sprintf(scoresLabel,"Score : %d",partie->joueur1.score);
+		gtk_label_set_label(GTK_LABEL(partie->widgets.scores),scoresLabel);
+		
+		for (i=0;i<partie->options.nbEssais;++i) {
+			for(j=0;j<partie->options.lettresParMot;++j) {
+				gtk_image_set_from_pixbuf(GTK_IMAGE(partie->widgets.casesimages[i][j]),partie->widgets.imgDefaut);
+				gtk_label_set_label(GTK_LABEL(partie->widgets.caseslabels[i][j])," ");
+			}
+		}
+		gtk_entry_set_text(GTK_ENTRY(partie->widgets.entree),"");
+		
+		affichage_nouveauMot(partie);
+		affichage_saisieMot (NULL, partie);
+	}
+}
+
 gboolean affichage_splashDestroy (gpointer param_partie)
 {
 	Partie* partie=(Partie*)param_partie;
@@ -438,16 +471,21 @@ void affichage_saisieMot (GtkWidget* entry, gpointer param_partie)
 	static int timeoutnum=-1;
 	
 	if (entry!=NULL) {
-		int i;
-		
 		if(timeoutnum!=-1)
 			g_source_remove(timeoutnum);
 		--partie->motCourant.essaisRestants;
 		ligne=partie->options.nbEssais - partie->motCourant.essaisRestants - 1;
 		
 		strcpy(partie->motCourant.motsSaisis[ligne],(char*)gtk_entry_get_text(GTK_ENTRY(entry)));
-		for (i=(int)strlen(partie->motCourant.motsSaisis[ligne]);i<partie->options.lettresParMot;++i)
-			partie->motCourant.motsSaisis[ligne][i]='\0';
+		if ((int)strlen(partie->motCourant.motsSaisis[ligne])!=partie->options.lettresParMot) {
+			affichage_saisieMot(NULL,partie); /* On passe directement au mot suivant */
+			return;
+		}
+		if (!jeu_motPresent(partie->motCourant.motsSaisis[ligne],partie->options.lettresParMot,partie->options.modeDiabolique)) {
+			affichage_saisieMot(NULL,partie); /* On passe directement au mot suivant */
+			return;
+		}
+		
 		gagne=jeu_corrigerMot(&(partie->motCourant),ligne,partie->options.lettresParMot);
 		
 		g_timeout_add(500,(GSourceFunc)affichage_tableLettres,partie);
@@ -456,10 +494,11 @@ void affichage_saisieMot (GtkWidget* entry, gpointer param_partie)
 			GtkWidget* dialogue;
 			
 			dialogue=gtk_message_dialog_new(GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,
-					"Bravo, vous avez gagné !");
+					"Bravo, vous avez gagné 50 points !");
 			gtk_dialog_run(GTK_DIALOG(dialogue));
 			gtk_widget_destroy(dialogue);
-			affichage_terminer(NULL,partie);
+			partie->joueur1.score+=50;
+			affichage_motSuivant(partie);
 			return;
 		}
 		
@@ -471,7 +510,7 @@ void affichage_saisieMot (GtkWidget* entry, gpointer param_partie)
 					"Vous avez perdu.\nLe mot était : %s.",partie->motCourant.mot);
 			gtk_dialog_run(GTK_DIALOG(dialogue));
 			gtk_widget_destroy(dialogue);
-			affichage_terminer(NULL,partie);
+			affichage_motSuivant(partie);
 			return;
 		}
 		
@@ -556,5 +595,8 @@ void affichage_terminer (GtkWidget* appelant, gpointer param_partie)
 	}
 	
 	jeu_terminer(partie);
+	
+	free(partie);
+	
 	gtk_main_quit();
 }
