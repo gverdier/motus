@@ -462,7 +462,7 @@ void affichage_motSuivant (Partie* partie)
 {
 	static int nbMots=0;
 	
-	if (!partie->superPartie&&++nbMots==1) {
+	if (!partie->superPartie&&++nbMots==10) {
 		GtkWidget* dialogue=gtk_message_dialog_new(GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_YES_NO,
 				"Vous avez terminé la partie, votre score est de %d.\n"
 				"Voulez-vous continuer et jouer la super-partie ?", partie->joueur1.score);
