@@ -19,7 +19,8 @@ Options jeu_optionsDefaut (void)
 void jeu_initialiser (Partie* partie)
 {
 	partie->options=jeu_optionsDefaut();
-	partie->joueur1.nom[0]='\0';
+	partie->joueur2.nom[0]=partie->joueur1.nom[0]='\0';
+	partie->joueurCourant=1;
 
 }
 

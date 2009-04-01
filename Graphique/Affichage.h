@@ -96,6 +96,12 @@ int affichage_saisieOptionsSuperPartie (Partie* partie);
 void affichage_passagePartieSuperPartie (Partie* partie);
 
 /**
+ * \brief Met à jour les widgets affichant le score et le nom du joueur courant.
+ * \param partie Les données sur la partie en cours (contenant les widgets, scores, noms, ...)
+ */
+void affichage_miseAJourScoreNom (const Partie* partie);
+
+/**
  * \brief Permet d'afficher un message d'erreur.
  * \param message Le message à afficher.
  *

@@ -74,6 +74,7 @@ typedef struct _Mot {
 typedef struct _Widgets {
 	GtkWidget* fenetre; /**< \brief La fenêtre principale. */
 	GtkWidget* boxprincipale; /**< \brief La « boîte » principale de la fenêtre. */
+	GtkWidget* joueur; /**< \brief Affiche le nom du joueur devant jouer. */
 	GtkWidget* scores; /**< \brief Label indiquant le(s) score(s) du (des) joueur(s). */
 	GtkWidget* affichageTimer; /**< \brief Pour afficher le timer (barre de progression). */
 	GtkWidget* layout; /**< \brief Les différents éléments de la grille (images, lettres) y sont affichés. */
@@ -94,6 +95,7 @@ typedef struct _Partie {
 	Options options; /**< \brief Les options du jeu. */
 	Joueur joueur1; /**< \brief Le premier joueur (le seul utilisé en mode solo). */
 	Joueur joueur2; /**< \brief Le second joueur (pour le mode 2 joueurs seulement). */
+	int joueurCourant; /**< \brief Le joueur courant : 1 <=> joueur1, 0 <=> joueur2. */
 	Mot motCourant; /**< \brief Le mot actuellement joué. */
 	int superPartie; /**< \brief Booléen indiquant si on joue une partie simple ou une super-partie. */
 	Widgets widgets; /**< \brief Les widgets GTK+. */
