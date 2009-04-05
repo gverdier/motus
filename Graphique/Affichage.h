@@ -66,12 +66,6 @@ void affichage_indications (Partie* partie, int ligne);
 void affichage_terminerPartie (Partie* partie);
 
 /**
- * \brief Passe au mot suivant ou termine la partie si on a atteint les 10 mots.
- * \param partie Les données sur la partie où il faut passer au mot suivant.
- */
-void affichage_motSuivant (Partie* partie);
-
-/**
  * \brief Demande les options pour une nouvelle partie.
  * \param partie Les données sur la partie en cours.
  * \return Booléen indiquant si le joueur a saisi des options ou annulé.
@@ -176,6 +170,27 @@ void affichage_aPropos (GtkWidget* appelant, gpointer fenetre);
  * \param partie Les données sur la partie en cours.
  */
 void affichage_saisieMot (GtkWidget* entry, gpointer partie);
+
+/**
+ * \brief Passe au mot suivant ou termine la partie si on a atteint les 10 mots.
+ * \param appelant Le widget appelant la fonction de rappel (NULL si elle n'est pas appelée par callback GTK+).
+ * \param partie Les données sur la partie en cours.
+ */
+void affichage_motSuivant (GtkWidget* appelant, gpointer partie);
+
+/**
+ * \brief Sauvegarder la partie.
+ * \param appelant Le widget ayant appelé la fonction de rappel.
+ * \param partie La partie à sauvegarder. 
+ */
+void affichage_sauvegarder (GtkWidget* appelant, gpointer partie);
+
+/**
+ * \brief Charge une partie.
+ * \param appelant Le widget ayant appelé la fonction de rappel.
+ * \param partie La partie où charger les données.
+ */
+void affichage_charger (GtkWidget* appelant, gpointer partie);
 
 /**
  * \brief Termine le programme.

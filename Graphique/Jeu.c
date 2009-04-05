@@ -19,6 +19,7 @@ Options jeu_optionsDefaut (void)
 void jeu_initialiser (Partie* partie)
 {
 	partie->options=jeu_optionsDefaut();
+	memset(&partie->motCourant,0,sizeof(Mot));
 	partie->joueur2.nom[0]=partie->joueur1.nom[0]='\0';
 	partie->joueurCourant=1;
 
@@ -103,20 +104,22 @@ void jeu_terminer (Partie* partie)
 		}
 		free(partie->motCourant.motsSaisis);
 		free(partie->motCourant.corrections);
+		memset(&partie->motCourant,0,sizeof(Mot));
 	}
 }
 
 int jeu_initialiserNouvellePartie (Partie* partie)
 {
-	int i;
+	int i,j;
 	
 	/* Allocations dynamiques pour le mot courant. */
 	partie->motCourant.mot=malloc(partie->options.lettresParMot+1);
 	if (!partie->motCourant.mot)
 		return 1;
-	partie->motCourant.motTrouve=calloc(1,partie->options.lettresParMot+1);
+	partie->motCourant.motTrouve=malloc(partie->options.lettresParMot+1);
 	if (!partie->motCourant.mot)
 		return 1;
+	memset(partie->motCourant.motTrouve,0,partie->options.lettresParMot);
 	partie->motCourant.motsSaisis=malloc(partie->options.nbEssais*sizeof(char*));
 	if (!partie->motCourant.motsSaisis)
 		return 1;
@@ -130,9 +133,11 @@ int jeu_initialiserNouvellePartie (Partie* partie)
 		partie->motCourant.corrections[i]=malloc(partie->options.lettresParMot+1);
 		if (!partie->motCourant.corrections[i])
 			return 1;
+		for (j=0;j<partie->options.lettresParMot;++j)
+			partie->motCourant.corrections[i][j]=CORRECTION_NON_PRESENT;
 	}
 	
-	partie->joueur1.score=0;
+	partie->joueur1.score=partie->joueur2.score=0;
 	
 	return 0;
 }
@@ -159,6 +164,7 @@ int jeu_tirerMot (char* mot, int taille_mot, int diabolique) {
 	fseek (dictio, numligne * (taille_mot + 1) - 1, SEEK_SET) ; /* On va a la ligne correspondante */
 	fscanf (dictio, "%s", mot) ;
 	fclose (dictio) ;
+	
 	return 0 ;
 }
 
@@ -208,5 +214,99 @@ int jeu_motPresent(const char* mot, int taille_mot, int diabolique)
 	}
 	free(motCourant);
 	fclose(dictio);
+	return 0;
+}
+
+void jeu_reinitialiserMot (Mot* mot, int nbEssais, int taille_mot, int superPartie)
+{
+	int i,j;
+	
+	for (i=0;i<taille_mot;++i) {
+		mot->motTrouve[i]=0;
+		for(j=0;j<nbEssais;++j) {
+			mot->corrections[j][i]=CORRECTION_NON_PRESENT;
+			mot->motsSaisis[j][i]='\0';
+		}
+	}
+	mot->motTrouve[0]=1;
+	mot->motTrouve[3]=superPartie;
+	mot->essaisRestants=nbEssais;
+}
+
+/*
+ * Ordre de sauvegarde :
+ * Options
+ * Joueur1
+ * Joueur2
+ * Mot Courant
+ * Joueur Courant
+ * Super Partie
+ */
+
+int jeu_sauvegarder (const Partie* partie, const char* nom_fich)
+{
+	FILE* fich;
+	int i;
+	
+	fich=fopen(nom_fich,"wb");
+	if (!fich)
+		return 1;
+	
+	fwrite(&partie->options,sizeof(Options),1,fich);
+	fwrite(&partie->joueur1,sizeof(Joueur),1,fich);
+	fwrite(&partie->joueur2,sizeof(Joueur),1,fich);
+	printf ("sizeof joueur : %d\n",sizeof(Joueur));
+	
+	fwrite(partie->motCourant.mot,1,partie->options.lettresParMot,fich);
+	for (i=0;i<partie->options.nbEssais;++i)
+		fwrite(partie->motCourant.motsSaisis[i],1,partie->options.lettresParMot,fich);
+	for (i=0;i<partie->options.nbEssais;++i)
+		fwrite(partie->motCourant.corrections[i],1,partie->options.lettresParMot,fich);
+	fwrite(partie->motCourant.motTrouve,1,partie->options.lettresParMot,fich);
+	fwrite(&partie->motCourant.essaisRestants,sizeof(int),1,fich);
+	
+	fwrite(&partie->joueurCourant,sizeof(int),1,fich);
+	fwrite(&partie->superPartie,sizeof(int),1,fich);
+	
+	fclose(fich);
+	return 0;
+}
+
+int jeu_charger (Partie* partie, const char* nom_fich)
+{
+	FILE* fich;
+	int i;
+	int score1,score2;
+	
+	fich=fopen(nom_fich,"rb");
+	if (!fich)
+		return 1;
+	
+	jeu_terminer(partie); /* Désalloue la mémoire si besoin */
+	
+	fread(&partie->options,sizeof(Options),1,fich);
+	fread(&partie->joueur1,sizeof(Joueur),1,fich);
+	fread(&partie->joueur2,sizeof(Joueur),1,fich);
+	/* Les scores vont êtres effacés par l'appel à jeu_initialiserNouvellePartie */
+	score1=partie->joueur1.score;
+	score2=partie->joueur2.score;
+	
+	if (jeu_initialiserNouvellePartie(partie))
+		return 1;
+	partie->joueur1.score=score1;
+	partie->joueur2.score=score2;
+	
+	fread(partie->motCourant.mot,1,partie->options.lettresParMot,fich);
+	for (i=0;i<partie->options.nbEssais;++i)
+		fread(partie->motCourant.motsSaisis[i],1,partie->options.lettresParMot,fich);
+	for (i=0;i<partie->options.nbEssais;++i)
+		fread(partie->motCourant.corrections[i],1,partie->options.lettresParMot,fich);
+	fread(partie->motCourant.motTrouve,1,partie->options.lettresParMot,fich);
+	fread(&partie->motCourant.essaisRestants,sizeof(int),1,fich);
+	
+	fread(&partie->joueurCourant,sizeof(int),1,fich);
+	fread(&partie->superPartie,sizeof(int),1,fich);
+	
+	fclose(fich);
 	return 0;
 }

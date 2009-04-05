@@ -98,4 +98,29 @@ int jeu_tirerMot (char* mot, int taille_mot, int diabolique);
  */
 int jeu_motPresent(const char* mot, int taille_mot, int diabolique);
 
+/**
+ * \brief Réinitialise un mot (déjà alloué).
+ * \param mot Le mot à réinitialiser.
+ * \param nbEssais Le nombre d'essais qu'à le joueur pour trouver le mot.
+ * \param taille_mot La taille d'un mot.
+ * \param superPartie Booléen. Indique s'il s'agit d'une partie simple ou d'une super-partie.
+ */
+void jeu_reinitialiserMot (Mot* mot, int nbEssais, int taille_mot, int superPartie);
+
+/**
+ * \brief Sauvegarde la partie.
+ * \param partie La partie à sauvegarder.
+ * \param nom_fich Le nom du fichier dans lequel sauvegarder la partie.
+ * \return 0 en cas de fin normale, 1 en cas d'erreur. 
+ */
+int jeu_sauvegarder (const Partie* partie, const char* nom_fich);
+
+/**
+ * \brief Charge une partie précédemment sauvegardée.
+ * \param partie La partie où mettre les données chargées.
+ * \param nom_fich Le nom du fichier dans lequel sont sauvegardées les données.
+ * \return 0 en cas de fin normale, 1 en cas d'erreur.
+ */
+int jeu_charger (Partie* partie, const char* nom_fich);
+
 #endif

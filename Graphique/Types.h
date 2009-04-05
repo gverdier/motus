@@ -81,6 +81,7 @@ typedef struct _Widgets {
 	GtkWidget*** casesimages; /**< \brief Les images de fond (elles seront créées à partir de imageDefaut, imageOK et imageMauvaisePos). */
 	GtkWidget*** caseslabels; /**< \brief Tableau des labels utilisés pour afficher la lettre d'une case de motus. */
 	GtkWidget* entree; /**< \brief La zone de saisie du mot. */
+	GtkWidget* suivant; /**< \brief Le bouton "suivant" pour passer au mot suivant. */
 	GtkWidget* splash; /**< \brief L'écran de démarrage (splash screen).*/
 	GdkPixbuf* imgDefaut; /**< \brief Correspond à l'image de fond par défaut. */
 	GdkPixbuf* imgOK; /**< \brief Correspond à l'image de fond pour une lettre bien placée. */
