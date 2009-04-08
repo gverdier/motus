@@ -56,6 +56,7 @@ typedef struct {
 	GtkWidget* fenetre; /**< \brief La fenêtre de bingo. */
 	GtkWidget* box; /**< \brief La box (verticale) contenant les autres widgets. */
 	GtkWidget* boxMotus; /**< \brief La box (horizontale) contenant les lettres pour former le mot MOTUS. */
+	GtkWidget* nom; /**< \brief Label affichant le nom du joueur. */
 	GtkWidget* table; /**< \brief La table contenant les éléments de la grille de motus. */
 	GtkWidget* events[5][5]; /**< \brief Les "Event Box" utilisées pour récupérer les clics de l'utilisateur sur les case de la grille de bingo. */
 	GtkWidget* layouts[6][5]; /**< \brief Les différents éléments de la grille de motus (images, lettres) y seront affichés. */
