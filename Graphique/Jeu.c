@@ -9,7 +9,7 @@ Options jeu_optionsDefaut (void)
 	opt.nbEssais=5;
 	opt.modeDiabolique=0;
 	opt.tempsReponse=10;
-	opt.bingo=0;
+	opt.bingo=1;
 	opt.historique=0;
 
 	return opt;
@@ -20,9 +20,14 @@ void jeu_initialiser (Partie* partie)
 {
 	partie->options=jeu_optionsDefaut();
 	memset(&partie->motCourant,0,sizeof(Mot));
-	partie->joueur2.nom[0]=partie->joueur1.nom[0]='\0';
+	partie->joueur1.bingoAutreJoueur=&partie->joueur2.bingo;
+	partie->joueur2.bingoAutreJoueur=&partie->joueur1.bingo;
+	partie->joueur1.nom[0]=partie->joueur2.nom[0]='\0';
+	partie->joueur1.joueurCourant=partie->joueur2.joueurCourant=&partie->joueurCourant;
+	partie->joueur1.nbJoueurs=partie->joueur2.nbJoueurs=&partie->options.nbJoueurs;
 	partie->joueurCourant=1;
-
+	jeu_bingo_initialiser(&partie->joueur1.bingo);
+	jeu_bingo_initialiser(&partie->joueur2.bingo);
 }
 
 int jeu_appartientTab (char tab[7], int nbElt, char elt)
@@ -233,16 +238,6 @@ void jeu_reinitialiserMot (Mot* mot, int nbEssais, int taille_mot, int superPart
 	mot->essaisRestants=nbEssais;
 }
 
-/*
- * Ordre de sauvegarde :
- * Options
- * Joueur1
- * Joueur2
- * Mot Courant
- * Joueur Courant
- * Super Partie
- */
-
 int jeu_sauvegarder (const Partie* partie, const char* nom_fich)
 {
 	FILE* fich;
@@ -255,7 +250,6 @@ int jeu_sauvegarder (const Partie* partie, const char* nom_fich)
 	fwrite(&partie->options,sizeof(Options),1,fich);
 	fwrite(&partie->joueur1,sizeof(Joueur),1,fich);
 	fwrite(&partie->joueur2,sizeof(Joueur),1,fich);
-	printf ("sizeof joueur : %d\n",sizeof(Joueur));
 	
 	fwrite(partie->motCourant.mot,1,partie->options.lettresParMot,fich);
 	for (i=0;i<partie->options.nbEssais;++i)
@@ -267,6 +261,7 @@ int jeu_sauvegarder (const Partie* partie, const char* nom_fich)
 	
 	fwrite(&partie->joueurCourant,sizeof(int),1,fich);
 	fwrite(&partie->superPartie,sizeof(int),1,fich);
+	fwrite(&partie->tempsRestant,sizeof(double),1,fich);
 	
 	fclose(fich);
 	return 0;
@@ -306,7 +301,87 @@ int jeu_charger (Partie* partie, const char* nom_fich)
 	
 	fread(&partie->joueurCourant,sizeof(int),1,fich);
 	fread(&partie->superPartie,sizeof(int),1,fich);
+	fread(&partie->tempsRestant,sizeof(double),1,fich);
 	
 	fclose(fich);
+	return 0;
+}
+
+void jeu_bingo_initialiser (Bingo *bingo)
+{
+	int i,j;
+
+	memset(&bingo->motusBingo,'*',5);
+	for(i=0;i<5;++i){
+		for(j=0;j<5;++j){
+			bingo->grilleBingo[i][j].gratte=0;
+			bingo->grilleBingo[i][j].lettre='*';
+		}
+	}
+	jeu_bingo_distribuer(bingo);
+}
+
+/* Utilisé seulement pour jeu_bingo_distribuer. */
+void jeu_bingo_ajouterLettre (Bingo *bingo, char lettre)
+{
+	int numCase;
+
+	do {
+		numCase=(rand()%25);
+	} while (bingo->grilleBingo[numCase/5][numCase%5].lettre!='*');
+
+	bingo->grilleBingo[numCase/5][numCase%5].lettre=lettre;
+}
+
+void jeu_bingo_distribuer (Bingo *bingo)
+{
+	int k;
+
+	for(k=0;k<4;++k) {
+		jeu_bingo_ajouterLettre(bingo,'M');
+		jeu_bingo_ajouterLettre(bingo,'O');
+		jeu_bingo_ajouterLettre(bingo,'T');
+		jeu_bingo_ajouterLettre(bingo,'U');
+		jeu_bingo_ajouterLettre(bingo,'S');
+	}
+
+	for(k=0;k<3;++k) {
+		jeu_bingo_ajouterLettre(bingo,'X');
+	}
+}
+
+int jeu_bingo_gratter (Bingo *bingo, int numCase)
+{
+	int i,j;
+
+	i=(numCase-1)%5;
+	j=(numCase-1)/5;
+	
+	if (bingo->grilleBingo[i][j].gratte)
+		return 1;
+	bingo->grilleBingo[i][j].gratte=1;
+	
+	switch (bingo->grilleBingo[i][j].lettre) {
+		case 'X':
+			return 2;
+		case '*':
+			return 3;
+		case 'M':
+			bingo->motusBingo[0]='M';
+			break;
+		case 'O':
+			bingo->motusBingo[1]='O';
+			break;
+		case 'T':
+			bingo->motusBingo[2]='T';
+			break;
+		case 'U':
+			bingo->motusBingo[3]='U';
+			break;
+		case 'S':
+			bingo->motusBingo[4]='S';
+			break;
+	}
+
 	return 0;
 }

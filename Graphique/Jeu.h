@@ -38,10 +38,11 @@ void jeu_terminer (Partie* partie);
 /**
  * \brief Initialise une partie en fonction des options.
  * \param partie La partie à initialiser.
+ * \return 0 en cas de fin normale, 1 en cas d'erreur.
  *
  * Il ne faut pas confondre jeu_initialiser avec cette fonction. 
-jeu_initialiser doit être appelé au début du programme et initialise les options et joueurs avec les options par défaut.
-Cette fonction initialise une partie au commencement de la partie (en fonction des options choisies par le joueur).
+ * jeu_initialiser doit être appelé au début du programme et initialise les options et joueurs avec les options par défaut.
+ * Cette fonction initialise une partie au commencement de la partie (en fonction des options choisies par le joueur).
  */
 int jeu_initialiserNouvellePartie (Partie* partie);
 
@@ -122,5 +123,29 @@ int jeu_sauvegarder (const Partie* partie, const char* nom_fich);
  * \return 0 en cas de fin normale, 1 en cas d'erreur.
  */
 int jeu_charger (Partie* partie, const char* nom_fich);
+
+/**
+ * \brief Initialise une grille de bingo.
+ * \param bingo La grille à initialiser.
+ */
+void jeu_bingo_initialiser (Bingo* bingo);
+
+/**
+ * \brief Distribue le bingo.
+ * \param bingo La grille de bingo à distribuer.
+ */
+void jeu_bingo_distribuer (Bingo* bingo);
+
+/** 
+ * \brief Gratte une case de bingo.
+ * \param bingo La grille de bingo dans laquelle on gratte.
+ * \param numCase Le numéro de la case grattée (entre 1 et 25).
+ * \return
+ * - 1 si la case a déjà été grattée.
+ * - 2 si c'est un jeton "noir" (les boules noires).
+ * - 3 si c'est un jeton "joker" (le joueur rejoue).
+ * - 0 sinon.
+ */
+int jeu_bingo_gratter (Bingo* bingo, int numCase);
 
 #endif

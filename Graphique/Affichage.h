@@ -9,19 +9,18 @@
 #define __AFFICHAGE_H__
 
 #include "Jeu.h"
-
-/**
- * \brief La taille des images de fond (carrées).
- */
-#define TAILLE_IMAGE 32
+#include "Affichage_Bingo.h"
 
 /**
  * \brief Vérifie qu'un pointeur a correctement été alloué. Si ce n'est pas le cas, affiche un message d'erreur puis termine le programme.
  */
+#define VERIFIER_ALLOCATION(pointeur,message,partie) BINGO_VERIFIER_ALLOCATION(pointeur,message,affichage_terminer(NULL,partie);)
+/* Ancienne implémentation
 #define VERIFIER_ALLOCATION(pointeur,message,partie) if(pointeur==NULL) {\
 	affichage_erreur(message);\
 	affichage_terminer(NULL,partie);\
 }
+*/
 
 /**
  * \brief Lance le jeu de Motus.
@@ -94,14 +93,6 @@ void affichage_passagePartieSuperPartie (Partie* partie);
  * \param partie Les données sur la partie en cours (contenant les widgets, scores, noms, ...)
  */
 void affichage_miseAJourScoreNom (const Partie* partie);
-
-/**
- * \brief Permet d'afficher un message d'erreur.
- * \param message Le message à afficher.
- *
- * On peut facilement changer l'affichage des messages d'erreurs avec cette fonction : affichage en console, écriture dans un fichier, boîte de dialogue, ...
- */
-void affichage_erreur (const char* message);
 
 /* Fonctions de rappel (callback) */
 

@@ -26,11 +26,7 @@
  */
 typedef struct _Options {
 	int lettresParMot; /**< \brief Le nombre de lettres dans les mots tirés. */
-	/**
-	 * \brief Le nombre de joueurs.
-	 * \warning Dans cette version, seul le mode 1 joueur est disponible.
-	 */
-	int nbJoueurs;
+	int nbJoueurs; /**< \brief Le nombre de joueurs. */
 	int nbEssais; /**< \brief Le nombre d'essais laissés au joueur pour trouver un mot. */
 	int modeDiabolique; /**< \brief Booléen indiquant si le mode diabolique est activé. */
 	/**
@@ -49,12 +45,71 @@ typedef struct _Options {
 } Options;
 
 /**
+ * \brief Une case de grille de bingo.
+ */
+typedef struct {
+	char lettre; /**< \brief La lettre de la case. */
+	char gratte; /**< \brief Booléen indique si la case a été grattée. */
+} Case_bingo;
+
+typedef struct {
+	GtkWidget* fenetre; /**< \brief La fenêtre de bingo. */
+	GtkWidget* box; /**< \brief La box (verticale) contenant les autres widgets. */
+	GtkWidget* boxMotus; /**< \brief La box (horizontale) contenant les lettres pour former le mot MOTUS. */
+	GtkWidget* table; /**< \brief La table contenant les éléments de la grille de motus. */
+	GtkWidget* events[5][5]; /**< \brief Les "Event Box" utilisées pour récupérer les clics de l'utilisateur sur les case de la grille de bingo. */
+	GtkWidget* layouts[6][5]; /**< \brief Les différents éléments de la grille de motus (images, lettres) y seront affichés. */
+	/**
+	 * \brief Les images de fond de la grille.
+	 * 
+	 * Les 5x5 premières cases correspondent à la grille de tirage.
+	 * Le 6ème rang correspond aux images de fond du mot MOTUS (les lettres tirées).
+	 */
+	GtkWidget* images[6][5];
+	/**
+	 * \brief Les lettres de la grille.
+	 * 
+	 * Les 5x5 premières cases correspondent à la grille de tirage.
+	 * Le 6ème rang correspond aux lettres tirées du mot MOTUS.
+	 */
+	GtkWidget* lettres[6][5];
+	GtkWidget* terminer; /**< \brief Bouton "Terminer" apparaissant quand le joueur a tiré une lettre pour finir le bingo. */
+} BingoWidgets;
+
+/**
+ * \brief Regroupe les informations sur le bingo d'un joueur.
+ */
+typedef struct {
+	Case_bingo grilleBingo[5][5]; /**< \brief La grille de bingo (où on tire les lettres). */
+	char motusBingo[5]; /**< \brief Les lettres tirées (forme MOTUS). */
+	BingoWidgets widgets; /**< \brief Les widgets GTK+ pour le bingo. */
+} Bingo;
+
+/**
  * \brief Regroupe les données sur un joueur.
  */
 typedef struct _Joueur {
 	char nom[TAILLE_PSEUDO]; /**< \brief Le nom (pseudo) du joueur. */
-	int grilleBingo[6][5]; /**< \brief La grille du bingo (5x5 cases de numéros, 3 cases de boules noires et 2 de neutres). */
+	Bingo bingo; /**< \brief Pour le bingo. */
 	int score; /**< \brief Le score du joueur. */
+	/**
+	 * \brief Pointeur sur la variable "joueurCourant" de la structure Partie. 
+	 *
+	 * Ce pointeur est utilisé dans le bingo pour pouvoir changer de joueur sans que la "Partie" complète soit passée en paramètre.
+	 */
+	int* joueurCourant;
+	/**
+	 * \brief Pointeur sur la variable "nbJoueurs" de la structure Options. 
+	 *
+	 * Ce pointeur est utilisé dans le bingo pour savoir si le mode 2 joueurs est activé ou non sans passer la "Partie" complète.
+	 */
+	const int* nbJoueurs;
+	/**
+	 * \brief Pointeur sur le bingo de l'autre joueur.
+	 *
+	 * Ce pointeur est utilisé dans le bingo pour réinitialiser toutes les grilles en cas de "MOTUS".
+	 */
+	Bingo* bingoAutreJoueur;
 } Joueur;
 
 /**
@@ -99,6 +154,7 @@ typedef struct _Partie {
 	int joueurCourant; /**< \brief Le joueur courant : 1 <=> joueur1, 0 <=> joueur2. */
 	Mot motCourant; /**< \brief Le mot actuellement joué. */
 	int superPartie; /**< \brief Booléen indiquant si on joue une partie simple ou une super-partie. */
+	double tempsRestant; /**< \brief Le temps restant au joueur pour jouer. */
 	Widgets widgets; /**< \brief Les widgets GTK+. */
 } Partie;
 

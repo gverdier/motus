@@ -27,7 +27,8 @@ all: $(EXEC)
 # Indique les dépendances (fichiers .h et Makefile) pour qu'en cas de modifications de ceux-ci,
 # le programme puisse être recompilé sans avoir à faire de make clean
 Motus.o: Jeu.h Affichage.h Types.h Makefile
-Affichage.o: Jeu.h Affichage.h Types.h Makefile
+Affichage.o: Jeu.h Affichage_Bingo.h Affichage.h Types.h Makefile
+Affichage_Bingo.o: Jeu.h Affichage_Bingo.h Types.h Makefile
 Jeu.o: Affichage.h Types.h Makefile
 
 $(EXEC): $(OBJ)
