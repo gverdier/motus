@@ -687,6 +687,7 @@ void affichage_saisieMot (GtkWidget* entry, gpointer param_partie)
 			affichage_saisieMot(NULL,partie); /* On passe au mot suivant */
 			if (!partie->superPartie&&partie->options.nbJoueurs==2) {
 				partie->joueurCourant=!partie->joueurCourant;
+				jeu_ajouterLettre(&partie->motCourant);
 				affichage_miseAJourScoreNom(partie);
 			}
 			return;
@@ -723,8 +724,11 @@ void affichage_saisieMot (GtkWidget* entry, gpointer param_partie)
 					partie->joueur1.score+=50;
 				else
 					partie->joueur2.score+=50;
-				if (partie->options.bingo)
-					affichage_bingo_lancer(partie->joueurCourant?&partie->joueur1:&partie->joueur2);
+				if (partie->options.bingo) {
+					affichage_bingo_lancer(&partie->joueur1,GTK_WINDOW(partie->widgets.fenetre));
+					if (partie->options.nbJoueurs==2)
+						affichage_bingo_lancer(&partie->joueur2,GTK_WINDOW(partie->widgets.fenetre));
+				}
 			}
 			gtk_widget_show(partie->widgets.suivant);
 			return;
@@ -738,8 +742,11 @@ void affichage_saisieMot (GtkWidget* entry, gpointer param_partie)
 					"Vous avez perdu.\nLe mot était : %s.",partie->motCourant.mot);
 			gtk_dialog_run(GTK_DIALOG(dialogue));
 			gtk_widget_destroy(dialogue);
-			if (!partie->superPartie&&partie->options.bingo)
-				affichage_bingo_lancer(partie->joueurCourant?&partie->joueur1:&partie->joueur2);
+			if (!partie->superPartie&&partie->options.bingo) {
+				affichage_bingo_lancer(&partie->joueur1,GTK_WINDOW(partie->widgets.fenetre));
+				if (partie->options.nbJoueurs==2)
+					affichage_bingo_lancer(&partie->joueur2,GTK_WINDOW(partie->widgets.fenetre));
+			}
 			gtk_widget_show(partie->widgets.suivant);
 			return;
 		}
@@ -836,8 +843,10 @@ gboolean affichage_rafraichissementTimer (gpointer param_partie)
 			affichage_terminerPartie(partie);
 		}
 		--partie->motCourant.essaisRestants;
-		if (partie->options.nbJoueurs==2)
+		if (partie->options.nbJoueurs==2) {
 			partie->joueurCourant=!partie->joueurCourant;
+			jeu_ajouterLettre(&partie->motCourant);
+		}
 		affichage_miseAJourScoreNom(partie);
 		affichage_saisieMot(NULL,partie);
 		return FALSE;

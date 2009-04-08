@@ -29,13 +29,46 @@
 	action\
 }
 
-void affichage_bingo_lancer (Joueur* joueur);
+/**
+ * \brief Lance le bingo.
+ * \param joueur Le joueur jouant le bingo.
+ * \param parent La fenêtre parente.
+ */
+void affichage_bingo_lancer (Joueur* joueur, GtkWindow* parent);
 
-void affichage_bingo_clicCase (GtkWidget* appelant, GdkEventButton* bouton, gpointer param_joueur);
+/**
+ * \brief Appelée quand le joueur clique sur une case de la grille de bingo.
+ * \param appelant Le widget ayant appelée la fonction de rappel.
+ * \param bouton Le bouton sur lequel cliqué l'utilisateur.
+ * \param joueur Le joueur jouant le bingo.
+ */
+void affichage_bingo_clicCase (GtkWidget* appelant, GdkEventButton* bouton, gpointer joueur);
 
+/**
+ * \brief Appelée quand le joueur a joué, affiche le bouton pour quitter le bingo.
+ * \param joueur Le joueur jouant le bingo.
+ */
 void affichage_bingo_aJoue (Joueur* joueur);
 
+/**
+ * \brief Raffraichit l'affichage des lettres de la grille de bingo et du mot "MOTUS".
+ * \param joueur Le joueur jouant le bingo.
+ */
 void affichage_bingo_rafraichirLettres (Joueur* joueur);
+
+/**
+ * \brief Terminer le bingo (ferme la fenêtre et rend le focus à la fenêtre principale).
+ * \param appelant Le widget ayant appelé la fonction de rappel.
+ * \param joueur Le joueur jouant le bingo.
+ */
+void affichage_bingo_terminer (GtkWidget* appelant, gpointer joueur);
+
+/**
+ * \brief Appelée quand le joueur essaie de fermer la fenêtre.
+ * \param appelant Le widget ayant appelé la fonction de rappel.
+ * \param joueur Le joueur jouant le bingo.
+ */
+gboolean affichage_bingo_terminerFenetre (GtkWidget* appelant, gpointer joueur);
 
 /**
  * \brief Permet d'afficher un message d'erreur.
@@ -44,12 +77,5 @@ void affichage_bingo_rafraichirLettres (Joueur* joueur);
  * On peut facilement changer l'affichage des messages d'erreurs avec cette fonction : affichage en console, écriture dans un fichier, boîte de dialogue, ...
  */
 void affichage_erreur (const char* message);
-
-/**
- * \brief Terminer le bingo (ferme la fenêtre et rend le focus à la fenêtre principale).
- * \param appelant Le widget ayant appelé la fonction de rappel.
- * \param joueur Le joueur jouant le bingo.
- */
-void affichage_bingo_terminer (GtkWidget* appelant, gpointer joueur);
 
 #endif

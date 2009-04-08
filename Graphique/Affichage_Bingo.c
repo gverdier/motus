@@ -1,6 +1,6 @@
 #include "Affichage_Bingo.h"
 
-void affichage_bingo_lancer (Joueur* joueur)
+void affichage_bingo_lancer (Joueur* joueur, GtkWindow* parent)
 {
 	int i,j;
 	BingoWidgets* widgets=&joueur->bingo.widgets; /* Pour simplifier l'écriture. */
@@ -13,6 +13,8 @@ void affichage_bingo_lancer (Joueur* joueur)
 	BINGO_VERIFIER_ALLOCATION(widgets->box,"Erreur à l'allocation de la box principale de bingo.\n",return;)
 	widgets->boxMotus=gtk_hbox_new(FALSE,0);
 	BINGO_VERIFIER_ALLOCATION(widgets->boxMotus,"Erreur à l'allocation de la box pour le mot \"MOTUS\".\n",return;)
+	widgets->nom=gtk_label_new(joueur->nom);
+	BINGO_VERIFIER_ALLOCATION(widgets->boxMotus,"Erreur à l'allocation du label pour le nom du joueur.\n",return;)
 	widgets->table=gtk_table_new(5,5,FALSE);
 	BINGO_VERIFIER_ALLOCATION(widgets->table,"Erreur à l'allocation de la table pour la grille de mouts.\n",return;)
 	for (i=0;i<5;++i)
@@ -46,15 +48,20 @@ void affichage_bingo_lancer (Joueur* joueur)
 		gtk_widget_set_size_request(widgets->layouts[i][j],TAILLE_IMAGE,TAILLE_IMAGE);
 		gtk_box_pack_start(GTK_BOX(widgets->boxMotus),widgets->layouts[i][j],TRUE,TRUE,0);
 	}
+	gtk_box_pack_start(GTK_BOX(widgets->box),widgets->nom,FALSE,FALSE,0);
 	gtk_box_pack_start(GTK_BOX(widgets->box),widgets->table,FALSE,FALSE,0);
 	gtk_box_pack_start(GTK_BOX(widgets->box),widgets->boxMotus,FALSE,FALSE,10);
 	gtk_container_add(GTK_CONTAINER(widgets->fenetre),widgets->box);
 	
 	affichage_bingo_rafraichirLettres(joueur);
 	
-	gtk_widget_show_all(widgets->fenetre);
+	gtk_window_set_transient_for(GTK_WINDOW(widgets->fenetre),parent);
 	gtk_window_set_modal(GTK_WINDOW(widgets->fenetre),TRUE);
+	gtk_window_set_position(GTK_WINDOW(widgets->fenetre),GTK_WIN_POS_CENTER);
 	gtk_window_resize(GTK_WINDOW(widgets->fenetre),32*5,32*5+20);
+	gtk_widget_show_all(widgets->fenetre);
+	
+	g_signal_connect(G_OBJECT(widgets->fenetre),"delete-event",G_CALLBACK(affichage_bingo_terminerFenetre),joueur);
 }
 
 void affichage_bingo_clicCase (GtkWidget* appelant, GdkEventButton* bouton, gpointer param_joueur)
@@ -163,6 +170,20 @@ void affichage_bingo_rafraichirLettres (Joueur* joueur)
 
 void affichage_bingo_terminer (GtkWidget* appelant, gpointer joueur) {
 	gtk_widget_destroy(((Joueur*)joueur)->bingo.widgets.fenetre);
+}
+
+gboolean affichage_bingo_terminerFenetre (GtkWidget* appelant, gpointer param_joueur) {
+	GtkWidget* dialogue;
+	Joueur* joueur=(Joueur*)param_joueur;
+	
+	if (!joueur->bingo.widgets.terminer) {
+		dialogue=gtk_message_dialog_new(GTK_WINDOW(joueur->bingo.widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_WARNING,
+				GTK_BUTTONS_OK,"Vous devez jouer le bingo.");
+		gtk_dialog_run(GTK_DIALOG(dialogue));
+		gtk_widget_destroy(dialogue);
+		return TRUE;
+	}
+	return FALSE;
 }
 
 void affichage_erreur (const char* message)

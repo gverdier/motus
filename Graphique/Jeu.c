@@ -147,6 +147,15 @@ int jeu_initialiserNouvellePartie (Partie* partie)
 	return 0;
 }
 
+void jeu_ajouterLettre (Mot* menu_mot)
+{
+	int i=0;
+
+	while (menu_mot->motTrouve[i++]);
+
+	menu_mot->motTrouve[i-1]=1;
+}
+
 int jeu_tirerMot (char* mot, int taille_mot, int diabolique) {
 	char nomDictio[19] ;
 	FILE *dictio ;

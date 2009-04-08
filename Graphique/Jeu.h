@@ -68,6 +68,15 @@ int jeu_appartientTab (char tab[7], int nbElt, char elt);
  */
 void jeu_enleverEltTab (char tab[7], int* nbElt, char elt);
 
+/** 
+ * \brief Ajoute une lettre supplémentaire aux lettres affichées.
+ * \param menu_mot Le mot joué.
+ *
+ * Cette fonction est appelée, dans le mode 2 joueurs, quand la main passe :
+ * une lettre supplémentaire est alors dévoilée.
+ */
+void jeu_ajouterLettre (Mot* menumot);
+
 /**
  * \brief Corrige un mot saisi par l'utilisateur.
  * \param menu_mot Le mot actuellement joué.
