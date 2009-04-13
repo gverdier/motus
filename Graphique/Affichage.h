@@ -142,6 +142,13 @@ void affichage_nouvelleSuperPartie (GtkWidget* appelant, gpointer partie);
 void affichage_menuTerminerPartie (GtkWidget* appelant, gpointer partie);
 
 /**
+ * \brief Affiche les meilleurs scores.
+ * \param appelant Le widget appelant la fonction de rappel (NULL si elle n'est pas appelée par callback GTK+).
+ * \param fenetre La fenêtre parente.
+ */
+void affichage_meilleursScores (GtkWidget* appelant, gpointer fenetre);
+
+/**
  * \brief Affiche les règles du jeu.
  * \param appelant Le widget appelant la fonction de rappel (NULL si elle n'est pas appelée par callback GTK+).
  * \param partie Les données sur la partie en cours.

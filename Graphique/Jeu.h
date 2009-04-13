@@ -24,6 +24,11 @@
 #define CORRECTION_NON_PRESENT '_'
 
 /**
+ * \brief La taille de l'historique, c'est-à-dire le nombre de joueurs enregistrés dans l'historique.
+ */
+#define TAILLE_HISTORIQUE 10
+
+/**
  * \brief Initialise une partie (options et joueurs).
  * \param partie La partie à initialiser.
  */
@@ -156,5 +161,24 @@ void jeu_bingo_distribuer (Bingo* bingo);
  * - 0 sinon.
  */
 int jeu_bingo_gratter (Bingo* bingo, int numCase);
+
+/**
+ * \brief Indique si un joueur a marqué un des meilleurs scores et si oui l'ajoute aux meilleurs scores.
+ * \param nom Le nom du joueur.
+ * \param score Le score du joueur.
+ * \return 
+ * - 1 si le joueur a marqué un des meilleurs scores.
+ * - 0 si le joueur n'a pas marqué un des meilleurs scores.
+ * - -1 en cas d'erreur.
+ */
+int jeu_historique_sauver (char* nom, int score);
+
+/**
+ * \brief Permet de récupérer les données de l'historique.
+ * \param noms Les noms des joueurs.
+ * \param scores Les scores des joueurs.
+ * \return Le nombre de joueurs dans l'historique.
+ */
+int jeu_historique_donnees (char noms[TAILLE_HISTORIQUE][TAILLE_PSEUDO], int scores[TAILLE_HISTORIQUE]);
 
 #endif

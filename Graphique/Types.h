@@ -37,11 +37,6 @@ typedef struct _Options {
 	 */
 	int tempsReponse;
 	int bingo; /**< \brief Booléen indiquant si le bingo est activé. */
-	/**
-	 * \brief Booléen indiquant si les résultats doivent être ajoutés à l'historique. 
-	 * \warning L'historique n'est pas disponible dans ce mode.
-	 */
-	int historique;
 } Options;
 
 /**

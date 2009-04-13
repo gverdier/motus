@@ -134,6 +134,11 @@ void affichage_creerMenu (Partie* partie)
 	menu=gtk_menu_new();
 	VERIFIER_ALLOCATION(menu,"Impossible de créer le menu pour le menu \"Aide\".\n",partie)
 	
+	eltmenu=gtk_menu_item_new_with_label("Meilleurs scores");
+	VERIFIER_ALLOCATION(eltmenu,"Impossible de créer l'élément de menu \"Meilleurs scores\".\n",partie)
+	gtk_menu_shell_append(GTK_MENU_SHELL(menu),eltmenu);
+	g_signal_connect(G_OBJECT(eltmenu),"activate",G_CALLBACK(affichage_meilleursScores),partie->widgets.fenetre);
+	
 	eltmenu=gtk_menu_item_new_with_label("Règles du jeu");
 	VERIFIER_ALLOCATION(eltmenu,"Impossible de créer l'élément de menu \"Règles du jeu\".\n",partie)
 	gtk_menu_shell_append(GTK_MENU_SHELL(menu),eltmenu);
@@ -632,6 +637,44 @@ void affichage_menuTerminerPartie (GtkWidget* appelant, gpointer param_partie)
 	}
 }
 
+void affichage_meilleursScores (GtkWidget* appelant, gpointer fenetre)
+{
+	GtkWidget* dialogue;
+	GtkWidget *labelpartie;
+	char* texte;
+	char noms[TAILLE_HISTORIQUE][TAILLE_PSEUDO];
+	int scores[TAILLE_HISTORIQUE];
+	int nbenregistres,i;
+	
+	dialogue=gtk_dialog_new_with_buttons("Meilleurs scores",GTK_WINDOW(fenetre),GTK_DIALOG_MODAL,GTK_STOCK_OK,GTK_RESPONSE_OK,NULL);
+	/* Il est inutile de terminer le jeu si ceci échoue. */
+	BINGO_VERIFIER_ALLOCATION(dialogue,"Impossible de créer la boîte de dialogue des meilleurs scores.\n",return;);
+	
+	nbenregistres=jeu_historique_donnees(noms,scores);
+	texte=malloc(nbenregistres*(TAILLE_PSEUDO+3)+200); /*Pour avoir assez de place pour tout écrire */
+	if (!texte)
+		return;
+	sprintf(texte,"\t<big>Meilleurs scores :</big>\t\n");
+	for (i=0;i<nbenregistres;++i) {
+		char temp[TAILLE_PSEUDO+40];
+		if (!i)
+			sprintf(temp,"1<sup>er</sup> : %s  %d points\n",noms[i],scores[i]);
+		else if(i==1&&nbenregistres==2)
+			sprintf(temp,"2<sup>nd</sup> : %s %d points\n",noms[i],scores[i]);
+		else
+			sprintf(temp,"%d<sup>ème</sup> : %s %d points\n",i+1,noms[i],scores[i]);
+		texte=strcat(texte,temp);
+	}
+	labelpartie=gtk_label_new("");
+	gtk_label_set_markup(GTK_LABEL(labelpartie),texte);
+	free(texte);
+	
+	gtk_box_pack_start(GTK_BOX(GTK_DIALOG(dialogue)->vbox),labelpartie,FALSE,FALSE,10);
+	gtk_widget_show_all(GTK_DIALOG(dialogue)->vbox);
+	gtk_dialog_run(GTK_DIALOG(dialogue));
+	gtk_widget_destroy(dialogue);
+}
+
 void affichage_reglesJeu (GtkWidget* appelant, gpointer param_partie)
 {
 	GtkWidget* dialogue;
@@ -724,11 +767,8 @@ void affichage_saisieMot (GtkWidget* entry, gpointer param_partie)
 					partie->joueur1.score+=50;
 				else
 					partie->joueur2.score+=50;
-				if (partie->options.bingo) {
-					affichage_bingo_lancer(&partie->joueur1,GTK_WINDOW(partie->widgets.fenetre));
-					if (partie->options.nbJoueurs==2)
-						affichage_bingo_lancer(&partie->joueur2,GTK_WINDOW(partie->widgets.fenetre));
-				}
+				if (partie->options.bingo)
+					affichage_bingo_lancer(partie->joueurCourant?&partie->joueur1:&partie->joueur2,GTK_WINDOW(partie->widgets.fenetre));
 			}
 			gtk_widget_show(partie->widgets.suivant);
 			return;
@@ -742,11 +782,8 @@ void affichage_saisieMot (GtkWidget* entry, gpointer param_partie)
 					"Vous avez perdu.\nLe mot était : %s.",partie->motCourant.mot);
 			gtk_dialog_run(GTK_DIALOG(dialogue));
 			gtk_widget_destroy(dialogue);
-			if (!partie->superPartie&&partie->options.bingo) {
-				affichage_bingo_lancer(&partie->joueur1,GTK_WINDOW(partie->widgets.fenetre));
-				if (partie->options.nbJoueurs==2)
-					affichage_bingo_lancer(&partie->joueur2,GTK_WINDOW(partie->widgets.fenetre));
-			}
+			if (!partie->superPartie&&partie->options.bingo)
+				affichage_bingo_lancer(partie->joueurCourant?&partie->joueur1:&partie->joueur2,GTK_WINDOW(partie->widgets.fenetre));
 			gtk_widget_show(partie->widgets.suivant);
 			return;
 		}
@@ -769,14 +806,40 @@ void affichage_motSuivant (GtkWidget* appelant, gpointer param_partie)
 	if (!partie->superPartie&&++nbMots==10) {
 		GtkWidget* dialogue;
 		if (partie->options.nbJoueurs==2)
-			dialogue=gtk_message_dialog_new(GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_YES_NO,
-					"Vous avez terminé la partie.\nVos scores sont :\n\t\t%s %d\n\t\t%s %d\n"
-					"Voulez-vous continuer et jouer la super-partie ?",
+			dialogue=gtk_message_dialog_new(GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,
+					"Vous avez terminé la partie.\nVos scores sont :\n\t\t%s %d\n\t\t%s %d\n",
 					partie->joueur1.nom,partie->joueur1.score,partie->joueur2.nom,partie->joueur2.score);
 		else
-			dialogue=gtk_message_dialog_new(GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_YES_NO,
-					"Vous avez terminé la partie, votre score est de %d.\n"
-					"Voulez-vous continuer et jouer la super-partie ?",partie->joueur1.score);
+			dialogue=gtk_message_dialog_new(GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,
+					"Vous avez terminé la partie, votre score est de %d.\n",partie->joueur1.score);
+		gtk_dialog_run(GTK_DIALOG(dialogue));
+		gtk_widget_destroy(dialogue);
+		if (partie->options.nbJoueurs==1) {
+			if (jeu_historique_sauver (partie->joueur1.nom, partie->joueur1.score)==1) {
+				dialogue=gtk_message_dialog_new(GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,
+						"Bravo %s, vous faîtes partie des meilleurs joueurs.",partie->joueur1.nom);
+				gtk_dialog_run(GTK_DIALOG(dialogue));
+				gtk_widget_destroy(dialogue);
+			}
+		} else {
+			if (partie->joueur1.score>partie->joueur2.score) {
+				if (jeu_historique_sauver (partie->joueur1.nom, partie->joueur1.score)==1) {
+					dialogue=gtk_message_dialog_new(GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,
+							"Bravo %s, vous faîtes partie des meilleurs joueurs.",partie->joueur1.nom);
+					gtk_dialog_run(GTK_DIALOG(dialogue));
+					gtk_widget_destroy(dialogue);
+				}
+			} else {
+				if (jeu_historique_sauver (partie->joueur2.nom, partie->joueur2.score)==1) {
+					dialogue=gtk_message_dialog_new(GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,
+							"Bravo %s, vous faîtes partie des meilleurs joueurs.",partie->joueur2.nom);
+					gtk_dialog_run(GTK_DIALOG(dialogue));
+					gtk_widget_destroy(dialogue);
+				}
+			}
+		}
+		dialogue=gtk_message_dialog_new(GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_YES_NO,
+					"Voulez-vous continuer et jouer la super-partie ?");
 		if (gtk_dialog_run(GTK_DIALOG(dialogue))==GTK_RESPONSE_YES) {
 			affichage_passagePartieSuperPartie(partie);
 			gtk_widget_destroy(dialogue);
@@ -793,7 +856,7 @@ void affichage_motSuivant (GtkWidget* appelant, gpointer param_partie)
 			gtk_widget_destroy(dialogue);
 			nbMots=0;
 		}
-	} else if (partie->superPartie&&partie->joueur1.score==10) {
+	} else if (partie->superPartie&&(partie->joueurCourant?partie->joueur1.score:partie->joueur2.score)==10) {
 		GtkWidget* dialogue=gtk_message_dialog_new(GTK_WINDOW(partie->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,
 				"Bravo, vous avez gagné la super-partie !");
 		gtk_dialog_run(GTK_DIALOG(dialogue));

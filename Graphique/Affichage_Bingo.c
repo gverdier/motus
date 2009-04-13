@@ -70,6 +70,7 @@ void affichage_bingo_clicCase (GtkWidget* appelant, GdkEventButton* bouton, gpoi
 	GtkWidget* dialogue;
 	int i,j;
 	int flag=0;
+	static int nbclics=0; /* Le nombre de fois où le joueur a cliqué (pour lui laisser 2 chances). */
 	
 	if (joueur->bingo.widgets.terminer) {
 		dialogue=gtk_message_dialog_new(GTK_WINDOW(joueur->bingo.widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_WARNING,
@@ -111,8 +112,9 @@ void affichage_bingo_clicCase (GtkWidget* appelant, GdkEventButton* bouton, gpoi
 				joueur->score-=50;
 			}
 			gtk_widget_destroy(dialogue);
-			affichage_bingo_aJoue(joueur);
+			++nbclics;
 			break;
+			/*
 		case 3:
 			dialogue=gtk_message_dialog_new(GTK_WINDOW(joueur->bingo.widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,
 					GTK_BUTTONS_OK,"Vous avez tiré un joker : vous pouvez rejouer !");
@@ -121,8 +123,8 @@ void affichage_bingo_clicCase (GtkWidget* appelant, GdkEventButton* bouton, gpoi
 			affichage_bingo_rafraichirLettres(joueur);
 			gtk_widget_show_all(joueur->bingo.widgets.fenetre);
 			break;
+			*/
 		default:
-		{
 			if (!memcmp(joueur->bingo.motusBingo,"MOTUS",5)) {
 				dialogue=gtk_message_dialog_new(GTK_WINDOW(joueur->bingo.widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,
 						GTK_BUTTONS_OK,"MOTUS ! Vous gagnez 100 points !\nLa (les) grille(s) est (sont) réinitialisée(s).");
@@ -132,9 +134,13 @@ void affichage_bingo_clicCase (GtkWidget* appelant, GdkEventButton* bouton, gpoi
 				jeu_bingo_initialiser(&joueur->bingo);
 				jeu_bingo_initialiser(joueur->bingoAutreJoueur);
 			}
-			affichage_bingo_aJoue(joueur);
-		}
+			++nbclics;
 	}
+	if (nbclics==2) {
+		affichage_bingo_aJoue(joueur);
+		nbclics=0;
+	} else
+		affichage_bingo_rafraichirLettres(joueur);
 }
 
 void affichage_bingo_aJoue (Joueur* joueur)

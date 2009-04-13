@@ -10,7 +10,6 @@ Options jeu_optionsDefaut (void)
 	opt.modeDiabolique=0;
 	opt.tempsReponse=10;
 	opt.bingo=1;
-	opt.historique=0;
 
 	return opt;
 }
@@ -178,6 +177,8 @@ int jeu_tirerMot (char* mot, int taille_mot, int diabolique) {
 	fseek (dictio, numligne * (taille_mot + 1) - 1, SEEK_SET) ; /* On va a la ligne correspondante */
 	fscanf (dictio, "%s", mot) ;
 	fclose (dictio) ;
+	
+	printf("%s\n",mot);
 	
 	return 0 ;
 }
@@ -354,7 +355,7 @@ void jeu_bingo_distribuer (Bingo *bingo)
 		jeu_bingo_ajouterLettre(bingo,'S');
 	}
 
-	for(k=0;k<3;++k) {
+	for(k=0;k<5;++k) {
 		jeu_bingo_ajouterLettre(bingo,'X');
 	}
 }
@@ -393,4 +394,78 @@ int jeu_bingo_gratter (Bingo *bingo, int numCase)
 	}
 
 	return 0;
+}
+
+int jeu_historique_sauver (char* nom, int score)
+{
+	FILE* hist;
+	int tmpscore; /* Pour stocker un score lu dans l'historique */
+	
+	hist=fopen("partie.hist", "rb");
+	if (!hist) {
+		/* Le fichier n'existe pas : on le crée et on y met le joueur. */
+		hist=fopen("partie.hist", "wb");
+		if (!hist)
+			return -1;
+		fwrite(nom,1,TAILLE_PSEUDO,hist);
+		fwrite(&score,sizeof(int),1,hist);
+		fclose(hist);
+		return 1;
+	}
+	/* On récupère le score du moins bon joueur (le dernier enregistré) */
+	fseek(hist,-sizeof(int),SEEK_END);
+	fread(&tmpscore,sizeof(int),1,hist);
+	if (score<tmpscore) {
+		/* Le joueur n'est pas assez bon... */
+		fclose(hist);
+		return 0;
+	}
+	/* Il faut récupérer les données puis les réécrire en rajoutant le joueur
+	 * et éventuellement en supprimant le moins bon joueur. */
+	{
+		FILE* hist2; /* On y recopie l'historique */
+		char tmpnom[TAILLE_PSEUDO]; /* Pour stocker le nom d'un joueur récupéré dans l'historique */
+		int nbecrits;
+		char joueurEcrit=0;
+		
+		hist2=fopen(".temp.hist","wb");
+		if (!hist2) {
+			fclose(hist);
+			return -1;
+		}
+		rewind(hist);
+		for (nbecrits=0;nbecrits<TAILLE_HISTORIQUE&&fread(tmpnom,1,TAILLE_PSEUDO,hist);) {
+			fread(&tmpscore,sizeof(int),1,hist);
+			if(tmpscore<=score&&!joueurEcrit) {
+				/* Il faut d'abord placer le joueur */
+				fwrite(nom,1,TAILLE_PSEUDO,hist2);
+				fwrite(&score,sizeof(int),1,hist2);
+				++nbecrits;
+				joueurEcrit=1;
+			}
+			if (nbecrits<TAILLE_HISTORIQUE) {
+				fwrite(tmpnom,1,TAILLE_PSEUDO,hist2);
+				fwrite(&tmpscore,sizeof(int),1,hist2);
+				++nbecrits;
+			}
+		}
+		fclose(hist2);
+		fclose(hist);
+		remove("partie.hist");
+		rename(".temp.hist","partie.hist");
+	}
+	return 1;
+}
+
+int jeu_historique_donnees (char noms[TAILLE_HISTORIQUE][TAILLE_PSEUDO], int scores[TAILLE_HISTORIQUE])
+{
+	FILE* hist;
+	int i;
+	
+	hist=fopen("partie.hist","rb");
+	if (!hist)
+		return 0;
+	for (i=0;fread(noms[i],1,TAILLE_PSEUDO,hist);++i)
+		fread(&scores[i],sizeof(int),1,hist);
+	return i;
 }
