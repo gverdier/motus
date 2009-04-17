@@ -1,0 +1,25 @@
+Règles du jeu MOTUS :
+
+
+Le Motus est un jeu dérivé du Mastermind, se jouant avec des mots à trouver, mots qui appartiennent à la langue française.
+
+Ce jeu peut se jouer seul ou en équipe. Seul, le but du jeu sera de marquer le plus de points possible dans un premier temps (partie classique), puis de trouver un nombre de mots précis en l'espace d'un temps donné (super partie). En équipe, seule l'équipe qui aura obtenu le plus grand nombre de points lors de la partie classique aura accès à la super partie.
+Après chaque recherche d'un mot, une phase dite de Bingo sera introduite. Si l'on joue en équipe, ce sera l'équipe qui aura trouvé le mot qui bénéficiera du Bingo.
+
+
+Concernant le Bingo, le joueur ou l'équipe dispose tout au long de la partie d'une grille contenant 25 cases. Ces cases contiennent chacune une des lettres suivante : un 'M', un 'O', un 'T', un 'U', un 'S', ou alors une lettre dite NOIRE. A chaque phase, le joueur concerné devra "gratter" deux cases non découvertes. Le but est d'avoir trouvé assez de lettres pour former au moins une fois le mot 'MOTUS'. Si on tombe sur une lettre NOIRE, alors si l'on joue seul, on pourra recevoir une pénalité de points, tandis que si l'on joue en équipe, la main passera à l'équipe adverse.
+Si le mot 'MOTUS' est complèté, alors toutes les grilles de Bingo seront renouvelées et le joueur concerné obtient un bonus de 100 points.
+
+
+Concernant la recherche d'un mot en partie classique, la première lettre du mot sera tout le temps donnée. Le joueur dispose alors d'un certain nombre de propositions. Celles-ci sont alors tour à tour corrigées selon 3 cas :
+  - La lettre est présente dans le mot et est à la bonne place (fond rouge).
+  - La lettre est présente dans le mot mais n'est pas à la bonne place (fond jaune).
+  - La lettre n'est pas présente dans le mot.
+Le joueur doit pour chaque proposition respecter un certain nombre de contraintes :
+  - La proposition doit respecter le nombre de lettres du mot recherché.
+  - La proposition doit apparaitre dans le dictionnaire utilisé par le programme (s'apparentant à la langue française).
+Si ces contraintes ne sont pas respectées, alors la proposition sera prise en compte mais ne sera pas corrigée. Si l'on joue alors en équipe le main passera à l'équipe adverse et une lettre sera révélée.
+La recherche du mot s'arrête quand le nombre de propositions s'épuise (la main passe alors à l'équipe adverse si l'on joue en équipe) ou si le mot recherché est trouvé (celui qui l'a trouvé se voit bonifié de 50 points).
+
+
+En super partie, la recherche d'un mot se déroule de la même façon, mais une deuxième lettre pourra être révélée dès le début de la recherche.
