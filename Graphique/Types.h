@@ -47,6 +47,9 @@ typedef struct {
 	char gratte; /**< \brief Booléen indique si la case a été grattée. */
 } Case_bingo;
 
+/**
+ * \brief Les widgets GTK+ pour la fenêtre de bingo.
+ */
 typedef struct {
 	GtkWidget* fenetre; /**< \brief La fenêtre de bingo. */
 	GtkWidget* box; /**< \brief La box (verticale) contenant les autres widgets. */

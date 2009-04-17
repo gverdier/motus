@@ -151,7 +151,7 @@ void jeu_ajouterLettre (Mot* menu_mot)
 	int i=0;
 
 	while (menu_mot->motTrouve[i++]);
-
+	
 	menu_mot->motTrouve[i-1]=1;
 }
 

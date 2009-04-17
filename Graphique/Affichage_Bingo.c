@@ -64,6 +64,37 @@ void affichage_bingo_lancer (Joueur* joueur, GtkWindow* parent)
 	g_signal_connect(G_OBJECT(widgets->fenetre),"delete-event",G_CALLBACK(affichage_bingo_terminerFenetre),joueur);
 }
 
+void affichage_bingo_rafficher (Bingo* bingo)
+{
+	int i,j;
+	char str[2];
+	
+	str[1]='\0';
+	for (i=0;i<5;++i)
+		for (j=0;j<5;++j) {
+			if (bingo->grilleBingo[i][j].gratte) {
+				if (bingo->grilleBingo[i][j].lettre=='X') {
+					gtk_image_set_from_file(GTK_IMAGE(bingo->widgets.images[i][j]),"FondBingoNoir.png");
+					gtk_label_set_label(GTK_LABEL(bingo->widgets.lettres[i][j])," ");
+				} else {
+					gtk_image_set_from_file(GTK_IMAGE(bingo->widgets.images[i][j]),"FondBingo.png");
+					str[0]=bingo->grilleBingo[i][j].lettre;
+					gtk_label_set_label(GTK_LABEL(bingo->widgets.lettres[i][j]),str);
+				}
+			} else {
+				gtk_image_set_from_file(GTK_IMAGE(bingo->widgets.images[i][j]),"FondBingo.png");
+				gtk_label_set_label(GTK_LABEL(bingo->widgets.lettres[i][j])," ");
+			}
+		}
+	for (i=0;i<5;++i) {
+		if (bingo->motusBingo[i]!='*') {
+			str[0]=bingo->motusBingo[i];
+			gtk_label_set_label(GTK_LABEL(bingo->widgets.lettres[5][i]),str);
+		} else
+			gtk_label_set_label(GTK_LABEL(bingo->widgets.lettres[5][i])," ");
+	}
+}
+
 void affichage_bingo_clicCase (GtkWidget* appelant, GdkEventButton* bouton, gpointer param_joueur)
 {
 	Joueur* joueur=(Joueur*)param_joueur;
@@ -105,6 +136,7 @@ void affichage_bingo_clicCase (GtkWidget* appelant, GdkEventButton* bouton, gpoi
 						GTK_BUTTONS_OK,"Vous avez tiré une boule noire.\nLa main passe.");
 				gtk_dialog_run(GTK_DIALOG(dialogue));
 				*(joueur->joueurCourant)=!*(joueur->joueurCourant);
+				
 			} else {
 				dialogue=gtk_message_dialog_new(GTK_WINDOW(joueur->bingo.widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,
 						GTK_BUTTONS_OK,"Vous avez tiré une boule noire.\nVous perdez 50 points.");
@@ -112,18 +144,8 @@ void affichage_bingo_clicCase (GtkWidget* appelant, GdkEventButton* bouton, gpoi
 				joueur->score-=50;
 			}
 			gtk_widget_destroy(dialogue);
-			++nbclics;
+			nbclics=2; /* On termine le bingo */
 			break;
-			/*
-		case 3:
-			dialogue=gtk_message_dialog_new(GTK_WINDOW(joueur->bingo.widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,
-					GTK_BUTTONS_OK,"Vous avez tiré un joker : vous pouvez rejouer !");
-			gtk_dialog_run(GTK_DIALOG(dialogue));
-			gtk_widget_destroy(dialogue);
-			affichage_bingo_rafraichirLettres(joueur);
-			gtk_widget_show_all(joueur->bingo.widgets.fenetre);
-			break;
-			*/
 		default:
 			if (!memcmp(joueur->bingo.motusBingo,"MOTUS",5)) {
 				dialogue=gtk_message_dialog_new(GTK_WINDOW(joueur->bingo.widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,
@@ -133,6 +155,7 @@ void affichage_bingo_clicCase (GtkWidget* appelant, GdkEventButton* bouton, gpoi
 				joueur->score+=100;
 				jeu_bingo_initialiser(&joueur->bingo);
 				jeu_bingo_initialiser(joueur->bingoAutreJoueur);
+				affichage_bingo_rafficher (&joueur->bingo);
 			}
 			++nbclics;
 	}
@@ -164,8 +187,12 @@ void affichage_bingo_rafraichirLettres (Joueur* joueur)
 	for (i=0;i<5;++i)
 		for (j=0;j<5;++j)
 			if (joueur->bingo.grilleBingo[i][j].gratte) {
-				str[0]=joueur->bingo.grilleBingo[i][j].lettre;
-				gtk_label_set_label(GTK_LABEL(joueur->bingo.widgets.lettres[i][j]),str);
+				if (joueur->bingo.grilleBingo[i][j].lettre=='X')
+					gtk_image_set_from_file(GTK_IMAGE(joueur->bingo.widgets.images[i][j]),"FondBingoNoir.png");
+				else {
+					str[0]=joueur->bingo.grilleBingo[i][j].lettre;
+					gtk_label_set_label(GTK_LABEL(joueur->bingo.widgets.lettres[i][j]),str);
+				}
 			}
 	for (i=0;i<5;++i)
 		if (joueur->bingo.motusBingo[i]!='*') {

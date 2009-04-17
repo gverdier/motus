@@ -37,6 +37,16 @@
 void affichage_bingo_lancer (Joueur* joueur, GtkWindow* parent);
 
 /**
+ * \brief Raffiche toutes les cases du bingo.
+ * \param bingo Le bingo joué.
+ *
+ * Utilisé quand le joueur fait un MOTUS pour remettre l'affichage à 0.
+ * Pour mettre à jour la grille après que le joueur ait tiré un mot, préférer
+ * affichage_bingo_rafraichirLettres() qui est plus rapide.
+ */
+void affichage_bingo_rafficher (Bingo* bingo);
+
+/**
  * \brief Appelée quand le joueur clique sur une case de la grille de bingo.
  * \param appelant Le widget ayant appelée la fonction de rappel.
  * \param bouton Le bouton sur lequel cliqué l'utilisateur.

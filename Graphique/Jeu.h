@@ -80,7 +80,7 @@ void jeu_enleverEltTab (char tab[7], int* nbElt, char elt);
  * Cette fonction est appelée, dans le mode 2 joueurs, quand la main passe :
  * une lettre supplémentaire est alors dévoilée.
  */
-void jeu_ajouterLettre (Mot* menumot);
+void jeu_ajouterLettre (Mot* menu_mot);
 
 /**
  * \brief Corrige un mot saisi par l'utilisateur.

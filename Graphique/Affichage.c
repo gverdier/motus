@@ -648,7 +648,7 @@ void affichage_meilleursScores (GtkWidget* appelant, gpointer fenetre)
 	
 	dialogue=gtk_dialog_new_with_buttons("Meilleurs scores",GTK_WINDOW(fenetre),GTK_DIALOG_MODAL,GTK_STOCK_OK,GTK_RESPONSE_OK,NULL);
 	/* Il est inutile de terminer le jeu si ceci échoue. */
-	BINGO_VERIFIER_ALLOCATION(dialogue,"Impossible de créer la boîte de dialogue des meilleurs scores.\n",return;);
+	BINGO_VERIFIER_ALLOCATION(dialogue,"Impossible de créer la boîte de dialogue des meilleurs scores.\n",return;)
 	
 	nbenregistres=jeu_historique_donnees(noms,scores);
 	texte=malloc(nbenregistres*(TAILLE_PSEUDO+3)+200); /*Pour avoir assez de place pour tout écrire */
@@ -679,9 +679,9 @@ void affichage_reglesJeu (GtkWidget* appelant, gpointer param_partie)
 {
 	GtkWidget* dialogue;
 	
-	dialogue=gtk_message_dialog_new(GTK_WINDOW(((Partie*)(param_partie))->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK,
-			"Non disponible");
-	VERIFIER_ALLOCATION(dialogue,"Impossible de créer la boîte de message.\n",(Partie*)param_partie)
+	dialogue=gtk_message_dialog_new(GTK_WINDOW(((Partie*)param_partie)->widgets.fenetre),GTK_DIALOG_MODAL,GTK_MESSAGE_INFO,GTK_BUTTONS_OK,
+			"Voir le fichier README joint.");
+	gtk_widget_show_all(GTK_DIALOG(dialogue)->vbox);
 	gtk_dialog_run(GTK_DIALOG(dialogue));
 	gtk_widget_destroy(dialogue);
 }
@@ -727,12 +727,12 @@ void affichage_saisieMot (GtkWidget* entry, gpointer param_partie)
 				!jeu_motPresent(mot,partie->options.lettresParMot,0)||
 				(partie->options.modeDiabolique&&!jeu_motPresent(mot,partie->options.lettresParMot,1))) {
 			partie->motCourant.motsSaisis[ligne][0]='\0';
-			affichage_saisieMot(NULL,partie); /* On passe au mot suivant */
 			if (!partie->superPartie&&partie->options.nbJoueurs==2) {
 				partie->joueurCourant=!partie->joueurCourant;
 				jeu_ajouterLettre(&partie->motCourant);
 				affichage_miseAJourScoreNom(partie);
 			}
+			affichage_saisieMot(NULL,partie); /* On passe au mot suivant */
 			return;
 		}
 		strcpy(partie->motCourant.motsSaisis[ligne],mot);
@@ -864,7 +864,7 @@ void affichage_motSuivant (GtkWidget* appelant, gpointer param_partie)
 		affichage_terminerPartie(partie);
 		partie->joueur1.score=0;
 		nbMots=0;
-	} else{
+	} else {
 		int i,j;
 		
 		affichage_miseAJourScoreNom(partie);
