@@ -877,6 +877,7 @@ void affichage_motSuivant (GtkWidget* appelant, gpointer param_partie)
 		}
 		gtk_entry_set_text(GTK_ENTRY(partie->widgets.entree),"");
 		gtk_widget_hide(partie->widgets.suivant);
+		gtk_widget_grab_focus(partie->widgets.entree);
 		affichage_nouveauMot(partie);
 		affichage_saisieMot (NULL, partie);
 	}
