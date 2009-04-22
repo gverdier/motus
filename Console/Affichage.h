@@ -33,7 +33,7 @@ Options affichage_saisieOptions (void);
 /** 
  * \brief Permet la saisie d'un nom de joueur.
  * \param nom La variable contenant le nom du joueur.
- * \param nbjoueur Le numéro d'identification du joueur concerné.
+ * \param nbjoueurs Le numéro d'identification du joueur concerné.
  */
 void affichage_saisieJoueur (char nom[], int nbjoueurs);
 

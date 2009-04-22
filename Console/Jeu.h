@@ -75,7 +75,7 @@ Partie jeu_initialiserPartie (int mode_2joueurs);
  * \brief Savoir si un élément donné appartient à un tableau d'éléments (appliqué ici aux char).
  * \param tab Le tableau d'éléments.
  * \param nbElt Le nombre d'éléments que contient tab
- * \param.elt L'élément donné.
+ * \param elt L'élément donné.
  * \return
  * - 1 si l'élément appartient au tableau.
  * - 0 sinon.
