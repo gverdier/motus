@@ -17,7 +17,7 @@
 /**
  * \brief Pour simplifier les notations.
  */
-typedef unsigned int uint ;
+typedef unsigned int uint;
 
 /**
  * \brief Une case de grille de bingo.
@@ -62,9 +62,9 @@ typedef struct _Options {
  * \brief Regroupe les données sur un joueur.
  */
 typedef struct _Joueur {
-	char nom[TAILLE_PSEUDO] ; /**< \brief Le nom (pseudo) du joueur. */
-	Bingo bingo ; /**< \brief La grille du bingo (5x5) et le tableau récupitulatif. */
-	int points ;
+	char nom[TAILLE_PSEUDO]; /**< \brief Le nom (pseudo) du joueur. */
+	Bingo bingo; /**< \brief La grille du bingo (5x5) et le tableau récupitulatif. */
+	int score; /**< \brief Le score du joueur. */
 } Joueur ;
 
 /**
@@ -82,11 +82,11 @@ typedef struct _Mot {
  * \brief Regroupe toutes les données sur la partie en cours.
  */
 typedef struct _Partie {
-	Options options ; /**< \brief Les options du jeu. */
-	Joueur joueur1 ; /**< \brief Le premier joueur (le seul utilisé en mode solo). */
-	Joueur joueur2 ; /**< \brief Le second joueur (pour le mode 2 joueurs seulement). */
-	int joueurCourant ; /**< \brief Indique si le joueur 1 joue (prend pour valeur 1 ou 0)   */
-	Mot motCourant ; /**< \brief Le mot actuellement joué. */
-} Partie ;
+	Options options; /**< \brief Les options du jeu. */
+	Joueur joueur1; /**< \brief Le premier joueur (le seul utilisé en mode solo). */
+	Joueur joueur2; /**< \brief Le second joueur (pour le mode 2 joueurs seulement). */
+	int joueurCourant; /**< \brief Indique si le joueur 1 joue (prend pour valeur 1 ou 0)   */
+	Mot motCourant; /**< \brief Le mot actuellement joué. */
+} Partie;
 
 #endif

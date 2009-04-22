@@ -142,9 +142,9 @@ int affichage_sousMenu (Partie partie, int num_mot, int mode_2joueurs)
 	printf(" ########################################################\n");
 	printf(" ### MOT NUMERO %d  #####################################%c\n",num_mot,num_mot<10?'#':0);
 	printf(" ########################################################\n");
-	printf(" #    1-Chercher le mot                                 #    %s : %d points\n",partie.joueur1.nom,partie.joueur1.points);
+	printf(" #    1-Chercher le mot                                 #    %s : %d points\n",partie.joueur1.nom,partie.joueur1.score);
 	if (mode_2joueurs) {
-		printf(" #    2-Sauvegarder                                     #    %s : %d points\n",partie.joueur2.nom,partie.joueur2.points);
+		printf(" #    2-Sauvegarder                                     #    %s : %d points\n",partie.joueur2.nom,partie.joueur2.score);
 	}else{
 		printf(" #    2-Sauvegarder                                     #\n");
 	}
@@ -253,8 +253,8 @@ void affichage_pointsBingo (Partie *partie, int mode_2joueurs)
 	if (resBingo==1) {
 		printf("Félicitations ! VOus venez de reconstituer le mot \"MOTUS\", les grilles vont maintenant être réinitialisées.\n");
 		if (partie->joueurCourant) {
-			partie->joueur1.points+=100;
-		}else{ partie->joueur2.points+=100; }
+			partie->joueur1.score+=100;
+		}else{ partie->joueur2.score+=100; }
 		jeu_bingo_initialiser(&(partie->joueur1.bingo));
 		jeu_bingo_distribuer(&(partie->joueur1.bingo));
 		if (mode_2joueurs) {
@@ -293,8 +293,8 @@ int affichage_trouverMot (Partie* partie, int mode_2joueurs)
 
 	if (leBonMot==1) {
 		printf("Bravo, vous avez trouvé le bon mot qui était : %s\n",partie->motCourant.mot);
-		if (partie->joueurCourant)  {(*partie).joueur1.points+=50;}
-		else { (*partie).joueur2.points+=50;}
+		if (partie->joueurCourant)  {(*partie).joueur1.score+=50;}
+		else { (*partie).joueur2.score+=50;}
 		return 1;
 	}else{
 		printf("Dommage, le mot était : %s\n",partie->motCourant.mot);
@@ -338,7 +338,7 @@ int affichage_lancerPartie ()
 		i++;
 	}
 
-	return partie.joueur1.points;
+	return partie.joueur1.score;
 }
 
 int affichage_lancerSuperPartie (int* points)

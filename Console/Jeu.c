@@ -108,8 +108,8 @@ Partie jeu_initialiserPartie (int mode_2joueurs)
 	partie.options=jeu_optionsDefaut();
 	affichage_saisieJoueur(partie.joueur1.nom,1);	
 	if (mode_2joueurs) affichage_saisieJoueur(partie.joueur2.nom,2);
-	partie.joueur1.points=0;
-	partie.joueur2.points=0;
+	partie.joueur1.score=0;
+	partie.joueur2.score=0;
 	partie.joueurCourant=1;
 	jeu_bingo_initialiser(&(partie.joueur1.bingo));
 	jeu_bingo_distribuer(&(partie.joueur1.bingo));
