@@ -136,6 +136,7 @@ typedef struct _Widgets {
 	GtkWidget*** caseslabels; /**< \brief Tableau des labels utilisés pour afficher la lettre d'une case de motus. */
 	GtkWidget* entree; /**< \brief La zone de saisie du mot. */
 	GtkWidget* suivant; /**< \brief Le bouton "suivant" pour passer au mot suivant. */
+	GtkWidget* status; /**< \brief Label pour afficher divers informations en bas de la fenêtre (à l'instar d'une "status bar"). */
 	GtkWidget* splash; /**< \brief L'écran de démarrage (splash screen).*/
 	GdkPixbuf* imgDefaut; /**< \brief Correspond à l'image de fond par défaut. */
 	GdkPixbuf* imgOK; /**< \brief Correspond à l'image de fond pour une lettre bien placée. */

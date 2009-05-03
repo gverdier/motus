@@ -10,17 +10,19 @@ int affichage_menu (void)
 	printf("  ############################################  \n");
 	printf("  #     1 - NOUVELLE PARTIE                  #  \n");
 	printf("  #     2 - NOUVELLE SUPER PARTIE            #  \n");
-	printf("  #     3 - CHARGER PARTIE                   #  \n");
-	printf("  #     4 - REGLES DU JEU                    #  \n");
-	printf("  #     5 - QUITTER                          #  \n");
+	printf("  #     3 - QUITTER                          #  \n");
 	printf("  ############################################  \n");
 	printf("\n  VOTRE CHOIX : ");
 
 	scanf("%d",&choix);
-	while ((choix<1)||(choix>5)) {
+	while ((choix<1)||(choix>3)) {
 		printf(" Choix non valide.");
 		printf("\n  VOTRE CHOIX : ");
 		scanf("%d",&choix);
+	}
+
+	if (choix==3) {
+		exit(EXIT_SUCCESS);
 	}
 
 	return choix;
@@ -144,20 +146,23 @@ int affichage_sousMenu (Partie partie, int num_mot, int mode_2joueurs)
 	printf(" ########################################################\n");
 	printf(" #    1-Chercher le mot                                 #    %s : %d points\n",partie.joueur1.nom,partie.joueur1.score);
 	if (mode_2joueurs) {
-		printf(" #    2-Sauvegarder                                     #    %s : %d points\n",partie.joueur2.nom,partie.joueur2.score);
+		printf(" #    2-Quitter le programme                            #\n    %s : %d points\n",partie.joueur2.nom,partie.joueur2.score);
 	}else{
-		printf(" #    2-Sauvegarder                                     #\n");
+		printf(" #    2-Quitter le programme                            #\n\n");
+		printf(" ########################################################\n");
 	}
-	printf(" #    3-Charger une partie                              #\n");
-	printf(" ########################################################\n");
-
 	printf("\nVotre choix :");
 	scanf("%d",&choix);
 
-	while (choix<1&&choix>3) {
+	while (choix<1&&choix>2) {
 		printf("Erreur : ce choix n'est pas valable.\nVotre choix :");
 		scanf("%d",&choix);
 	}
+
+		if (choix==2) {
+		exit(EXIT_SUCCESS);
+		}
+
 
 	printf("\n");
 

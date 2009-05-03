@@ -15,12 +15,6 @@
  * \brief Vérifie qu'un pointeur a correctement été alloué. Si ce n'est pas le cas, affiche un message d'erreur puis termine le programme.
  */
 #define VERIFIER_ALLOCATION(pointeur,message,partie) BINGO_VERIFIER_ALLOCATION(pointeur,message,affichage_terminer(NULL,partie);)
-/* Ancienne implémentation
-#define VERIFIER_ALLOCATION(pointeur,message,partie) if(pointeur==NULL) {\
-	affichage_erreur(message);\
-	affichage_terminer(NULL,partie);\
-}
-*/
 
 /**
  * \brief Lance le jeu de Motus.
@@ -116,6 +110,12 @@ gboolean affichage_tableLettres (gpointer partie);
  * \return Booléen utilisé par GTK+ pour savoir s'il faut arrêter le timer appelant cette fonction.
  */
 gboolean affichage_rafraichissementTimer (gpointer partie);
+
+/**
+ * \brief Efface (enlève le texte de) la barre de status.
+ * \param status La barre de status.
+ */
+void affichage_effacerBarreStatus (gpointer status);
 
 /**
  * \brief Commence une nouvelle partie.
