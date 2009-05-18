@@ -298,17 +298,17 @@ int affichage_saisieOptions (Partie* partie)
 {
 	/* ATTENTION : pour l'instant, seul le mode UN JOUEUR est disponible. */
 	/* Boîte de dialogue demandant au joueur ses options. */
-	GtkWidget* dialogue;
-	GtkWidget* hbox;
-	GtkWidget* label;
-	GtkWidget *nom1,*nom2;
-	GtkWidget *radio1,*radio2,*radio3;
-	GSList* nbjoueurs;
-	GSList* nblettres;
-	GSList* nbessais;
-	GtkWidget* diabolique;
-	GtkWidget* tempsReponse;
-	GtkWidget* bingo;
+	GtkWidget* dialogue=NULL;
+	GtkWidget* hbox=NULL;
+	GtkWidget* label=NULL;
+	GtkWidget *nom1=NULL,*nom2=NULL;
+	GtkWidget *radio1=NULL,*radio2=NULL,*radio3=NULL;
+	GSList* nbjoueurs=NULL;
+	GSList* nblettres=NULL;
+	GSList* nbessais=NULL;
+	GtkWidget* diabolique=NULL;
+	GtkWidget* tempsReponse=NULL;
+	GtkWidget* bingo=NULL;
 	int i;
 	
 	jeu_initialiser(partie);
@@ -582,8 +582,6 @@ void affichage_nouvelleSuperPartie (GtkWidget* appelant, gpointer param_partie)
 		VERIFIER_ALLOCATION(partie->widgets.caseslabels[i],"Impossible d'allouer le tableau de labels.\n",partie);
 	}
 	
-	affichage_nouveauMot(partie);
-	
 	affichage_miseAJourScoreNom(partie);
 	partie->widgets.layout=gtk_layout_new(NULL,NULL);
 	VERIFIER_ALLOCATION(partie->widgets.layout,"Impossible d'allouer le layout.\n",partie);
@@ -600,13 +598,15 @@ void affichage_nouvelleSuperPartie (GtkWidget* appelant, gpointer param_partie)
 	}
 	gtk_box_pack_start(GTK_BOX(partie->widgets.boxprincipale),partie->widgets.layout,TRUE,TRUE,0);
 	
-	gtk_window_resize(GTK_WINDOW(partie->widgets.fenetre),partie->options.lettresParMot*32,150+partie->options.nbEssais*32);
-	
 	partie->widgets.entree=gtk_entry_new();
 	VERIFIER_ALLOCATION(partie->widgets.entree,"Impossible de créer la zone de saisie.\n",partie)
 	gtk_widget_set_tooltip_text(partie->widgets.entree,"Saisissez votre mot ici.");
 	g_signal_connect(G_OBJECT(partie->widgets.entree),"activate",G_CALLBACK(affichage_saisieMot),partie);
 	gtk_box_pack_start(GTK_BOX(partie->widgets.boxprincipale),partie->widgets.entree,FALSE,FALSE,0);
+	
+	affichage_nouveauMot(partie);
+	
+	gtk_window_resize(GTK_WINDOW(partie->widgets.fenetre),partie->options.lettresParMot*32,150+partie->options.nbEssais*32);
 	
 	partie->widgets.suivant=gtk_button_new_with_label("Mot suivant");
 	VERIFIER_ALLOCATION(partie->widgets.entree,"Impossible de créer le bouton \"Mot suivant\".\n",partie)
@@ -891,9 +891,11 @@ void affichage_motSuivant (GtkWidget* appelant, gpointer param_partie)
 		}
 		gtk_entry_set_text(GTK_ENTRY(partie->widgets.entree),"");
 		gtk_widget_hide(partie->widgets.suivant);
-		sprintf(str,"Mot n° %d/10",nbMots);
-		gtk_label_set_label(GTK_LABEL(partie->widgets.status),str);
-		g_timeout_add(6000,(GSourceFunc)affichage_effacerBarreStatus,partie->widgets.status);
+		if (!partie->superPartie) {
+			sprintf(str,"Mot n° %d/10",nbMots);
+			gtk_label_set_label(GTK_LABEL(partie->widgets.status),str);
+			g_timeout_add(6000,(GSourceFunc)affichage_effacerBarreStatus,partie->widgets.status);
+		}
 		affichage_nouveauMot(partie);
 		affichage_saisieMot (NULL, partie);
 	}

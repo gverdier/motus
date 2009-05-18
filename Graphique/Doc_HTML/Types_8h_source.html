@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>Motus:  Fichier source de Types.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css">
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.5.9 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>Page&nbsp;principale</span></a></li>
+      <li><a href="annotated.html"><span>Structures&nbsp;de&nbsp;données</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="files.html"><span>Liste&nbsp;des&nbsp;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Portée&nbsp;globale</span></a></li>
+    </ul>
+  </div>
+<h1>Types.h</h1><a href="Types_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 
+<a name="l00008"></a>00008 <span class="preprocessor">#ifndef __TYPES_H__</span>
+<a name="l00009"></a>00009 <span class="preprocessor"></span><span class="preprocessor">#define __TYPES_H__</span>
+<a name="l00010"></a>00010 <span class="preprocessor"></span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include &lt;stdio.h&gt;</span>
+<a name="l00012"></a>00012 <span class="preprocessor">#include &lt;stdlib.h&gt;</span>
+<a name="l00013"></a>00013 <span class="preprocessor">#include &lt;string.h&gt;</span>
+<a name="l00014"></a>00014 <span class="preprocessor">#include &lt;time.h&gt;</span>
+<a name="l00015"></a>00015 <span class="preprocessor">#include &lt;gtk/gtk.h&gt;</span>
+<a name="l00016"></a>00016 
+<a name="l00020"></a><a class="code" href="Types_8h.html#fd60baecd706903b439f544a8dc9763c">00020</a> <span class="preprocessor">#define TAILLE_PSEUDO 20</span>
+<a name="l00021"></a>00021 <span class="preprocessor"></span>
+<a name="l00027"></a><a class="code" href="struct__Options.html">00027</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct__Options.html" title="Regroupe les options du jeu.">_Options</a> {
+<a name="l00028"></a><a class="code" href="struct__Options.html#11d9c7d404b8134b141102ff69dcfb69">00028</a>         <span class="keywordtype">int</span> <a class="code" href="struct__Options.html#11d9c7d404b8134b141102ff69dcfb69" title="Le nombre de lettres dans les mots tirés.">lettresParMot</a>; 
+<a name="l00029"></a><a class="code" href="struct__Options.html#780fdde59f47d826b70b39e137f51b2c">00029</a>         <span class="keywordtype">int</span> <a class="code" href="struct__Options.html#780fdde59f47d826b70b39e137f51b2c" title="Le nombre de joueurs.">nbJoueurs</a>; 
+<a name="l00030"></a><a class="code" href="struct__Options.html#c8182d42b9d4d778a6ac67835d6ed7c5">00030</a>         <span class="keywordtype">int</span> <a class="code" href="struct__Options.html#c8182d42b9d4d778a6ac67835d6ed7c5" title="Le nombre d&amp;#39;essais laissés au joueur pour trouver un mot.">nbEssais</a>; 
+<a name="l00031"></a><a class="code" href="struct__Options.html#e69053c63cd6a5be35962c6b42cd916b">00031</a>         <span class="keywordtype">int</span> <a class="code" href="struct__Options.html#e69053c63cd6a5be35962c6b42cd916b" title="Booléen indiquant si le mode diabolique est activé.">modeDiabolique</a>; 
+<a name="l00038"></a><a class="code" href="struct__Options.html#1e340333bb339c6f65ee2173360b2a6a">00038</a>         <span class="keywordtype">int</span> <a class="code" href="struct__Options.html#1e340333bb339c6f65ee2173360b2a6a" title="Le temps que la joueur a pour répondre.">tempsReponse</a>;
+<a name="l00039"></a><a class="code" href="struct__Options.html#e4294032639ada50d452cfa084052a56">00039</a>         <span class="keywordtype">int</span> <a class="code" href="struct__Options.html#e4294032639ada50d452cfa084052a56" title="Booléen indiquant si le bingo est activé.">bingo</a>; 
+<a name="l00040"></a>00040 } <a class="code" href="struct__Options.html" title="Regroupe les options du jeu.">Options</a>;
+<a name="l00041"></a>00041 
+<a name="l00045"></a><a class="code" href="structCase__bingo.html">00045</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00046"></a><a class="code" href="structCase__bingo.html#24c27d2803cfcb004c709e6f0f0e6c2a">00046</a>         <span class="keywordtype">char</span> lettre; 
+<a name="l00047"></a><a class="code" href="structCase__bingo.html#ae200b349bfece86a1b9ca240d0830b5">00047</a>         <span class="keywordtype">char</span> gratte; 
+<a name="l00048"></a>00048 } <a class="code" href="structCase__bingo.html" title="Une case de grille de bingo.">Case_bingo</a>;
+<a name="l00049"></a>00049 
+<a name="l00053"></a><a class="code" href="structBingoWidgets.html">00053</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00054"></a><a class="code" href="structBingoWidgets.html#2f26064acbb537501d7688b681c84482">00054</a>         GtkWidget* fenetre; 
+<a name="l00055"></a><a class="code" href="structBingoWidgets.html#9d151ea63df1f6ac3fe38ecf9f375c8b">00055</a>         GtkWidget* box; 
+<a name="l00056"></a><a class="code" href="structBingoWidgets.html#d4f3357480be65838ae5d8518b367d9c">00056</a>         GtkWidget* boxMotus; 
+<a name="l00057"></a><a class="code" href="structBingoWidgets.html#cd82d70cd0822acf401765f67d0d6ee6">00057</a>         GtkWidget* nom; 
+<a name="l00058"></a><a class="code" href="structBingoWidgets.html#aedecb6d7b9e05f2a1fb898733fc092b">00058</a>         GtkWidget* table; 
+<a name="l00059"></a><a class="code" href="structBingoWidgets.html#6ede01afc7f7890127b5b9801a5aeb0d">00059</a>         GtkWidget* events[5][5]; 
+<a name="l00060"></a><a class="code" href="structBingoWidgets.html#5744bc03d610fda99436a0ded2d9bb35">00060</a>         GtkWidget* layouts[6][5]; 
+<a name="l00067"></a><a class="code" href="structBingoWidgets.html#c4494a6c4c4bc370168ccbb0f8ab9954">00067</a>         GtkWidget* images[6][5];
+<a name="l00074"></a><a class="code" href="structBingoWidgets.html#fb5baa66f88e4a61f56264ff2462c4fa">00074</a>         GtkWidget* lettres[6][5];
+<a name="l00075"></a><a class="code" href="structBingoWidgets.html#888e0bf44d192996473fc0ac3c1cba32">00075</a>         GtkWidget* terminer; 
+<a name="l00076"></a>00076 } <a class="code" href="structBingoWidgets.html" title="Les widgets GTK+ pour la fenêtre de bingo.">BingoWidgets</a>;
+<a name="l00077"></a>00077 
+<a name="l00081"></a><a class="code" href="structBingo.html">00081</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00082"></a><a class="code" href="structBingo.html#ce5217c884dfc3ea89c7ea2f177c5a21">00082</a>         <a class="code" href="structCase__bingo.html" title="Une case de grille de bingo.">Case_bingo</a> grilleBingo[5][5]; 
+<a name="l00083"></a><a class="code" href="structBingo.html#d733f6faf3e6cad9645709dd07be7e0a">00083</a>         <span class="keywordtype">char</span> motusBingo[5]; 
+<a name="l00084"></a><a class="code" href="structBingo.html#e065f0bd1b147cbbd0b7ffc37f3f3bc1">00084</a>         <a class="code" href="structBingoWidgets.html" title="Les widgets GTK+ pour la fenêtre de bingo.">BingoWidgets</a> widgets; 
+<a name="l00085"></a>00085 } <a class="code" href="structBingo.html" title="Regroupe les informations sur le bingo d&amp;#39;un joueur.">Bingo</a>;
+<a name="l00086"></a>00086 
+<a name="l00090"></a><a class="code" href="struct__Joueur.html">00090</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct__Joueur.html" title="Regroupe les données sur un joueur.">_Joueur</a> {
+<a name="l00091"></a><a class="code" href="struct__Joueur.html#10e331304979ea2e87bbdc33d8dca050">00091</a>         <span class="keywordtype">char</span> <a class="code" href="struct__Joueur.html#10e331304979ea2e87bbdc33d8dca050" title="Le nom (pseudo) du joueur.">nom</a>[<a class="code" href="Types_8h.html#fd60baecd706903b439f544a8dc9763c" title="La taille maximale du pseudo (nom) d&amp;#39;un joueur.">TAILLE_PSEUDO</a>]; 
+<a name="l00092"></a><a class="code" href="struct__Joueur.html#a10872ae2776febf6199567b19c00740">00092</a>         <a class="code" href="structBingo.html" title="Regroupe les informations sur le bingo d&amp;#39;un joueur.">Bingo</a> <a class="code" href="struct__Joueur.html#a10872ae2776febf6199567b19c00740" title="Pour le bingo.">bingo</a>; 
+<a name="l00093"></a><a class="code" href="struct__Joueur.html#40b9a1d59aa14e9c7ca2af71b6b79204">00093</a>         <span class="keywordtype">int</span> <a class="code" href="struct__Joueur.html#40b9a1d59aa14e9c7ca2af71b6b79204" title="Le score du joueur.">score</a>; 
+<a name="l00099"></a><a class="code" href="struct__Joueur.html#6de39269b6d979b3cac5ece36bd15f8c">00099</a>         <span class="keywordtype">int</span>* <a class="code" href="struct__Joueur.html#6de39269b6d979b3cac5ece36bd15f8c" title="Pointeur sur la variable &amp;quot;joueurCourant&amp;quot; de la structure Partie.">joueurCourant</a>;
+<a name="l00105"></a><a class="code" href="struct__Joueur.html#d82640083910137159bdffcd0ce9fa42">00105</a>         <span class="keyword">const</span> <span class="keywordtype">int</span>* <a class="code" href="struct__Joueur.html#d82640083910137159bdffcd0ce9fa42" title="Pointeur sur la variable &amp;quot;nbJoueurs&amp;quot; de la structure Options.">nbJoueurs</a>;
+<a name="l00111"></a><a class="code" href="struct__Joueur.html#996be4fabef45c7b7a0e5233152f9649">00111</a>         <a class="code" href="structBingo.html" title="Regroupe les informations sur le bingo d&amp;#39;un joueur.">Bingo</a>* <a class="code" href="struct__Joueur.html#996be4fabef45c7b7a0e5233152f9649" title="Pointeur sur le bingo de l&amp;#39;autre joueur.">bingoAutreJoueur</a>;
+<a name="l00112"></a>00112 } <a class="code" href="struct__Joueur.html" title="Regroupe les données sur un joueur.">Joueur</a>;
+<a name="l00113"></a>00113 
+<a name="l00117"></a><a class="code" href="struct__Mot.html">00117</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct__Mot.html" title="Les données sur le mot actuellement joue.">_Mot</a> {
+<a name="l00118"></a><a class="code" href="struct__Mot.html#7437f85984226dcb4928b2e4a1035e5e">00118</a>         <span class="keywordtype">char</span>* <a class="code" href="struct__Mot.html#7437f85984226dcb4928b2e4a1035e5e" title="Le mot à trouver.">mot</a>; 
+<a name="l00119"></a><a class="code" href="struct__Mot.html#472286cc9a438e15dd4a06b49e4924e0">00119</a>         <span class="keywordtype">char</span>** <a class="code" href="struct__Mot.html#472286cc9a438e15dd4a06b49e4924e0" title="Les mots saisis par l&amp;#39;utilisateur.">motsSaisis</a>; 
+<a name="l00120"></a><a class="code" href="struct__Mot.html#ac58a6a9e8b4a062e7ed1ddeaa7d7d57">00120</a>         <span class="keywordtype">char</span>** <a class="code" href="struct__Mot.html#ac58a6a9e8b4a062e7ed1ddeaa7d7d57" title="Corrections des mots saisis par l&amp;#39;utilisateur.">corrections</a>; 
+<a name="l00121"></a><a class="code" href="struct__Mot.html#254b56ff137bc4cded2be43069eee56f">00121</a>         <span class="keywordtype">char</span>* <a class="code" href="struct__Mot.html#254b56ff137bc4cded2be43069eee56f" title="Tableau binaire indiquant pour chaque lettre si elle a été trouvée.">motTrouve</a>; 
+<a name="l00122"></a><a class="code" href="struct__Mot.html#917722794bcfb560c7ba4219b5bb44f9">00122</a>         <span class="keywordtype">int</span> <a class="code" href="struct__Mot.html#917722794bcfb560c7ba4219b5bb44f9" title="Le nombre d&amp;#39;essais restants.">essaisRestants</a>; 
+<a name="l00123"></a>00123 } <a class="code" href="struct__Mot.html" title="Les données sur le mot actuellement joue.">Mot</a>;
+<a name="l00124"></a>00124 
+<a name="l00128"></a><a class="code" href="struct__Widgets.html">00128</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct__Widgets.html" title="Les widgets pour la fenêtre GTK+.">_Widgets</a> {
+<a name="l00129"></a><a class="code" href="struct__Widgets.html#93cefdd9e5e433ceaf3253bff8acdb1a">00129</a>         GtkWidget* <a class="code" href="struct__Widgets.html#93cefdd9e5e433ceaf3253bff8acdb1a" title="La fenêtre principale.">fenetre</a>; 
+<a name="l00130"></a><a class="code" href="struct__Widgets.html#74fc325dca91d46777f493769a3eef83">00130</a>         GtkWidget* <a class="code" href="struct__Widgets.html#74fc325dca91d46777f493769a3eef83" title="La « boîte » principale de la fenêtre.">boxprincipale</a>; 
+<a name="l00131"></a><a class="code" href="struct__Widgets.html#d20975c7237c8ba4d016c38973e6ec38">00131</a>         GtkWidget* <a class="code" href="struct__Widgets.html#d20975c7237c8ba4d016c38973e6ec38" title="Affiche le nom du joueur devant jouer.">joueur</a>; 
+<a name="l00132"></a><a class="code" href="struct__Widgets.html#ef16986ac97cb7d6f203ef4674a01dcc">00132</a>         GtkWidget* <a class="code" href="struct__Widgets.html#ef16986ac97cb7d6f203ef4674a01dcc" title="Label indiquant le(s) score(s) du (des) joueur(s).">scores</a>; 
+<a name="l00133"></a><a class="code" href="struct__Widgets.html#6b8c3034a2e5ec9310d45404d1ef69a7">00133</a>         GtkWidget* <a class="code" href="struct__Widgets.html#6b8c3034a2e5ec9310d45404d1ef69a7" title="Pour afficher le timer (barre de progression).">affichageTimer</a>; 
+<a name="l00134"></a><a class="code" href="struct__Widgets.html#abd0f7a92e24bb5bc3a688ce4097c2d4">00134</a>         GtkWidget* <a class="code" href="struct__Widgets.html#abd0f7a92e24bb5bc3a688ce4097c2d4" title="Les différents éléments de la grille (images, lettres) y sont affichés.">layout</a>; 
+<a name="l00135"></a><a class="code" href="struct__Widgets.html#5b8bbc09006a08bf6e618654f6526370">00135</a>         GtkWidget*** <a class="code" href="struct__Widgets.html#5b8bbc09006a08bf6e618654f6526370" title="Les images de fond (elles seront créées à partir de imageDefaut, imageOK et imageMauvaisePos)...">casesimages</a>; 
+<a name="l00136"></a><a class="code" href="struct__Widgets.html#aba288fd36c2fa589a6e4886bc84d352">00136</a>         GtkWidget*** <a class="code" href="struct__Widgets.html#aba288fd36c2fa589a6e4886bc84d352" title="Tableau des labels utilisés pour afficher la lettre d&amp;#39;une case de motus.">caseslabels</a>; 
+<a name="l00137"></a><a class="code" href="struct__Widgets.html#52d0a0d0282e955f9a180299e94f7f0a">00137</a>         GtkWidget* <a class="code" href="struct__Widgets.html#52d0a0d0282e955f9a180299e94f7f0a" title="La zone de saisie du mot.">entree</a>; 
+<a name="l00138"></a><a class="code" href="struct__Widgets.html#605591ac24b9b2cb1a85b43d1eac72c5">00138</a>         GtkWidget* <a class="code" href="struct__Widgets.html#605591ac24b9b2cb1a85b43d1eac72c5" title="Le bouton &amp;quot;suivant&amp;quot; pour passer au mot suivant.">suivant</a>; 
+<a name="l00139"></a><a class="code" href="struct__Widgets.html#5f901820d5534f4509a471f7977b6698">00139</a>         GtkWidget* <a class="code" href="struct__Widgets.html#5f901820d5534f4509a471f7977b6698" title="Label pour afficher divers informations en bas de la fenêtre (à l&amp;#39;instar d&amp;#39;une...">status</a>; 
+<a name="l00140"></a><a class="code" href="struct__Widgets.html#f3b6fbb6a0af9e321a368ccbfd050083">00140</a>         GtkWidget* <a class="code" href="struct__Widgets.html#f3b6fbb6a0af9e321a368ccbfd050083" title="L&amp;#39;écran de démarrage (splash screen).">splash</a>; 
+<a name="l00141"></a><a class="code" href="struct__Widgets.html#8faf5b78920dbf2884774b976b5de0ad">00141</a>         GdkPixbuf* <a class="code" href="struct__Widgets.html#8faf5b78920dbf2884774b976b5de0ad" title="Correspond à l&amp;#39;image de fond par défaut.">imgDefaut</a>; 
+<a name="l00142"></a><a class="code" href="struct__Widgets.html#4ea51e2281efdbd1028c597e66ca9399">00142</a>         GdkPixbuf* <a class="code" href="struct__Widgets.html#4ea51e2281efdbd1028c597e66ca9399" title="Correspond à l&amp;#39;image de fond pour une lettre bien placée.">imgOK</a>; 
+<a name="l00143"></a><a class="code" href="struct__Widgets.html#749f699c35b6c48da7a6dacdc5897d8b">00143</a>         GdkPixbuf* <a class="code" href="struct__Widgets.html#749f699c35b6c48da7a6dacdc5897d8b" title="Correspond à l&amp;#39;image de fond pour une lettre mal placée.">imgMauvaisePos</a>; 
+<a name="l00144"></a><a class="code" href="struct__Widgets.html#f3972eba0ece98dc37f2501889c38b58">00144</a>         GTimer* <a class="code" href="struct__Widgets.html#f3972eba0ece98dc37f2501889c38b58" title="Timer pour pouvoir indiquer au joueur combien de temps il lui reste.">timer</a>; 
+<a name="l00145"></a>00145 } <a class="code" href="struct__Widgets.html" title="Les widgets pour la fenêtre GTK+.">Widgets</a>;
+<a name="l00146"></a>00146 
+<a name="l00150"></a><a class="code" href="struct__Partie.html">00150</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct__Partie.html" title="Regroupe toutes les données sur la partie en cours.">_Partie</a> {
+<a name="l00151"></a><a class="code" href="struct__Partie.html#5df5a0956b5af6de18730d75586008ad">00151</a>         <a class="code" href="struct__Options.html" title="Regroupe les options du jeu.">Options</a> <a class="code" href="struct__Partie.html#5df5a0956b5af6de18730d75586008ad" title="Les options du jeu.">options</a>; 
+<a name="l00152"></a><a class="code" href="struct__Partie.html#e1bf14073de08ad6fe77968931c3f247">00152</a>         <a class="code" href="struct__Joueur.html" title="Regroupe les données sur un joueur.">Joueur</a> <a class="code" href="struct__Partie.html#e1bf14073de08ad6fe77968931c3f247" title="Le premier joueur (le seul utilisé en mode solo).">joueur1</a>; 
+<a name="l00153"></a><a class="code" href="struct__Partie.html#cd382298b176d9d6dac802dcfe100c75">00153</a>         <a class="code" href="struct__Joueur.html" title="Regroupe les données sur un joueur.">Joueur</a> <a class="code" href="struct__Partie.html#cd382298b176d9d6dac802dcfe100c75" title="Le second joueur (pour le mode 2 joueurs seulement).">joueur2</a>; 
+<a name="l00154"></a><a class="code" href="struct__Partie.html#b2881545dd76b7703d8114dbaf8a2bb5">00154</a>         <span class="keywordtype">int</span> <a class="code" href="struct__Partie.html#b2881545dd76b7703d8114dbaf8a2bb5" title="Le joueur courant : 1 &amp;lt;=&amp;gt; joueur1, 0 &amp;lt;=&amp;gt; joueur2.">joueurCourant</a>; 
+<a name="l00155"></a><a class="code" href="struct__Partie.html#730f5152b71dc5333638496d84bb661b">00155</a>         <a class="code" href="struct__Mot.html" title="Les données sur le mot actuellement joue.">Mot</a> <a class="code" href="struct__Partie.html#730f5152b71dc5333638496d84bb661b" title="Le mot actuellement joué.">motCourant</a>; 
+<a name="l00156"></a><a class="code" href="struct__Partie.html#908150a4ba2f225100b2c7d5edd9853a">00156</a>         <span class="keywordtype">int</span> <a class="code" href="struct__Partie.html#908150a4ba2f225100b2c7d5edd9853a" title="Booléen indiquant si on joue une partie simple ou une super-partie.">superPartie</a>; 
+<a name="l00157"></a><a class="code" href="struct__Partie.html#76136e7aee9302651c69c0be08641459">00157</a>         <span class="keywordtype">double</span> <a class="code" href="struct__Partie.html#76136e7aee9302651c69c0be08641459" title="Le temps restant au joueur pour jouer.">tempsRestant</a>; 
+<a name="l00158"></a><a class="code" href="struct__Partie.html#c9001de0dea5db2ca2a49080d91c8e1d">00158</a>         <a class="code" href="struct__Widgets.html" title="Les widgets pour la fenêtre GTK+.">Widgets</a> <a class="code" href="struct__Partie.html#c9001de0dea5db2ca2a49080d91c8e1d" title="Les widgets GTK+.">widgets</a>; 
+<a name="l00159"></a>00159 } <a class="code" href="struct__Partie.html" title="Regroupe toutes les données sur la partie en cours.">Partie</a>;
+<a name="l00160"></a>00160 
+<a name="l00161"></a>00161 <span class="preprocessor">#endif</span>
+</pre></div></div>
+<hr size="1"><address style="text-align: right;"><small>Généré le Mon May 18 16:50:50 2009 pour Motus par&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
+</body>
+</html>

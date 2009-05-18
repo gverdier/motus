@@ -1,0 +1,612 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>Motus: Référence du fichier Jeu.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css">
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.5.9 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>Page&nbsp;principale</span></a></li>
+      <li><a href="annotated.html"><span>Structures&nbsp;de&nbsp;données</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="files.html"><span>Liste&nbsp;des&nbsp;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Portée&nbsp;globale</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="contents">
+<h1>Référence du fichier Jeu.h</h1>Contient les définitions de fonctions et macros pour le module Jeu.  
+<a href="#_details">Plus de détails...</a>
+<p>
+<code>#include &lt;stdio.h&gt;</code><br>
+<code>#include &lt;stdlib.h&gt;</code><br>
+<code>#include &lt;string.h&gt;</code><br>
+<code>#include &quot;<a class="el" href="Types_8h_source.html">Types.h</a>&quot;</code><br>
+
+<p>
+<a href="Jeu_8h_source.html">Aller au code source de ce fichier.</a><table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>Fonctions</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Jeu_8h.html#4f83b1616bc27eeac439d238ce0f6177">jeu_bingo_initialiser</a> (<a class="el" href="structBingo.html">Bingo</a> *bingo)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Initialise une grille de bingo.  <a href="#4f83b1616bc27eeac439d238ce0f6177"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Jeu_8h.html#d48413e9f2202e53b2947ea614dbc167">jeu_bingo_ajouterLettre</a> (<a class="el" href="structBingo.html">Bingo</a> *bingo, char lettre)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Ajoute une lettre à une grille de <a class="el" href="structBingo.html" title="Regroupe les informations sur le bingo d&#39;un joueur.">Bingo</a> non remplie.  <a href="#d48413e9f2202e53b2947ea614dbc167"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Jeu_8h.html#02cf806c5b77fe24b7991ecc0365e132">jeu_bingo_distribuer</a> (<a class="el" href="structBingo.html">Bingo</a> *bingo)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Distribue le bingo.  <a href="#02cf806c5b77fe24b7991ecc0365e132"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Jeu_8h.html#7c3b10106b0c134f6f69a2f539cb565f">jeu_bingo_motusTrouve</a> (<a class="el" href="structBingo.html">Bingo</a> bingo)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Indique si le mot MOTUS est complété sur une grille.  <a href="#7c3b10106b0c134f6f69a2f539cb565f"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Jeu_8h.html#dbb2c5cac302bd2b6671a5a0795579d9">jeu_bingo_gratter</a> (<a class="el" href="structBingo.html">Bingo</a> *bingo, int numCase)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Gratte une case de bingo.  <a href="#dbb2c5cac302bd2b6671a5a0795579d9"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct__Options.html">Options</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Jeu_8h.html#311f82879b839de115cf71898ee2bd02">jeu_optionsDefaut</a> (void)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Génère automatiquement des options de jeu dites classiques.<ul>
+<li>6 lettres par mot</li><li>1 joueur</li><li>Mode diabolique desactivé</li><li>Un temps de réponse initialisé à 10 par défaut (non utilisé en mode Console)</li><li>Mode bingo initialisé à 1 par défaut (toujours utilisé en mode Console). </li></ul>
+ <a href="#311f82879b839de115cf71898ee2bd02"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct__Partie.html">Partie</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Jeu_8h.html#ea5cd982aca5b17c184830b63eb92780">jeu_initialiserPartie</a> (int mode_2joueurs)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Demande à l'utilisateur le nom des joueurs et initialise les options par défaut (sert aux tests).  <a href="#ea5cd982aca5b17c184830b63eb92780"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Jeu_8h.html#a10202f6feeefb6b311887a488a3772f">jeu_jeu_appartientTab</a> (char tab[7], int nbElt, char elt)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Savoir si un élément donné appartient à un tableau d'éléments (appliqué ici aux char).  <a href="#a10202f6feeefb6b311887a488a3772f"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Jeu_8h.html#d847a6e38943e033c3b3c381eac5731b">jeu_jeu_enleverEltTab</a> (char tab[7], int *nbElt, char elt)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Enlever un élément d'un tableau d'élément (celui-ci doit appartenir au tableau).  <a href="#d847a6e38943e033c3b3c381eac5731b"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Jeu_8h.html#e3a229a2f4ebbd9d1241b41c2e35f569">jeu_jeu_initialiserTabMot</a> (<a class="el" href="struct__Mot.html">Mot</a> *menu_mot)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Initialise une structure Mot (à utiliser avant chaque recherche de mot dans le jeu).  <a href="#e3a229a2f4ebbd9d1241b41c2e35f569"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Jeu_8h.html#4e23e74c4e78943b95a3a00c9d604068">jeu_tirerMot</a> (char *mot, int taille_mot, int diabolique)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Tire un mot au hasard dans le dictionnaire.  <a href="#4e23e74c4e78943b95a3a00c9d604068"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Jeu_8h.html#4314b0ed2743e07eae5bda522ba623f1">jeu_motPresent</a> (const char *mot, int taille_mot, int diabolique)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Indique si un mot est présent dans le dictionnaire.  <a href="#4314b0ed2743e07eae5bda522ba623f1"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Jeu_8h.html#298fab508ee325f9b773edcf784185bb">jeu_jeu_initMotTrouve</a> (<a class="el" href="struct__Mot.html">Mot</a> *menu_mot)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Sert à initialiser les variables servant à la phase de recherche d'un mot (pour éviter les erreurs). Il faut l'utiliser avant chaque recherche.  <a href="#298fab508ee325f9b773edcf784185bb"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Jeu_8h.html#31ab67f8a21295ff2bddf44ba1e11f37">jeu_ajouterLettre</a> (<a class="el" href="struct__Mot.html">Mot</a> *menu_mot)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Ajoute une lettre supplémentaire aux lettres affichées.  <a href="#31ab67f8a21295ff2bddf44ba1e11f37"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Jeu_8h.html#d5d1b53fda7c7de630f2f0d0faa16012">jeu_jeu_corrigerMot</a> (<a class="el" href="struct__Mot.html">Mot</a> *menu_mot, int ligne)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Corrige un mot saisi par l'utilisateur.  <a href="#d5d1b53fda7c7de630f2f0d0faa16012"></a><br></td></tr>
+</table>
+<hr><h2>Description détaillée</h2>
+Contient les définitions de fonctions et macros pour le module Jeu. 
+<p>
+<dl class="author" compact><dt><b>Auteur:</b></dt><dd>Guillaume Verdier <p>
+Thomas Fock-Chow Tho </dd></dl>
+<hr><h2>Documentation des fonctions</h2>
+<a class="anchor" name="31ab67f8a21295ff2bddf44ba1e11f37"></a><!-- doxytag: member="Jeu.h::jeu_ajouterLettre" ref="31ab67f8a21295ff2bddf44ba1e11f37" args="(Mot *menu_mot)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jeu_ajouterLettre           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__Mot.html">Mot</a> *&nbsp;</td>
+          <td class="paramname"> <em>menu_mot</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Ajoute une lettre supplémentaire aux lettres affichées. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>menu_mot</em>&nbsp;</td><td>Le mot joué.</td></tr>
+  </table>
+</dl>
+Cette fonction est appelée, dans le mode 2 joueurs, quand la main passe : une lettre supplémentaire est alors dévoilée. 
+</div>
+</div><p>
+<a class="anchor" name="d48413e9f2202e53b2947ea614dbc167"></a><!-- doxytag: member="Jeu.h::jeu_bingo_ajouterLettre" ref="d48413e9f2202e53b2947ea614dbc167" args="(Bingo *bingo, char lettre)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jeu_bingo_ajouterLettre           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structBingo.html">Bingo</a> *&nbsp;</td>
+          <td class="paramname"> <em>bingo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&nbsp;</td>
+          <td class="paramname"> <em>lettre</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Ajoute une lettre à une grille de <a class="el" href="structBingo.html" title="Regroupe les informations sur le bingo d&#39;un joueur.">Bingo</a> non remplie. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>bingo</em>&nbsp;</td><td>La grille en cours de remplissage. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>lettre</em>&nbsp;</td><td>La lettre à ajouter. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="02cf806c5b77fe24b7991ecc0365e132"></a><!-- doxytag: member="Jeu.h::jeu_bingo_distribuer" ref="02cf806c5b77fe24b7991ecc0365e132" args="(Bingo *bingo)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jeu_bingo_distribuer           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structBingo.html">Bingo</a> *&nbsp;</td>
+          <td class="paramname"> <em>bingo</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Distribue le bingo. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>bingo</em>&nbsp;</td><td>La grille de bingo à distribuer. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="dbb2c5cac302bd2b6671a5a0795579d9"></a><!-- doxytag: member="Jeu.h::jeu_bingo_gratter" ref="dbb2c5cac302bd2b6671a5a0795579d9" args="(Bingo *bingo, int numCase)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int jeu_bingo_gratter           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structBingo.html">Bingo</a> *&nbsp;</td>
+          <td class="paramname"> <em>bingo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>numCase</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Gratte une case de bingo. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>bingo</em>&nbsp;</td><td>La grille de bingo dans laquelle on gratte. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>numCase</em>&nbsp;</td><td>Le numéro de la case grattée (entre 1 et 25). </td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Renvoie:</b></dt><dd><ul>
+<li>1 si la case grattée permet de finir le mot MOTUS.</li><li>2 si c'est un jeton "noir" (les boules noires).</li><li>0 sinon. </li></ul>
+</dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="4f83b1616bc27eeac439d238ce0f6177"></a><!-- doxytag: member="Jeu.h::jeu_bingo_initialiser" ref="4f83b1616bc27eeac439d238ce0f6177" args="(Bingo *bingo)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jeu_bingo_initialiser           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structBingo.html">Bingo</a> *&nbsp;</td>
+          <td class="paramname"> <em>bingo</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Initialise une grille de bingo. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>bingo</em>&nbsp;</td><td>La grille à initialiser. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="7c3b10106b0c134f6f69a2f539cb565f"></a><!-- doxytag: member="Jeu.h::jeu_bingo_motusTrouve" ref="7c3b10106b0c134f6f69a2f539cb565f" args="(Bingo bingo)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int jeu_bingo_motusTrouve           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structBingo.html">Bingo</a>&nbsp;</td>
+          <td class="paramname"> <em>bingo</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Indique si le mot MOTUS est complété sur une grille. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>bingo</em>&nbsp;</td><td>La grille à analyser. </td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Renvoie:</b></dt><dd><ul>
+<li>1 si le mot MOTUS est complété.</li><li>2 sinon. </li></ul>
+</dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="ea5cd982aca5b17c184830b63eb92780"></a><!-- doxytag: member="Jeu.h::jeu_initialiserPartie" ref="ea5cd982aca5b17c184830b63eb92780" args="(int mode_2joueurs)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct__Partie.html">Partie</a> jeu_initialiserPartie           </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>mode_2joueurs</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Demande à l'utilisateur le nom des joueurs et initialise les options par défaut (sert aux tests). 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>mode_2joueurs</em>&nbsp;</td><td>indique si le mode 2 joueurs doit etre activé ou pas. </td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Renvoie:</b></dt><dd>une structure Partie contenant les options par défaut. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="a10202f6feeefb6b311887a488a3772f"></a><!-- doxytag: member="Jeu.h::jeu_jeu_appartientTab" ref="a10202f6feeefb6b311887a488a3772f" args="(char tab[7], int nbElt, char elt)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int jeu_jeu_appartientTab           </td>
+          <td>(</td>
+          <td class="paramtype">char&nbsp;</td>
+          <td class="paramname"> <em>tab</em>[7], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>nbElt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&nbsp;</td>
+          <td class="paramname"> <em>elt</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Savoir si un élément donné appartient à un tableau d'éléments (appliqué ici aux char). 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>tab</em>&nbsp;</td><td>Le tableau d'éléments. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>nbElt</em>&nbsp;</td><td>Le nombre d'éléments que contient tab </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>elt</em>&nbsp;</td><td>L'élément donné. </td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Renvoie:</b></dt><dd><ul>
+<li>1 si l'élément appartient au tableau.</li><li>0 sinon. </li></ul>
+</dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="d5d1b53fda7c7de630f2f0d0faa16012"></a><!-- doxytag: member="Jeu.h::jeu_jeu_corrigerMot" ref="d5d1b53fda7c7de630f2f0d0faa16012" args="(Mot *menu_mot, int ligne)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int jeu_jeu_corrigerMot           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__Mot.html">Mot</a> *&nbsp;</td>
+          <td class="paramname"> <em>menu_mot</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>ligne</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Corrige un mot saisi par l'utilisateur. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>menu_mot</em>&nbsp;</td><td>Le mot actuellement joué. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>ligne</em>&nbsp;</td><td>Le numéro de l'essai du joueur. </td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Renvoie:</b></dt><dd>Booléen indiquant si le joueur a trouvé le mot. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="d847a6e38943e033c3b3c381eac5731b"></a><!-- doxytag: member="Jeu.h::jeu_jeu_enleverEltTab" ref="d847a6e38943e033c3b3c381eac5731b" args="(char tab[7], int *nbElt, char elt)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jeu_jeu_enleverEltTab           </td>
+          <td>(</td>
+          <td class="paramtype">char&nbsp;</td>
+          <td class="paramname"> <em>tab</em>[7], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int *&nbsp;</td>
+          <td class="paramname"> <em>nbElt</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char&nbsp;</td>
+          <td class="paramname"> <em>elt</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Enlever un élément d'un tableau d'élément (celui-ci doit appartenir au tableau). 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>tab</em>&nbsp;</td><td>Le tableau d'éléments. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>nbElt</em>&nbsp;</td><td>Le nombre d'éléments que contient tab </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>elt</em>&nbsp;</td><td>L'élément donné. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="e3a229a2f4ebbd9d1241b41c2e35f569"></a><!-- doxytag: member="Jeu.h::jeu_jeu_initialiserTabMot" ref="e3a229a2f4ebbd9d1241b41c2e35f569" args="(Mot *menu_mot)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jeu_jeu_initialiserTabMot           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__Mot.html">Mot</a> *&nbsp;</td>
+          <td class="paramname"> <em>menu_mot</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Initialise une structure Mot (à utiliser avant chaque recherche de mot dans le jeu). 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>menu_mot</em>&nbsp;</td><td>La structure à initialiser. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="298fab508ee325f9b773edcf784185bb"></a><!-- doxytag: member="Jeu.h::jeu_jeu_initMotTrouve" ref="298fab508ee325f9b773edcf784185bb" args="(Mot *menu_mot)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void jeu_jeu_initMotTrouve           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__Mot.html">Mot</a> *&nbsp;</td>
+          <td class="paramname"> <em>menu_mot</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Sert à initialiser les variables servant à la phase de recherche d'un mot (pour éviter les erreurs). Il faut l'utiliser avant chaque recherche. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>menu_mot</em>&nbsp;</td><td>structure à initialiser. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="4314b0ed2743e07eae5bda522ba623f1"></a><!-- doxytag: member="Jeu.h::jeu_motPresent" ref="4314b0ed2743e07eae5bda522ba623f1" args="(const char *mot, int taille_mot, int diabolique)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int jeu_motPresent           </td>
+          <td>(</td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>mot</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>taille_mot</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>diabolique</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Indique si un mot est présent dans le dictionnaire. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>mot</em>&nbsp;</td><td>Le mot dont on veut savoir s'il est dans le dictionnaire. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>taille_mot</em>&nbsp;</td><td>La taille du mot. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>diabolique</em>&nbsp;</td><td>Booléen indiquant si le mode diabolique est activé. </td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Renvoie:</b></dt><dd><ul>
+<li>-1 en cas d'erreur</li><li>0 si le mot n'est pas présent</li><li>1 si le mot est présent </li></ul>
+</dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="311f82879b839de115cf71898ee2bd02"></a><!-- doxytag: member="Jeu.h::jeu_optionsDefaut" ref="311f82879b839de115cf71898ee2bd02" args="(void)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct__Options.html">Options</a> jeu_optionsDefaut           </td>
+          <td>(</td>
+          <td class="paramtype">void&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Génère automatiquement des options de jeu dites classiques.<ul>
+<li>6 lettres par mot</li><li>1 joueur</li><li>Mode diabolique desactivé</li><li>Un temps de réponse initialisé à 10 par défaut (non utilisé en mode Console)</li><li>Mode bingo initialisé à 1 par défaut (toujours utilisé en mode Console). </li></ul>
+
+<p>
+<dl class="return" compact><dt><b>Renvoie:</b></dt><dd>Une structure Options contenant les options classiques. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="4e23e74c4e78943b95a3a00c9d604068"></a><!-- doxytag: member="Jeu.h::jeu_tirerMot" ref="4e23e74c4e78943b95a3a00c9d604068" args="(char *mot, int taille_mot, int diabolique)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int jeu_tirerMot           </td>
+          <td>(</td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>mot</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>taille_mot</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>diabolique</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Tire un mot au hasard dans le dictionnaire. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>mot</em>&nbsp;</td><td>Il y est mis le mot tiré. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>taille_mot</em>&nbsp;</td><td>La taille du mot que l'on veut. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>diabolique</em>&nbsp;</td><td>Booléen indiquant si le mode diabolique est activé ou non. </td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Renvoie:</b></dt><dd>0 en cas de fin normale, un nombre positif en cas d'erreur. </dd></dl>
+<dl class="warning" compact><dt><b>Avertissement:</b></dt><dd>Cette fonction utilise la fonction rand. Il faut penser à appeler srand au début du programme. </dd></dl>
+
+</div>
+</div><p>
+</div>
+<hr size="1"><address style="text-align: right;"><small>Généré le Mon May 18 16:36:27 2009 pour Motus par&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
+</body>
+</html>

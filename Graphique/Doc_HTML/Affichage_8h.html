@@ -1,0 +1,936 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>Motus: Référence du fichier Affichage.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css">
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.5.9 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>Page&nbsp;principale</span></a></li>
+      <li><a href="annotated.html"><span>Structures&nbsp;de&nbsp;données</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="files.html"><span>Liste&nbsp;des&nbsp;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Portée&nbsp;globale</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="contents">
+<h1>Référence du fichier Affichage.h</h1>Contient les définitions de fonctions et macros pour le module d'affichage.  
+<a href="#_details">Plus de détails...</a>
+<p>
+<code>#include &quot;<a class="el" href="Jeu_8h_source.html">Jeu.h</a>&quot;</code><br>
+<code>#include &quot;<a class="el" href="Affichage__Bingo_8h_source.html">Affichage_Bingo.h</a>&quot;</code><br>
+
+<p>
+<a href="Affichage_8h_source.html">Aller au code source de ce fichier.</a><table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>Macros</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="5e244c7e8ee09b5c36d8b4055067acf6"></a><!-- doxytag: member="Affichage.h::VERIFIER_ALLOCATION" ref="5e244c7e8ee09b5c36d8b4055067acf6" args="(pointeur, message, partie)" -->
+#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#5e244c7e8ee09b5c36d8b4055067acf6">VERIFIER_ALLOCATION</a>(pointeur, message, partie)&nbsp;&nbsp;&nbsp;BINGO_VERIFIER_ALLOCATION(pointeur,message,affichage_terminer(NULL,partie);)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Vérifie qu'un pointeur a correctement été alloué. Si ce n'est pas le cas, affiche un message d'erreur puis termine le programme. <br></td></tr>
+<tr><td colspan="2"><br><h2>Fonctions</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#55e9cdff6006f0e4791f0548d60750b8">lancer_motus</a> (int *argc, char ***argv)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Lance le jeu de Motus.  <a href="#55e9cdff6006f0e4791f0548d60750b8"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#c6d8639407827facf38cf44b3774ad3c">affichage_initialiser</a> (<a class="el" href="struct__Partie.html">Partie</a> *partie)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Initialise une partie.  <a href="#c6d8639407827facf38cf44b3774ad3c"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#92472c7f9646bdf1d1bf17e7ee48e3d0">affichage_creerMenu</a> (<a class="el" href="struct__Partie.html">Partie</a> *partie)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Crée le menu de la fenêtre.  <a href="#92472c7f9646bdf1d1bf17e7ee48e3d0"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#cd6cac5158f4f6d3b8627ad72d815733">affichage_nouveauMot</a> (<a class="el" href="struct__Partie.html">Partie</a> *partie)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Tire un nouveau mot et réinitialise la structure Mot.  <a href="#cd6cac5158f4f6d3b8627ad72d815733"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#01ef4b5aeecdd19f5048cdd8ab347bfe">affichage_indications</a> (<a class="el" href="struct__Partie.html">Partie</a> *partie, int ligne)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Affiche les indications sur le mot à trouver (les lettres déjà trouvées).  <a href="#01ef4b5aeecdd19f5048cdd8ab347bfe"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#9f81c9c7939ccd65cd6e8237be623c7e">affichage_terminerPartie</a> (<a class="el" href="struct__Partie.html">Partie</a> *partie)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Termine une partie (enlève les grilles, etc.).  <a href="#9f81c9c7939ccd65cd6e8237be623c7e"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#46e6d7525b9261b45f4e205637730233">affichage_saisieOptions</a> (<a class="el" href="struct__Partie.html">Partie</a> *partie)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Demande les options pour une nouvelle partie.  <a href="#46e6d7525b9261b45f4e205637730233"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#71573370dd7e3b8e6cfc5882674af485">affichage_saisieOptionsSuperPartie</a> (<a class="el" href="struct__Partie.html">Partie</a> *partie)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Demande les options pour une nouvelle super partie.  <a href="#71573370dd7e3b8e6cfc5882674af485"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#f9dd65e6a640da8eb6bd1a81a85c6844">affichage_passagePartieSuperPartie</a> (<a class="el" href="struct__Partie.html">Partie</a> *partie)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Passe d'une partie à une super-partie.  <a href="#f9dd65e6a640da8eb6bd1a81a85c6844"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#a7541f1020e3006aa53d08f772cbc957">affichage_miseAJourScoreNom</a> (const <a class="el" href="struct__Partie.html">Partie</a> *partie)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Met à jour les widgets affichant le score et le nom du joueur courant.  <a href="#a7541f1020e3006aa53d08f772cbc957"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">gboolean&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#08c705ac703527d2cfac484fa17f6b3e">affichage_splashDestroy</a> (gpointer partie)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Détruit l'écran de démarrage et lance la partie.  <a href="#08c705ac703527d2cfac484fa17f6b3e"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">gboolean&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#297e8cbcabee8b44990ecc1d3ea2aa86">affichage_tableLettres</a> (gpointer partie)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Affiche une à une les lettres du mot saisi par l'utilisateur.  <a href="#297e8cbcabee8b44990ecc1d3ea2aa86"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">gboolean&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#351c0cfd0e58ee5d7d8957b9199723b7">affichage_rafraichissementTimer</a> (gpointer partie)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Mets à jour le label indiquant le temps de réponse restant et vérifie que le temps de réponse n'est pas écoulé.  <a href="#351c0cfd0e58ee5d7d8957b9199723b7"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#5a06e4259f06253a302f6e5dac442411">affichage_effacerBarreStatus</a> (gpointer status)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Efface (enlève le texte de) la barre de status.  <a href="#5a06e4259f06253a302f6e5dac442411"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#b49444d9111653da61fa165ae373436a">affichage_nouvellePartie</a> (GtkWidget *appelant, gpointer partie)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Commence une nouvelle partie.  <a href="#b49444d9111653da61fa165ae373436a"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#05d89f30fb6b1bbf28324395f3bd86db">affichage_nouvelleSuperPartie</a> (GtkWidget *appelant, gpointer partie)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Commence une nouvelle super partie.  <a href="#05d89f30fb6b1bbf28324395f3bd86db"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#b8e52868bad2e04690412580a6aee6ef">affichage_menuTerminerPartie</a> (GtkWidget *appelant, gpointer partie)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Appelé quand l'utilisateur demande la fin de la partie en cours.  <a href="#b8e52868bad2e04690412580a6aee6ef"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#ddb4daadf2a42d52b74aef000075aafa">affichage_meilleursScores</a> (GtkWidget *appelant, gpointer fenetre)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Affiche les meilleurs scores.  <a href="#ddb4daadf2a42d52b74aef000075aafa"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#94d3a991d1d0b2dcb8850dbc276beddb">affichage_reglesJeu</a> (GtkWidget *appelant, gpointer partie)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Affiche les règles du jeu.  <a href="#94d3a991d1d0b2dcb8850dbc276beddb"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#782b70d1f55427d78646baecf66a4ad3">affichage_aPropos</a> (GtkWidget *appelant, gpointer fenetre)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Affiche des informations à propos du jeu.  <a href="#782b70d1f55427d78646baecf66a4ad3"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#db6c5627ed6088898f6ed8bd6f7b8f36">affichage_saisieMot</a> (GtkWidget *entry, gpointer partie)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Fonction appelée quand le joueur saisi un mot : le vérifie et modifie l'affichage en conséquence.  <a href="#db6c5627ed6088898f6ed8bd6f7b8f36"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#b95d282235c2d7957713f11e74a9dc72">affichage_motSuivant</a> (GtkWidget *appelant, gpointer partie)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Passe au mot suivant ou termine la partie si on a atteint les 10 mots.  <a href="#b95d282235c2d7957713f11e74a9dc72"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#362cf556693d454c81c06e512447c441">affichage_sauvegarder</a> (GtkWidget *appelant, gpointer partie)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Sauvegarder la partie.  <a href="#362cf556693d454c81c06e512447c441"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#9a71122f938f990399062a7a408592fd">affichage_charger</a> (GtkWidget *appelant, gpointer partie)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Charge une partie.  <a href="#9a71122f938f990399062a7a408592fd"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#15029d03aae3678c997f820ead068da4">affichage_terminer</a> (GtkWidget *appelant, gpointer partie)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Termine le programme.  <a href="#15029d03aae3678c997f820ead068da4"></a><br></td></tr>
+</table>
+<hr><h2>Description détaillée</h2>
+Contient les définitions de fonctions et macros pour le module d'affichage. 
+<p>
+<dl class="author" compact><dt><b>Auteur:</b></dt><dd>Guillaume Verdier <p>
+Thomas Fock-Chow Tho </dd></dl>
+<hr><h2>Documentation des fonctions</h2>
+<a class="anchor" name="782b70d1f55427d78646baecf66a4ad3"></a><!-- doxytag: member="Affichage.h::affichage_aPropos" ref="782b70d1f55427d78646baecf66a4ad3" args="(GtkWidget *appelant, gpointer fenetre)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_aPropos           </td>
+          <td>(</td>
+          <td class="paramtype">GtkWidget *&nbsp;</td>
+          <td class="paramname"> <em>appelant</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gpointer&nbsp;</td>
+          <td class="paramname"> <em>fenetre</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Affiche des informations à propos du jeu. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>appelant</em>&nbsp;</td><td>Le widget appelant la fonction de rappel. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>fenetre</em>&nbsp;</td><td>La fenêtre principale. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="9a71122f938f990399062a7a408592fd"></a><!-- doxytag: member="Affichage.h::affichage_charger" ref="9a71122f938f990399062a7a408592fd" args="(GtkWidget *appelant, gpointer partie)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_charger           </td>
+          <td>(</td>
+          <td class="paramtype">GtkWidget *&nbsp;</td>
+          <td class="paramname"> <em>appelant</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gpointer&nbsp;</td>
+          <td class="paramname"> <em>partie</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Charge une partie. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>appelant</em>&nbsp;</td><td>Le widget ayant appelé la fonction de rappel. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>La partie où charger les données. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="92472c7f9646bdf1d1bf17e7ee48e3d0"></a><!-- doxytag: member="Affichage.h::affichage_creerMenu" ref="92472c7f9646bdf1d1bf17e7ee48e3d0" args="(Partie *partie)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_creerMenu           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__Partie.html">Partie</a> *&nbsp;</td>
+          <td class="paramname"> <em>partie</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Crée le menu de la fenêtre. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>Les données sur la partie en cours. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="5a06e4259f06253a302f6e5dac442411"></a><!-- doxytag: member="Affichage.h::affichage_effacerBarreStatus" ref="5a06e4259f06253a302f6e5dac442411" args="(gpointer status)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_effacerBarreStatus           </td>
+          <td>(</td>
+          <td class="paramtype">gpointer&nbsp;</td>
+          <td class="paramname"> <em>status</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Efface (enlève le texte de) la barre de status. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>status</em>&nbsp;</td><td>La barre de status. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="01ef4b5aeecdd19f5048cdd8ab347bfe"></a><!-- doxytag: member="Affichage.h::affichage_indications" ref="01ef4b5aeecdd19f5048cdd8ab347bfe" args="(Partie *partie, int ligne)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_indications           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__Partie.html">Partie</a> *&nbsp;</td>
+          <td class="paramname"> <em>partie</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>ligne</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Affiche les indications sur le mot à trouver (les lettres déjà trouvées). 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>Les données sur la partie en cours. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>ligne</em>&nbsp;</td><td>Le numéro de la ligne sur laquelle afficher les indications. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="c6d8639407827facf38cf44b3774ad3c"></a><!-- doxytag: member="Affichage.h::affichage_initialiser" ref="c6d8639407827facf38cf44b3774ad3c" args="(Partie *partie)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_initialiser           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__Partie.html">Partie</a> *&nbsp;</td>
+          <td class="paramname"> <em>partie</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Initialise une partie. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>La partie à initialiser.</td></tr>
+  </table>
+</dl>
+Cette fonction se charge d'initialiser la partie affichage de partie et appelle initialiser_jeu pour le reste. 
+</div>
+</div><p>
+<a class="anchor" name="ddb4daadf2a42d52b74aef000075aafa"></a><!-- doxytag: member="Affichage.h::affichage_meilleursScores" ref="ddb4daadf2a42d52b74aef000075aafa" args="(GtkWidget *appelant, gpointer fenetre)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_meilleursScores           </td>
+          <td>(</td>
+          <td class="paramtype">GtkWidget *&nbsp;</td>
+          <td class="paramname"> <em>appelant</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gpointer&nbsp;</td>
+          <td class="paramname"> <em>fenetre</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Affiche les meilleurs scores. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>appelant</em>&nbsp;</td><td>Le widget appelant la fonction de rappel (NULL si elle n'est pas appelée par callback GTK+). </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>fenetre</em>&nbsp;</td><td>La fenêtre parente. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="b8e52868bad2e04690412580a6aee6ef"></a><!-- doxytag: member="Affichage.h::affichage_menuTerminerPartie" ref="b8e52868bad2e04690412580a6aee6ef" args="(GtkWidget *appelant, gpointer partie)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_menuTerminerPartie           </td>
+          <td>(</td>
+          <td class="paramtype">GtkWidget *&nbsp;</td>
+          <td class="paramname"> <em>appelant</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gpointer&nbsp;</td>
+          <td class="paramname"> <em>partie</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Appelé quand l'utilisateur demande la fin de la partie en cours. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>appelant</em>&nbsp;</td><td>Le widget appelant la fonction de rappel (NULL si elle n'est pas appelée par callback GTK+). </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>Les données sur la partie en cours. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="a7541f1020e3006aa53d08f772cbc957"></a><!-- doxytag: member="Affichage.h::affichage_miseAJourScoreNom" ref="a7541f1020e3006aa53d08f772cbc957" args="(const Partie *partie)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_miseAJourScoreNom           </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="struct__Partie.html">Partie</a> *&nbsp;</td>
+          <td class="paramname"> <em>partie</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Met à jour les widgets affichant le score et le nom du joueur courant. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>Les données sur la partie en cours (contenant les widgets, scores, noms, ...) </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="b95d282235c2d7957713f11e74a9dc72"></a><!-- doxytag: member="Affichage.h::affichage_motSuivant" ref="b95d282235c2d7957713f11e74a9dc72" args="(GtkWidget *appelant, gpointer partie)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_motSuivant           </td>
+          <td>(</td>
+          <td class="paramtype">GtkWidget *&nbsp;</td>
+          <td class="paramname"> <em>appelant</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gpointer&nbsp;</td>
+          <td class="paramname"> <em>partie</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Passe au mot suivant ou termine la partie si on a atteint les 10 mots. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>appelant</em>&nbsp;</td><td>Le widget appelant la fonction de rappel (NULL si elle n'est pas appelée par callback GTK+). </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>Les données sur la partie en cours. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="cd6cac5158f4f6d3b8627ad72d815733"></a><!-- doxytag: member="Affichage.h::affichage_nouveauMot" ref="cd6cac5158f4f6d3b8627ad72d815733" args="(Partie *partie)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_nouveauMot           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__Partie.html">Partie</a> *&nbsp;</td>
+          <td class="paramname"> <em>partie</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Tire un nouveau mot et réinitialise la structure Mot. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>Les données sur la partie en cours. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="b49444d9111653da61fa165ae373436a"></a><!-- doxytag: member="Affichage.h::affichage_nouvellePartie" ref="b49444d9111653da61fa165ae373436a" args="(GtkWidget *appelant, gpointer partie)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_nouvellePartie           </td>
+          <td>(</td>
+          <td class="paramtype">GtkWidget *&nbsp;</td>
+          <td class="paramname"> <em>appelant</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gpointer&nbsp;</td>
+          <td class="paramname"> <em>partie</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Commence une nouvelle partie. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>appelant</em>&nbsp;</td><td>Le widget appelant la fonction de rappel (NULL si elle n'est pas appelée par callback GTK+). </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>Les données sur la partie en cours. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="05d89f30fb6b1bbf28324395f3bd86db"></a><!-- doxytag: member="Affichage.h::affichage_nouvelleSuperPartie" ref="05d89f30fb6b1bbf28324395f3bd86db" args="(GtkWidget *appelant, gpointer partie)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_nouvelleSuperPartie           </td>
+          <td>(</td>
+          <td class="paramtype">GtkWidget *&nbsp;</td>
+          <td class="paramname"> <em>appelant</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gpointer&nbsp;</td>
+          <td class="paramname"> <em>partie</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Commence une nouvelle super partie. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>appelant</em>&nbsp;</td><td>Le widget appelant la fonction de rappel (NULL si elle n'est pas appelée par callback GTK+). </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>Les données sur la partie en cours.</td></tr>
+  </table>
+</dl>
+Cette fonction ne doit être appelée que pour une nouvelle super-partie seule. Pour une super-partie suivant une partie simple, il faut utiliser <a class="el" href="Affichage_8h.html#f9dd65e6a640da8eb6bd1a81a85c6844" title="Passe d&#39;une partie à une super-partie.">affichage_passagePartieSuperPartie()</a>. 
+</div>
+</div><p>
+<a class="anchor" name="f9dd65e6a640da8eb6bd1a81a85c6844"></a><!-- doxytag: member="Affichage.h::affichage_passagePartieSuperPartie" ref="f9dd65e6a640da8eb6bd1a81a85c6844" args="(Partie *partie)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_passagePartieSuperPartie           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__Partie.html">Partie</a> *&nbsp;</td>
+          <td class="paramname"> <em>partie</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Passe d'une partie à une super-partie. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>Les données sur la partie en cours. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="351c0cfd0e58ee5d7d8957b9199723b7"></a><!-- doxytag: member="Affichage.h::affichage_rafraichissementTimer" ref="351c0cfd0e58ee5d7d8957b9199723b7" args="(gpointer partie)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gboolean affichage_rafraichissementTimer           </td>
+          <td>(</td>
+          <td class="paramtype">gpointer&nbsp;</td>
+          <td class="paramname"> <em>partie</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Mets à jour le label indiquant le temps de réponse restant et vérifie que le temps de réponse n'est pas écoulé. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>Les données sur la partie en cours. </td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Renvoie:</b></dt><dd>Booléen utilisé par GTK+ pour savoir s'il faut arrêter le timer appelant cette fonction. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="94d3a991d1d0b2dcb8850dbc276beddb"></a><!-- doxytag: member="Affichage.h::affichage_reglesJeu" ref="94d3a991d1d0b2dcb8850dbc276beddb" args="(GtkWidget *appelant, gpointer partie)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_reglesJeu           </td>
+          <td>(</td>
+          <td class="paramtype">GtkWidget *&nbsp;</td>
+          <td class="paramname"> <em>appelant</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gpointer&nbsp;</td>
+          <td class="paramname"> <em>partie</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Affiche les règles du jeu. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>appelant</em>&nbsp;</td><td>Le widget appelant la fonction de rappel (NULL si elle n'est pas appelée par callback GTK+). </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>Les données sur la partie en cours. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="db6c5627ed6088898f6ed8bd6f7b8f36"></a><!-- doxytag: member="Affichage.h::affichage_saisieMot" ref="db6c5627ed6088898f6ed8bd6f7b8f36" args="(GtkWidget *entry, gpointer partie)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_saisieMot           </td>
+          <td>(</td>
+          <td class="paramtype">GtkWidget *&nbsp;</td>
+          <td class="paramname"> <em>entry</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gpointer&nbsp;</td>
+          <td class="paramname"> <em>partie</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Fonction appelée quand le joueur saisi un mot : le vérifie et modifie l'affichage en conséquence. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>entry</em>&nbsp;</td><td>La zone de saisie ayant appelée la fonction de rappel. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>Les données sur la partie en cours. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="46e6d7525b9261b45f4e205637730233"></a><!-- doxytag: member="Affichage.h::affichage_saisieOptions" ref="46e6d7525b9261b45f4e205637730233" args="(Partie *partie)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int affichage_saisieOptions           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__Partie.html">Partie</a> *&nbsp;</td>
+          <td class="paramname"> <em>partie</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Demande les options pour une nouvelle partie. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>Les données sur la partie en cours. </td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Renvoie:</b></dt><dd>Booléen indiquant si le joueur a saisi des options ou annulé. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="71573370dd7e3b8e6cfc5882674af485"></a><!-- doxytag: member="Affichage.h::affichage_saisieOptionsSuperPartie" ref="71573370dd7e3b8e6cfc5882674af485" args="(Partie *partie)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int affichage_saisieOptionsSuperPartie           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__Partie.html">Partie</a> *&nbsp;</td>
+          <td class="paramname"> <em>partie</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Demande les options pour une nouvelle super partie. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>Les données sur la partie en cours. </td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Renvoie:</b></dt><dd>Booléen indiquant si le joueur a saisi les options ou annulé.</dd></dl>
+Cette fonction demande la saisie de toutes les options de la super-partie. Dans le cas du passage d'une partie à une super-partie, il faut utiliser <a class="el" href="Affichage_8h.html#f9dd65e6a640da8eb6bd1a81a85c6844" title="Passe d&#39;une partie à une super-partie.">affichage_passagePartieSuperPartie()</a> qui demandera seulement les options différant de celles de la partie (temps de réponse). 
+</div>
+</div><p>
+<a class="anchor" name="362cf556693d454c81c06e512447c441"></a><!-- doxytag: member="Affichage.h::affichage_sauvegarder" ref="362cf556693d454c81c06e512447c441" args="(GtkWidget *appelant, gpointer partie)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_sauvegarder           </td>
+          <td>(</td>
+          <td class="paramtype">GtkWidget *&nbsp;</td>
+          <td class="paramname"> <em>appelant</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gpointer&nbsp;</td>
+          <td class="paramname"> <em>partie</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Sauvegarder la partie. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>appelant</em>&nbsp;</td><td>Le widget ayant appelé la fonction de rappel. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>La partie à sauvegarder. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="08c705ac703527d2cfac484fa17f6b3e"></a><!-- doxytag: member="Affichage.h::affichage_splashDestroy" ref="08c705ac703527d2cfac484fa17f6b3e" args="(gpointer partie)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gboolean affichage_splashDestroy           </td>
+          <td>(</td>
+          <td class="paramtype">gpointer&nbsp;</td>
+          <td class="paramname"> <em>partie</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Détruit l'écran de démarrage et lance la partie. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>Les données sur la partie en cours. </td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Renvoie:</b></dt><dd>Booléen utilisé par GTK+ pour savoir s'il faut arrêter le timer appelant cette fonction. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="297e8cbcabee8b44990ecc1d3ea2aa86"></a><!-- doxytag: member="Affichage.h::affichage_tableLettres" ref="297e8cbcabee8b44990ecc1d3ea2aa86" args="(gpointer partie)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gboolean affichage_tableLettres           </td>
+          <td>(</td>
+          <td class="paramtype">gpointer&nbsp;</td>
+          <td class="paramname"> <em>partie</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Affiche une à une les lettres du mot saisi par l'utilisateur. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>Les données sur la partie en cours. </td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Renvoie:</b></dt><dd>Booléen utilisé par GTK+ pour savoir s'il faut arrêter le timer appelant cette fonction. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="15029d03aae3678c997f820ead068da4"></a><!-- doxytag: member="Affichage.h::affichage_terminer" ref="15029d03aae3678c997f820ead068da4" args="(GtkWidget *appelant, gpointer partie)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_terminer           </td>
+          <td>(</td>
+          <td class="paramtype">GtkWidget *&nbsp;</td>
+          <td class="paramname"> <em>appelant</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gpointer&nbsp;</td>
+          <td class="paramname"> <em>partie</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Termine le programme. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>appelant</em>&nbsp;</td><td>Le widget appelant la fonction de rappel (NULL si elle n'est pas appelée par callback GTK+). </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>Les données sur la partie en cours.</td></tr>
+  </table>
+</dl>
+Appelle terminer_jeu qui libère la mémoire, termine GTK+ et le programme. 
+</div>
+</div><p>
+<a class="anchor" name="9f81c9c7939ccd65cd6e8237be623c7e"></a><!-- doxytag: member="Affichage.h::affichage_terminerPartie" ref="9f81c9c7939ccd65cd6e8237be623c7e" args="(Partie *partie)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_terminerPartie           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__Partie.html">Partie</a> *&nbsp;</td>
+          <td class="paramname"> <em>partie</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Termine une partie (enlève les grilles, etc.). 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>Les données sur la partie à terminer.</td></tr>
+  </table>
+</dl>
+Attention, il ne faut appeler cette fonction que si la partie est déjà commencée ! 
+</div>
+</div><p>
+<a class="anchor" name="55e9cdff6006f0e4791f0548d60750b8"></a><!-- doxytag: member="Affichage.h::lancer_motus" ref="55e9cdff6006f0e4791f0548d60750b8" args="(int *argc, char ***argv)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lancer_motus           </td>
+          <td>(</td>
+          <td class="paramtype">int *&nbsp;</td>
+          <td class="paramname"> <em>argc</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char ***&nbsp;</td>
+          <td class="paramname"> <em>argv</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Lance le jeu de Motus. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>argc</em>&nbsp;</td><td>Le premier paramètre du main. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>argv</em>&nbsp;</td><td>Le second paramètre du main. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+</div>
+<hr size="1"><address style="text-align: right;"><small>Généré le Mon May 18 16:50:50 2009 pour Motus par&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
+</body>
+</html>

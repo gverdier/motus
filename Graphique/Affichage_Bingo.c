@@ -156,8 +156,10 @@ void affichage_bingo_clicCase (GtkWidget* appelant, GdkEventButton* bouton, gpoi
 				jeu_bingo_initialiser(&joueur->bingo);
 				jeu_bingo_initialiser(joueur->bingoAutreJoueur);
 				affichage_bingo_rafficher (&joueur->bingo);
-			}
-			++nbclics;
+				nbclics=2; /* On termine le bingo */
+			} else
+				++nbclics;
+			break;
 	}
 	if (nbclics==2) {
 		affichage_bingo_aJoue(joueur);

@@ -1,0 +1,557 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>Motus: Référence du fichier Affichage.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css">
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.5.9 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>Page&nbsp;principale</span></a></li>
+      <li><a href="annotated.html"><span>Structures&nbsp;de&nbsp;données</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="files.html"><span>Liste&nbsp;des&nbsp;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Portée&nbsp;globale</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="contents">
+<h1>Référence du fichier Affichage.h</h1>Contient les définitions de fonctions et macros pour le module d'affichage.  
+<a href="#_details">Plus de détails...</a>
+<p>
+<code>#include &lt;stdio.h&gt;</code><br>
+<code>#include &quot;<a class="el" href="Types_8h_source.html">Types.h</a>&quot;</code><br>
+
+<p>
+<a href="Affichage_8h_source.html">Aller au code source de ce fichier.</a><table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>Fonctions</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#5c105a5b4eeb7722efdf3bcb34b200d8">affichage_menu</a> (void)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Affiche le menu principal du programme et demande un choix à l'utilisateur.  <a href="#5c105a5b4eeb7722efdf3bcb34b200d8"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#e69cc7f7157cfa282f294b14f30aa335">affichage_bingo</a> (<a class="el" href="structBingo.html">Bingo</a> bingo)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Affiche une grille de bingo.  <a href="#e69cc7f7157cfa282f294b14f30aa335"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="el" href="struct__Options.html">Options</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#f25480f3c1c383d17c82e21de91b6bb8">affichage_saisieOptions</a> (void)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Permet la saisie d'options du jeu.  <a href="#f25480f3c1c383d17c82e21de91b6bb8"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#bf85460068c683768da6d1da10e849d1">affichage_saisieJoueur</a> (char nom[], int nbjoueurs)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Permet la saisie d'un nom de joueur.  <a href="#bf85460068c683768da6d1da10e849d1"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#32183ed1c5a799396280e7dbda1b3a7f">affichage_saisieMot</a> (<a class="el" href="struct__Mot.html">Mot</a> *menu_mot)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Saisir un mot à chercher (pour les tests).  <a href="#32183ed1c5a799396280e7dbda1b3a7f"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#adccf776e19b2c2bb14d482f47f1106a">affichage_grilles</a> (<a class="el" href="struct__Mot.html">Mot</a> menu_mot, int i)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Affiche sur la console la grille de jeu.  <a href="#adccf776e19b2c2bb14d482f47f1106a"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#78dd18946114de8a1868c1356de85d64">affichage_eltTrouves</a> (<a class="el" href="struct__Mot.html">Mot</a> menu_mot)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Affiche sur la console un récapitulatif des lettres trouvées.  <a href="#78dd18946114de8a1868c1356de85d64"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#6a35ac274992f28edd588763886cb113">affichage_sousMenu</a> (<a class="el" href="struct__Partie.html">Partie</a> partie, int num_mot, int mode_2joueurs)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Affiche sur la console un sous menu (à faire apparaitre entre chaque recherche de mot). L'utilisateur doit ensuite taper son choix.  <a href="#6a35ac274992f28edd588763886cb113"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#9c642b28c673f3c11f4da8bb8ef47f68">affichage_sousMenu2</a> (int num_mot)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Affiche sur la console un sous menu (uniquement pour la super partie)..  <a href="#9c642b28c673f3c11f4da8bb8ef47f68"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#fb60110e4da1ba6abb0b44e0ffc4ddb1">affichage_saisieProp</a> (char *prop)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Gère la saisie d'une proposition de mot lors d'une recherche (vérifie notamment sa validité).  <a href="#fb60110e4da1ba6abb0b44e0ffc4ddb1"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#286b4ced79f83161092e19c9bcd13c13">affichage_phaseBingo</a> (<a class="el" href="struct__Joueur.html">Joueur</a> *joueur)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Lance une phase de bingo (est utilisée par points_bingo).  <a href="#286b4ced79f83161092e19c9bcd13c13"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#8a3ce5ef7cb0bc28d82957e8bc1629bf">affichage_pointsBingo</a> (<a class="el" href="struct__Partie.html">Partie</a> *partie, int mode_2joueurs)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Lance une phase de <a class="el" href="structBingo.html" title="Regroupe les informations sur le bingo d&#39;un joueur.">Bingo</a> et attribue des points ou pénalise.  <a href="#8a3ce5ef7cb0bc28d82957e8bc1629bf"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#f22baf1c86f491a4fb6174c5501cb29d">affichage_trouverMot</a> (<a class="el" href="struct__Partie.html">Partie</a> *partie, int mode_2joueurs)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Lance une phase de de recherche d'un mot (dans sa globalité).  <a href="#f22baf1c86f491a4fb6174c5501cb29d"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#7535d5efb24ef4d81edb884ccb803ad2">affichage_lancerPartie</a> (void)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Lance une partie normale dans sa globalité.  <a href="#7535d5efb24ef4d81edb884ccb803ad2"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#eab6f9692e5681aa223c77d0951a0d00">affichage_lancerSuperPartie</a> (int *points)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Lance une super partie dans sa globalité.  <a href="#eab6f9692e5681aa223c77d0951a0d00"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="b2cca6be869a7a03ac95ef5501c96aa1"></a><!-- doxytag: member="Affichage.h::affichage_lancerJeu" ref="b2cca6be869a7a03ac95ef5501c96aa1" args="(void)" -->
+void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage_8h.html#b2cca6be869a7a03ac95ef5501c96aa1">affichage_lancerJeu</a> (void)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Lance le jeu dans sa globalité. <br></td></tr>
+</table>
+<hr><h2>Description détaillée</h2>
+Contient les définitions de fonctions et macros pour le module d'affichage. 
+<p>
+<dl class="author" compact><dt><b>Auteur:</b></dt><dd>Guillaume Verdier <p>
+Thomas Fock-Chow Tho </dd></dl>
+<hr><h2>Documentation des fonctions</h2>
+<a class="anchor" name="e69cc7f7157cfa282f294b14f30aa335"></a><!-- doxytag: member="Affichage.h::affichage_bingo" ref="e69cc7f7157cfa282f294b14f30aa335" args="(Bingo bingo)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_bingo           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structBingo.html">Bingo</a>&nbsp;</td>
+          <td class="paramname"> <em>bingo</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Affiche une grille de bingo. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>bingo</em>&nbsp;</td><td>La grille à afficher. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="78dd18946114de8a1868c1356de85d64"></a><!-- doxytag: member="Affichage.h::affichage_eltTrouves" ref="78dd18946114de8a1868c1356de85d64" args="(Mot menu_mot)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_eltTrouves           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__Mot.html">Mot</a>&nbsp;</td>
+          <td class="paramname"> <em>menu_mot</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Affiche sur la console un récapitulatif des lettres trouvées. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>menu_mot</em>&nbsp;</td><td>Le mot actuellement joué. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="adccf776e19b2c2bb14d482f47f1106a"></a><!-- doxytag: member="Affichage.h::affichage_grilles" ref="adccf776e19b2c2bb14d482f47f1106a" args="(Mot menu_mot, int i)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_grilles           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__Mot.html">Mot</a>&nbsp;</td>
+          <td class="paramname"> <em>menu_mot</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>i</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Affiche sur la console la grille de jeu. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>menu_mot</em>&nbsp;</td><td>Le mot actuellement joué. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>i</em>&nbsp;</td><td>Indique que l'on joue la i-ème proposition (rend l'affichage optimal). </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="7535d5efb24ef4d81edb884ccb803ad2"></a><!-- doxytag: member="Affichage.h::affichage_lancerPartie" ref="7535d5efb24ef4d81edb884ccb803ad2" args="(void)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int affichage_lancerPartie           </td>
+          <td>(</td>
+          <td class="paramtype">void&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Lance une partie normale dans sa globalité. 
+<p>
+<dl class="return" compact><dt><b>Renvoie:</b></dt><dd>Le nombre de points fait par le joueur 1. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="eab6f9692e5681aa223c77d0951a0d00"></a><!-- doxytag: member="Affichage.h::affichage_lancerSuperPartie" ref="eab6f9692e5681aa223c77d0951a0d00" args="(int *points)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int affichage_lancerSuperPartie           </td>
+          <td>(</td>
+          <td class="paramtype">int *&nbsp;</td>
+          <td class="paramname"> <em>points</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Lance une super partie dans sa globalité. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>points</em>&nbsp;</td><td>la variable qui contient le nombre de points du joueur. </td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Renvoie:</b></dt><dd>le nombre de mots qui ont été joué. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="5c105a5b4eeb7722efdf3bcb34b200d8"></a><!-- doxytag: member="Affichage.h::affichage_menu" ref="5c105a5b4eeb7722efdf3bcb34b200d8" args="(void)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int affichage_menu           </td>
+          <td>(</td>
+          <td class="paramtype">void&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Affiche le menu principal du programme et demande un choix à l'utilisateur. 
+<p>
+<dl class="return" compact><dt><b>Renvoie:</b></dt><dd>Le choix de l'utilisateur. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="286b4ced79f83161092e19c9bcd13c13"></a><!-- doxytag: member="Affichage.h::affichage_phaseBingo" ref="286b4ced79f83161092e19c9bcd13c13" args="(Joueur *joueur)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int affichage_phaseBingo           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__Joueur.html">Joueur</a> *&nbsp;</td>
+          <td class="paramname"> <em>joueur</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Lance une phase de bingo (est utilisée par points_bingo). 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>joueur</em>&nbsp;</td><td>la structure Joueur concernée par la phase de <a class="el" href="structBingo.html" title="Regroupe les informations sur le bingo d&#39;un joueur.">Bingo</a> </td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Renvoie:</b></dt><dd><ul>
+<li>1 si la case grattée permet de finir le mot MOTUS.</li><li>2 si c'est un jeton "noir" (les boules noires).</li><li>0 sinon. </li></ul>
+</dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="8a3ce5ef7cb0bc28d82957e8bc1629bf"></a><!-- doxytag: member="Affichage.h::affichage_pointsBingo" ref="8a3ce5ef7cb0bc28d82957e8bc1629bf" args="(Partie *partie, int mode_2joueurs)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_pointsBingo           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__Partie.html">Partie</a> *&nbsp;</td>
+          <td class="paramname"> <em>partie</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>mode_2joueurs</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Lance une phase de <a class="el" href="structBingo.html" title="Regroupe les informations sur le bingo d&#39;un joueur.">Bingo</a> et attribue des points ou pénalise. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>la partie concernée. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>mode_2joueurs</em>&nbsp;</td><td>indique si le mode 2 joueurs est actif ou pas. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="bf85460068c683768da6d1da10e849d1"></a><!-- doxytag: member="Affichage.h::affichage_saisieJoueur" ref="bf85460068c683768da6d1da10e849d1" args="(char nom[], int nbjoueurs)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_saisieJoueur           </td>
+          <td>(</td>
+          <td class="paramtype">char&nbsp;</td>
+          <td class="paramname"> <em>nom</em>[], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>nbjoueurs</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Permet la saisie d'un nom de joueur. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>nom</em>&nbsp;</td><td>La variable contenant le nom du joueur. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>nbjoueurs</em>&nbsp;</td><td>Le numéro d'identification du joueur concerné. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="32183ed1c5a799396280e7dbda1b3a7f"></a><!-- doxytag: member="Affichage.h::affichage_saisieMot" ref="32183ed1c5a799396280e7dbda1b3a7f" args="(Mot *menu_mot)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_saisieMot           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__Mot.html">Mot</a> *&nbsp;</td>
+          <td class="paramname"> <em>menu_mot</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Saisir un mot à chercher (pour les tests). 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>menu_mot</em>&nbsp;</td><td>La structure Mot contenant le mot qui sera saisi. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="f25480f3c1c383d17c82e21de91b6bb8"></a><!-- doxytag: member="Affichage.h::affichage_saisieOptions" ref="f25480f3c1c383d17c82e21de91b6bb8" args="(void)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="struct__Options.html">Options</a> affichage_saisieOptions           </td>
+          <td>(</td>
+          <td class="paramtype">void&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Permet la saisie d'options du jeu. 
+<p>
+<dl class="return" compact><dt><b>Renvoie:</b></dt><dd>Une structure Options contenant les options saisies. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="fb60110e4da1ba6abb0b44e0ffc4ddb1"></a><!-- doxytag: member="Affichage.h::affichage_saisieProp" ref="fb60110e4da1ba6abb0b44e0ffc4ddb1" args="(char *prop)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int affichage_saisieProp           </td>
+          <td>(</td>
+          <td class="paramtype">char *&nbsp;</td>
+          <td class="paramname"> <em>prop</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Gère la saisie d'une proposition de mot lors d'une recherche (vérifie notamment sa validité). 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>prop</em>&nbsp;</td><td>la variable qui contiendra la proposition. </td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Renvoie:</b></dt><dd><ul>
+<li>-1 en cas d'erreur</li><li>0 si le mot n'est pas valide</li><li>1 si le mot est valide. </li></ul>
+</dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="6a35ac274992f28edd588763886cb113"></a><!-- doxytag: member="Affichage.h::affichage_sousMenu" ref="6a35ac274992f28edd588763886cb113" args="(Partie partie, int num_mot, int mode_2joueurs)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int affichage_sousMenu           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__Partie.html">Partie</a>&nbsp;</td>
+          <td class="paramname"> <em>partie</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>num_mot</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>mode_2joueurs</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Affiche sur la console un sous menu (à faire apparaitre entre chaque recherche de mot). L'utilisateur doit ensuite taper son choix. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>La partie actuellement jouée. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>num_mot</em>&nbsp;</td><td>Le i-ème mot que le doit maintenant jouer. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>mode_2joueurs</em>&nbsp;</td><td>Indique si le mode 2 joueurs est activé. </td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Renvoie:</b></dt><dd>La valeur du choix de l'utilisateur. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="9c642b28c673f3c11f4da8bb8ef47f68"></a><!-- doxytag: member="Affichage.h::affichage_sousMenu2" ref="9c642b28c673f3c11f4da8bb8ef47f68" args="(int num_mot)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int affichage_sousMenu2           </td>
+          <td>(</td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>num_mot</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Affiche sur la console un sous menu (uniquement pour la super partie).. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>num_mot</em>&nbsp;</td><td>le i-ème mot que l'on doit maintenant jouer. </td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Renvoie:</b></dt><dd>La valeur du choix de l'utilisateur. </dd></dl>
+
+</div>
+</div><p>
+<a class="anchor" name="f22baf1c86f491a4fb6174c5501cb29d"></a><!-- doxytag: member="Affichage.h::affichage_trouverMot" ref="f22baf1c86f491a4fb6174c5501cb29d" args="(Partie *partie, int mode_2joueurs)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int affichage_trouverMot           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__Partie.html">Partie</a> *&nbsp;</td>
+          <td class="paramname"> <em>partie</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&nbsp;</td>
+          <td class="paramname"> <em>mode_2joueurs</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Lance une phase de de recherche d'un mot (dans sa globalité). 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>partie</em>&nbsp;</td><td>la partie concernée. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>mode_2joueurs</em>&nbsp;</td><td>indique si le mode 2 joueurs est actif ou pas. </td></tr>
+  </table>
+</dl>
+<dl class="return" compact><dt><b>Renvoie:</b></dt><dd><ul>
+<li>1 si le mot a été trouvé.</li><li>0 sinon. </li></ul>
+</dd></dl>
+
+</div>
+</div><p>
+</div>
+<hr size="1"><address style="text-align: right;"><small>Généré le Mon May 18 16:36:27 2009 pour Motus par&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
+</body>
+</html>

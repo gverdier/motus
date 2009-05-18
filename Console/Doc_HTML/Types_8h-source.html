@@ -1,0 +1,79 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>Motus:  Fichier source de Types.h</title>
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+<link href="tabs.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.5.7.1 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>Page&nbsp;principale</span></a></li>
+      <li><a href="annotated.html"><span>Structures&nbsp;de&nbsp;données</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="files.html"><span>Liste&nbsp;des&nbsp;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Portée&nbsp;globale</span></a></li>
+    </ul>
+  </div>
+<h1>Types.h</h1><a href="Types_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 
+<a name="l00008"></a>00008 <span class="preprocessor">#ifndef __TYPEMOTUS_H__</span>
+<a name="l00009"></a>00009 <span class="preprocessor"></span><span class="preprocessor">#define __TYPEMOTUS_H__</span>
+<a name="l00010"></a>00010 <span class="preprocessor"></span>
+<a name="l00011"></a>00011 
+<a name="l00015"></a><a class="code" href="Types_8h.html#fd60baecd706903b439f544a8dc9763c">00015</a> <span class="preprocessor">#define TAILLE_PSEUDO 20</span>
+<a name="l00016"></a>00016 <span class="preprocessor"></span>
+<a name="l00020"></a><a class="code" href="Types_8h.html#91ad9478d81a7aaf2593e8d9c3d06a14">00020</a> <span class="keyword">typedef</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> <a class="code" href="Types_8h.html#91ad9478d81a7aaf2593e8d9c3d06a14" title="Pour simplifier les notations.">uint</a>;
+<a name="l00021"></a>00021 
+<a name="l00025"></a><a class="code" href="structCase__bingo.html">00025</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00026"></a><a class="code" href="structCase__bingo.html#24c27d2803cfcb004c709e6f0f0e6c2a">00026</a>         <span class="keywordtype">char</span> lettre; 
+<a name="l00027"></a><a class="code" href="structCase__bingo.html#ae200b349bfece86a1b9ca240d0830b5">00027</a>         <span class="keywordtype">char</span> gratte; 
+<a name="l00028"></a>00028 } <a class="code" href="structCase__bingo.html" title="Une case de grille de bingo.">Case_bingo</a>;
+<a name="l00029"></a>00029 
+<a name="l00033"></a><a class="code" href="structBingo.html">00033</a> <span class="keyword">typedef</span> <span class="keyword">struct </span>{
+<a name="l00034"></a><a class="code" href="structBingo.html#ce5217c884dfc3ea89c7ea2f177c5a21">00034</a>         <a class="code" href="structCase__bingo.html" title="Une case de grille de bingo.">Case_bingo</a> grilleBingo[5][5]; 
+<a name="l00035"></a><a class="code" href="structBingo.html#d733f6faf3e6cad9645709dd07be7e0a">00035</a>         <span class="keywordtype">char</span> motusBingo[5]; 
+<a name="l00036"></a>00036 } <a class="code" href="structBingo.html" title="Regroupe les informations sur le bingo d&amp;#39;un joueur.">Bingo</a>;
+<a name="l00037"></a>00037 
+<a name="l00043"></a><a class="code" href="struct__Options.html">00043</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct__Options.html" title="Regroupe les options du jeu.">_Options</a> {
+<a name="l00044"></a><a class="code" href="struct__Options.html#edfc976ff8e7d7d23fe40dbf8352a40c">00044</a>         <a class="code" href="Types_8h.html#91ad9478d81a7aaf2593e8d9c3d06a14" title="Pour simplifier les notations.">uint</a> <a class="code" href="struct__Options.html#edfc976ff8e7d7d23fe40dbf8352a40c" title="Le nombre de lettres dans les mots tirés.">lettresParMot</a>; 
+<a name="l00049"></a><a class="code" href="struct__Options.html#5c8a6f30c60d9725ebabd2969a864490">00049</a>         <a class="code" href="Types_8h.html#91ad9478d81a7aaf2593e8d9c3d06a14" title="Pour simplifier les notations.">uint</a> <a class="code" href="struct__Options.html#5c8a6f30c60d9725ebabd2969a864490" title="Le nombre de joueurs.">nbJoueurs</a>;
+<a name="l00050"></a><a class="code" href="struct__Options.html#11dc9fbfab8e138225e03caaf6652107">00050</a>         <a class="code" href="Types_8h.html#91ad9478d81a7aaf2593e8d9c3d06a14" title="Pour simplifier les notations.">uint</a> <a class="code" href="struct__Options.html#11dc9fbfab8e138225e03caaf6652107" title="Le nombre d&amp;#39;essais laissés au joueur pour trouver un mot.">nbEssais</a>; 
+<a name="l00051"></a><a class="code" href="struct__Options.html#fdb0db1a0f4f14ef5fd485e60b0a6f7e">00051</a>         <a class="code" href="Types_8h.html#91ad9478d81a7aaf2593e8d9c3d06a14" title="Pour simplifier les notations.">uint</a> <a class="code" href="struct__Options.html#fdb0db1a0f4f14ef5fd485e60b0a6f7e" title="Booléen indiquant si le mode diabolique est activé.">modeDiabolique</a>; 
+<a name="l00052"></a><a class="code" href="struct__Options.html#bacc39e6876bdf688476b59090a3f626">00052</a>         <a class="code" href="Types_8h.html#91ad9478d81a7aaf2593e8d9c3d06a14" title="Pour simplifier les notations.">uint</a> <a class="code" href="struct__Options.html#bacc39e6876bdf688476b59090a3f626" title="Le nombre de secondes laissées au joueur pour répondre en mode normal.">tempsReponse</a>; 
+<a name="l00053"></a><a class="code" href="struct__Options.html#1b6469c64ed49d04596de8fc4ec8187b">00053</a>         <a class="code" href="Types_8h.html#91ad9478d81a7aaf2593e8d9c3d06a14" title="Pour simplifier les notations.">uint</a> <a class="code" href="struct__Options.html#1b6469c64ed49d04596de8fc4ec8187b" title="Booléen indiquant si le bingo est activé.">bingo</a>; 
+<a name="l00058"></a><a class="code" href="struct__Options.html#eac1d58b06133237b4fb22ba38fb828c">00058</a>         <a class="code" href="Types_8h.html#91ad9478d81a7aaf2593e8d9c3d06a14" title="Pour simplifier les notations.">uint</a> <a class="code" href="struct__Options.html#eac1d58b06133237b4fb22ba38fb828c" title="Booléen indiquant si les résultats doivent être ajoutés à l&amp;#39;historique.">historique</a>;
+<a name="l00059"></a>00059 } <a class="code" href="struct__Options.html" title="Regroupe les options du jeu.">Options</a> ;
+<a name="l00060"></a>00060 
+<a name="l00064"></a><a class="code" href="struct__Joueur.html">00064</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct__Joueur.html" title="Regroupe les données sur un joueur.">_Joueur</a> {
+<a name="l00065"></a><a class="code" href="struct__Joueur.html#10e331304979ea2e87bbdc33d8dca050">00065</a>         <span class="keywordtype">char</span> <a class="code" href="struct__Joueur.html#10e331304979ea2e87bbdc33d8dca050" title="Le nom (pseudo) du joueur.">nom</a>[<a class="code" href="Types_8h.html#fd60baecd706903b439f544a8dc9763c" title="La taille maximale du pseudo (nom) d&amp;#39;un joueur.">TAILLE_PSEUDO</a>]; 
+<a name="l00066"></a><a class="code" href="struct__Joueur.html#a10872ae2776febf6199567b19c00740">00066</a>         <a class="code" href="structBingo.html" title="Regroupe les informations sur le bingo d&amp;#39;un joueur.">Bingo</a> <a class="code" href="struct__Joueur.html#a10872ae2776febf6199567b19c00740" title="La grille du bingo (5x5) et le tableau récupitulatif.">bingo</a>; 
+<a name="l00067"></a><a class="code" href="struct__Joueur.html#40b9a1d59aa14e9c7ca2af71b6b79204">00067</a>         <span class="keywordtype">int</span> <a class="code" href="struct__Joueur.html#40b9a1d59aa14e9c7ca2af71b6b79204" title="Le score du joueur.">score</a>; 
+<a name="l00068"></a>00068 } <a class="code" href="struct__Joueur.html" title="Regroupe les données sur un joueur.">Joueur</a> ;
+<a name="l00069"></a>00069 
+<a name="l00073"></a><a class="code" href="struct__Mot.html">00073</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct__Mot.html" title="Les données sur le mot actuellement joue.">_Mot</a> {
+<a name="l00074"></a><a class="code" href="struct__Mot.html#f13a9326d26d96a91fea04fac1369734">00074</a>         <span class="keywordtype">char</span> <a class="code" href="struct__Mot.html#f13a9326d26d96a91fea04fac1369734" title="Le mot à trouver.">mot</a>[7]; 
+<a name="l00075"></a><a class="code" href="struct__Mot.html#63f8447a4ad7f25d4e7c6fa8d1b35fbf">00075</a>         <span class="keywordtype">char</span> <a class="code" href="struct__Mot.html#63f8447a4ad7f25d4e7c6fa8d1b35fbf" title="Les mots saisis par l&amp;#39;utilisateur.">motsSaisis</a>[5][7]; 
+<a name="l00076"></a><a class="code" href="struct__Mot.html#206d7edfd4fa25e82422afff566c7c5d">00076</a>         <span class="keywordtype">char</span> <a class="code" href="struct__Mot.html#206d7edfd4fa25e82422afff566c7c5d" title="Corrections des mots saisis par l&amp;#39;utilisateur.">corrections</a>[5][7]; 
+<a name="l00077"></a><a class="code" href="struct__Mot.html#2c1d4643d9a38c831afbb719906c51e3">00077</a>         <span class="keywordtype">char</span> <a class="code" href="struct__Mot.html#2c1d4643d9a38c831afbb719906c51e3" title="Tableau binaire indiquant pour chaque lettre si elle a été trouvée.">motTrouve</a>[6]; 
+<a name="l00078"></a><a class="code" href="struct__Mot.html#989aa2ceb8dbe67645d8a85b8089dc3e">00078</a>         <a class="code" href="Types_8h.html#91ad9478d81a7aaf2593e8d9c3d06a14" title="Pour simplifier les notations.">uint</a> <a class="code" href="struct__Mot.html#989aa2ceb8dbe67645d8a85b8089dc3e" title="Le nombre d&amp;#39;essais restants.">essaisRestants</a>; 
+<a name="l00079"></a>00079 } <a class="code" href="struct__Mot.html" title="Les données sur le mot actuellement joue.">Mot</a> ;
+<a name="l00080"></a>00080 
+<a name="l00084"></a><a class="code" href="struct__Partie.html">00084</a> <span class="keyword">typedef</span> <span class="keyword">struct </span><a class="code" href="struct__Partie.html" title="Regroupe toutes les données sur la partie en cours.">_Partie</a> {
+<a name="l00085"></a><a class="code" href="struct__Partie.html#5df5a0956b5af6de18730d75586008ad">00085</a>         <a class="code" href="struct__Options.html" title="Regroupe les options du jeu.">Options</a> <a class="code" href="struct__Partie.html#5df5a0956b5af6de18730d75586008ad" title="Les options du jeu.">options</a>; 
+<a name="l00086"></a><a class="code" href="struct__Partie.html#e1bf14073de08ad6fe77968931c3f247">00086</a>         <a class="code" href="struct__Joueur.html" title="Regroupe les données sur un joueur.">Joueur</a> <a class="code" href="struct__Partie.html#e1bf14073de08ad6fe77968931c3f247" title="Le premier joueur (le seul utilisé en mode solo).">joueur1</a>; 
+<a name="l00087"></a><a class="code" href="struct__Partie.html#cd382298b176d9d6dac802dcfe100c75">00087</a>         <a class="code" href="struct__Joueur.html" title="Regroupe les données sur un joueur.">Joueur</a> <a class="code" href="struct__Partie.html#cd382298b176d9d6dac802dcfe100c75" title="Le second joueur (pour le mode 2 joueurs seulement).">joueur2</a>; 
+<a name="l00088"></a><a class="code" href="struct__Partie.html#b2881545dd76b7703d8114dbaf8a2bb5">00088</a>         <span class="keywordtype">int</span> <a class="code" href="struct__Partie.html#b2881545dd76b7703d8114dbaf8a2bb5" title="Indique si le joueur 1 joue (prend pour valeur 1 ou 0).">joueurCourant</a>; 
+<a name="l00089"></a><a class="code" href="struct__Partie.html#730f5152b71dc5333638496d84bb661b">00089</a>         <a class="code" href="struct__Mot.html" title="Les données sur le mot actuellement joue.">Mot</a> <a class="code" href="struct__Partie.html#730f5152b71dc5333638496d84bb661b" title="Le mot actuellement joué.">motCourant</a>; 
+<a name="l00090"></a>00090 } <a class="code" href="struct__Partie.html" title="Regroupe toutes les données sur la partie en cours.">Partie</a>;
+<a name="l00091"></a>00091 
+<a name="l00092"></a>00092 <span class="preprocessor">#endif</span>
+</pre></div></div>
+<hr size="1"><address style="text-align: right;"><small>Généré le Wed Apr 22 22:24:24 2009 pour Motus par&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.7.1 </small></address>
+</body>
+</html>

@@ -3,24 +3,26 @@
 # Mettre à true pour compiler en mode debug (options de débogage)
 DEBUG=true
 # Mettre à true pour compiler en mode release (options d'optimisation)
-RELEASE=false
+RELEASE=true
 
 CC=gcc # Le compilateur C
 # Les options de compilation générales
 CFLAGS=-ansi -pedantic -W -Wall -Wno-unused-parameter `pkg-config --cflags gtk+-2.0`
 # Les options de compilation spécifiques au mode (debug/release)
-# Si RELEASE et DEBUG sont tous deux à true, seul debug sera activé
 ifeq ($(RELEASE), true)
-	CFLAGS2=-03
+	CFLAGS+=-O3
 endif
 ifeq ($(DEBUG), true)
-	CFLAGS2=-g
+	CFLAGS+=-g
 endif
 # Les options de l'éditeur de liens
 LDFLAGS=`pkg-config --libs gtk+-2.0`
-EXEC=Motus # Le nom de l'exécutable
-SRC=$(wildcard *.c) # Les fichiers source
-OBJ=$(SRC:.c=.o) # Les fichiers objet
+# Le nom de l'exécutable
+EXEC=Motus
+# Les fichiers source
+SRC=$(wildcard *.c)
+# Les fichiers objet
+OBJ=$(SRC:.c=.o)
 
 all: $(EXEC)
 
@@ -35,9 +37,14 @@ $(EXEC): $(OBJ)
 	@$(CC) $^ -o $@ $(LDFLAGS)
 
 %.o:%.c
-	@$(CC) -o $@ -c $< $(CFLAGS) $(CFLAGS2)
+	@$(CC) -o $@ -c $< $(CFLAGS)
 
-.PHONY: clean mrproper
+.PHONY: clean mrproper full exec
+
+full: clean all
+
+exec: all
+	@./"$(EXEC)"
 
 clean:
 	@rm -f *.o *~ ~*

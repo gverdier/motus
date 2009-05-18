@@ -1,0 +1,73 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>Motus: Référence de la structure _Partie</title>
+<link href="tabs.css" rel="stylesheet" type="text/css">
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.5.9 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>Page&nbsp;principale</span></a></li>
+      <li class="current"><a href="annotated.html"><span>Structures&nbsp;de&nbsp;données</span></a></li>
+      <li><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="annotated.html"><span>Structures&nbsp;de&nbsp;données</span></a></li>
+      <li><a href="functions.html"><span>Champs&nbsp;de&nbsp;donnée</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="contents">
+<h1>Référence de la structure _Partie</h1><!-- doxytag: class="_Partie" -->Regroupe toutes les données sur la partie en cours.  
+<a href="#_details">Plus de détails...</a>
+<p>
+<code>#include &lt;<a class="el" href="Types_8h_source.html">Types.h</a>&gt;</code>
+<p>
+<table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>Champs de données</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="5df5a0956b5af6de18730d75586008ad"></a><!-- doxytag: member="_Partie::options" ref="5df5a0956b5af6de18730d75586008ad" args="" -->
+<a class="el" href="struct__Options.html">Options</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__Partie.html#5df5a0956b5af6de18730d75586008ad">options</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Les options du jeu. <br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="e1bf14073de08ad6fe77968931c3f247"></a><!-- doxytag: member="_Partie::joueur1" ref="e1bf14073de08ad6fe77968931c3f247" args="" -->
+<a class="el" href="struct__Joueur.html">Joueur</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__Partie.html#e1bf14073de08ad6fe77968931c3f247">joueur1</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Le premier joueur (le seul utilisé en mode solo). <br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="cd382298b176d9d6dac802dcfe100c75"></a><!-- doxytag: member="_Partie::joueur2" ref="cd382298b176d9d6dac802dcfe100c75" args="" -->
+<a class="el" href="struct__Joueur.html">Joueur</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__Partie.html#cd382298b176d9d6dac802dcfe100c75">joueur2</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Le second joueur (pour le mode 2 joueurs seulement). <br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="b2881545dd76b7703d8114dbaf8a2bb5"></a><!-- doxytag: member="_Partie::joueurCourant" ref="b2881545dd76b7703d8114dbaf8a2bb5" args="" -->
+int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__Partie.html#b2881545dd76b7703d8114dbaf8a2bb5">joueurCourant</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Le joueur courant : 1 &lt;=&gt; joueur1, 0 &lt;=&gt; joueur2. <br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="730f5152b71dc5333638496d84bb661b"></a><!-- doxytag: member="_Partie::motCourant" ref="730f5152b71dc5333638496d84bb661b" args="" -->
+<a class="el" href="struct__Mot.html">Mot</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__Partie.html#730f5152b71dc5333638496d84bb661b">motCourant</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Le mot actuellement joué. <br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="908150a4ba2f225100b2c7d5edd9853a"></a><!-- doxytag: member="_Partie::superPartie" ref="908150a4ba2f225100b2c7d5edd9853a" args="" -->
+int&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__Partie.html#908150a4ba2f225100b2c7d5edd9853a">superPartie</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Booléen indiquant si on joue une partie simple ou une super-partie. <br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="76136e7aee9302651c69c0be08641459"></a><!-- doxytag: member="_Partie::tempsRestant" ref="76136e7aee9302651c69c0be08641459" args="" -->
+double&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__Partie.html#76136e7aee9302651c69c0be08641459">tempsRestant</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Le temps restant au joueur pour jouer. <br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="c9001de0dea5db2ca2a49080d91c8e1d"></a><!-- doxytag: member="_Partie::widgets" ref="c9001de0dea5db2ca2a49080d91c8e1d" args="" -->
+<a class="el" href="struct__Widgets.html">Widgets</a>&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct__Partie.html#c9001de0dea5db2ca2a49080d91c8e1d">widgets</a></td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Les widgets GTK+. <br></td></tr>
+</table>
+<hr><a name="_details"></a><h2>Description détaillée</h2>
+Regroupe toutes les données sur la partie en cours. <hr>La documentation de cette structure a été générée à partir du fichier suivant :<ul>
+<li><a class="el" href="Types_8h_source.html">Types.h</a></ul>
+</div>
+<hr size="1"><address style="text-align: right;"><small>Généré le Mon May 18 16:50:51 2009 pour Motus par&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
+</body>
+</html>

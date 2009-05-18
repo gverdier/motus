@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>Motus:  Fichier source de Jeu.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css">
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.5.9 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>Page&nbsp;principale</span></a></li>
+      <li><a href="annotated.html"><span>Structures&nbsp;de&nbsp;données</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="files.html"><span>Liste&nbsp;des&nbsp;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Portée&nbsp;globale</span></a></li>
+    </ul>
+  </div>
+<h1>Jeu.h</h1><a href="Jeu_8h.html">Aller à la documentation de ce fichier.</a><div class="fragment"><pre class="fragment"><a name="l00001"></a>00001 
+<a name="l00008"></a>00008 <span class="preprocessor">#ifndef __JEU_H__</span>
+<a name="l00009"></a>00009 <span class="preprocessor"></span><span class="preprocessor">#define __JEU_H__</span>
+<a name="l00010"></a>00010 <span class="preprocessor"></span>
+<a name="l00011"></a>00011 <span class="preprocessor">#include "<a class="code" href="Types_8h.html" title="Contient les définitions de types du jeu.">Types.h</a>"</span>
+<a name="l00012"></a>00012 
+<a name="l00016"></a><a class="code" href="Jeu_8h.html#e771a238a3d6942f96582f2abe10a828">00016</a> <span class="preprocessor">#define CORRECTION_BONNE_PLACE 'O'</span>
+<a name="l00017"></a>00017 <span class="preprocessor"></span>
+<a name="l00020"></a><a class="code" href="Jeu_8h.html#d4f811cfc08c63be8e4fd78d7ccf7597">00020</a> <span class="preprocessor">#define CORRECTION_MAUVAISE_PLACE 'X'</span>
+<a name="l00021"></a>00021 <span class="preprocessor"></span>
+<a name="l00024"></a><a class="code" href="Jeu_8h.html#c3a4299d371d59cb56e3f115b4c7f7ad">00024</a> <span class="preprocessor">#define CORRECTION_NON_PRESENT '_'</span>
+<a name="l00025"></a>00025 <span class="preprocessor"></span>
+<a name="l00029"></a><a class="code" href="Jeu_8h.html#3e7d1ae1b30c8256298256e052c1bdc6">00029</a> <span class="preprocessor">#define TAILLE_HISTORIQUE 10</span>
+<a name="l00030"></a>00030 <span class="preprocessor"></span>
+<a name="l00035"></a>00035 <span class="keywordtype">void</span> jeu_initialiser (<a class="code" href="struct__Partie.html" title="Regroupe toutes les données sur la partie en cours.">Partie</a>* partie);
+<a name="l00036"></a>00036 
+<a name="l00041"></a>00041 <span class="keywordtype">void</span> jeu_terminer (<a class="code" href="struct__Partie.html" title="Regroupe toutes les données sur la partie en cours.">Partie</a>* partie);
+<a name="l00042"></a>00042 
+<a name="l00052"></a>00052 <span class="keywordtype">int</span> jeu_initialiserNouvellePartie (<a class="code" href="struct__Partie.html" title="Regroupe toutes les données sur la partie en cours.">Partie</a>* partie);
+<a name="l00053"></a>00053 
+<a name="l00058"></a>00058 <a class="code" href="struct__Options.html" title="Regroupe les options du jeu.">Options</a> jeu_optionsDefaut (<span class="keywordtype">void</span>);
+<a name="l00059"></a>00059 
+<a name="l00066"></a>00066 <span class="keywordtype">int</span> jeu_appartientTab (<span class="keywordtype">char</span> tab[7], <span class="keywordtype">int</span> nbElt, <span class="keywordtype">char</span> elt);
+<a name="l00067"></a>00067 
+<a name="l00074"></a>00074 <span class="keywordtype">void</span> jeu_enleverEltTab (<span class="keywordtype">char</span> tab[7], <span class="keywordtype">int</span>* nbElt, <span class="keywordtype">char</span> elt);
+<a name="l00075"></a>00075 
+<a name="l00083"></a>00083 <span class="keywordtype">void</span> jeu_ajouterLettre (<a class="code" href="struct__Mot.html" title="Les données sur le mot actuellement joue.">Mot</a>* menu_mot);
+<a name="l00084"></a>00084 
+<a name="l00092"></a>00092 <span class="keywordtype">int</span> jeu_corrigerMot (<a class="code" href="struct__Mot.html" title="Les données sur le mot actuellement joue.">Mot</a>* menu_mot, <span class="keywordtype">int</span> ligne, <span class="keywordtype">int</span> taille_mot);
+<a name="l00093"></a>00093 
+<a name="l00102"></a>00102 <span class="keywordtype">int</span> jeu_tirerMot (<span class="keywordtype">char</span>* mot, <span class="keywordtype">int</span> taille_mot, <span class="keywordtype">int</span> diabolique);
+<a name="l00103"></a>00103 
+<a name="l00114"></a>00114 <span class="keywordtype">int</span> jeu_motPresent(<span class="keyword">const</span> <span class="keywordtype">char</span>* mot, <span class="keywordtype">int</span> taille_mot, <span class="keywordtype">int</span> diabolique);
+<a name="l00115"></a>00115 
+<a name="l00123"></a>00123 <span class="keywordtype">void</span> jeu_reinitialiserMot (<a class="code" href="struct__Mot.html" title="Les données sur le mot actuellement joue.">Mot</a>* mot, <span class="keywordtype">int</span> nbEssais, <span class="keywordtype">int</span> taille_mot, <span class="keywordtype">int</span> superPartie);
+<a name="l00124"></a>00124 
+<a name="l00131"></a>00131 <span class="keywordtype">int</span> jeu_sauvegarder (<span class="keyword">const</span> <a class="code" href="struct__Partie.html" title="Regroupe toutes les données sur la partie en cours.">Partie</a>* partie, <span class="keyword">const</span> <span class="keywordtype">char</span>* nom_fich);
+<a name="l00132"></a>00132 
+<a name="l00139"></a>00139 <span class="keywordtype">int</span> jeu_charger (<a class="code" href="struct__Partie.html" title="Regroupe toutes les données sur la partie en cours.">Partie</a>* partie, <span class="keyword">const</span> <span class="keywordtype">char</span>* nom_fich);
+<a name="l00140"></a>00140 
+<a name="l00145"></a>00145 <span class="keywordtype">void</span> jeu_bingo_initialiser (<a class="code" href="structBingo.html" title="Regroupe les informations sur le bingo d&amp;#39;un joueur.">Bingo</a>* bingo);
+<a name="l00146"></a>00146 
+<a name="l00151"></a>00151 <span class="keywordtype">void</span> jeu_bingo_distribuer (<a class="code" href="structBingo.html" title="Regroupe les informations sur le bingo d&amp;#39;un joueur.">Bingo</a>* bingo);
+<a name="l00152"></a>00152 
+<a name="l00163"></a>00163 <span class="keywordtype">int</span> jeu_bingo_gratter (<a class="code" href="structBingo.html" title="Regroupe les informations sur le bingo d&amp;#39;un joueur.">Bingo</a>* bingo, <span class="keywordtype">int</span> numCase);
+<a name="l00164"></a>00164 
+<a name="l00174"></a>00174 <span class="keywordtype">int</span> jeu_historique_sauver (<span class="keywordtype">char</span>* nom, <span class="keywordtype">int</span> score);
+<a name="l00175"></a>00175 
+<a name="l00182"></a>00182 <span class="keywordtype">int</span> jeu_historique_donnees (<span class="keywordtype">char</span> noms[<a class="code" href="Jeu_8h.html#3e7d1ae1b30c8256298256e052c1bdc6" title="La taille de l&amp;#39;historique, c&amp;#39;est-à-dire le nombre de joueurs enregistrés...">TAILLE_HISTORIQUE</a>][<a class="code" href="Types_8h.html#fd60baecd706903b439f544a8dc9763c" title="La taille maximale du pseudo (nom) d&amp;#39;un joueur.">TAILLE_PSEUDO</a>], <span class="keywordtype">int</span> scores[<a class="code" href="Jeu_8h.html#3e7d1ae1b30c8256298256e052c1bdc6" title="La taille de l&amp;#39;historique, c&amp;#39;est-à-dire le nombre de joueurs enregistrés...">TAILLE_HISTORIQUE</a>]);
+<a name="l00183"></a>00183 
+<a name="l00184"></a>00184 <span class="preprocessor">#endif</span>
+</pre></div></div>
+<hr size="1"><address style="text-align: right;"><small>Généré le Mon May 18 16:50:50 2009 pour Motus par&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
+</body>
+</html>

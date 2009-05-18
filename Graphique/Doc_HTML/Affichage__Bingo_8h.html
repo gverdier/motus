@@ -1,0 +1,380 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title>Motus: Référence du fichier Affichage_Bingo.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css">
+<link href="doxygen.css" rel="stylesheet" type="text/css">
+</head><body>
+<!-- Généré par Doxygen 1.5.9 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul>
+      <li><a href="index.html"><span>Page&nbsp;principale</span></a></li>
+      <li><a href="annotated.html"><span>Structures&nbsp;de&nbsp;données</span></a></li>
+      <li class="current"><a href="files.html"><span>Fichiers</span></a></li>
+    </ul>
+  </div>
+  <div class="tabs">
+    <ul>
+      <li><a href="files.html"><span>Liste&nbsp;des&nbsp;fichiers</span></a></li>
+      <li><a href="globals.html"><span>Portée&nbsp;globale</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="contents">
+<h1>Référence du fichier Affichage_Bingo.h</h1>Contient les définitions de fonctions et macros pour le module d'affichage, partie d'affichage de bingo.  
+<a href="#_details">Plus de détails...</a>
+<p>
+<code>#include &quot;<a class="el" href="Jeu_8h_source.html">Jeu.h</a>&quot;</code><br>
+
+<p>
+<a href="Affichage__Bingo_8h_source.html">Aller au code source de ce fichier.</a><table border="0" cellpadding="0" cellspacing="0">
+<tr><td></td></tr>
+<tr><td colspan="2"><br><h2>Macros</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top"><a class="anchor" name="e3fde7917e5f1b7492e4844fe3bf3612"></a><!-- doxytag: member="Affichage_Bingo.h::TAILLE_IMAGE" ref="e3fde7917e5f1b7492e4844fe3bf3612" args="" -->
+#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage__Bingo_8h.html#e3fde7917e5f1b7492e4844fe3bf3612">TAILLE_IMAGE</a>&nbsp;&nbsp;&nbsp;32</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">La taille des images de fond (carrées). <br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">#define&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage__Bingo_8h.html#099fd74495ad6952d4aba69c0c709cc3">BINGO_VERIFIER_ALLOCATION</a>(pointeur, message, action)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Vérifie l'allocation d'un pointeur.  <a href="#099fd74495ad6952d4aba69c0c709cc3"></a><br></td></tr>
+<tr><td colspan="2"><br><h2>Fonctions</h2></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage__Bingo_8h.html#058d5d98d21be50454b6b2d58bde553c">affichage_bingo_lancer</a> (<a class="el" href="struct__Joueur.html">Joueur</a> *joueur, GtkWindow *parent)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Lance le bingo.  <a href="#058d5d98d21be50454b6b2d58bde553c"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage__Bingo_8h.html#84e1a6fd5d8e05ac9a1b74808676a72c">affichage_bingo_rafficher</a> (<a class="el" href="structBingo.html">Bingo</a> *bingo)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Raffiche toutes les cases du bingo.  <a href="#84e1a6fd5d8e05ac9a1b74808676a72c"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage__Bingo_8h.html#abfeb7216e44286f2e395e134dfcb324">affichage_bingo_clicCase</a> (GtkWidget *appelant, GdkEventButton *bouton, gpointer joueur)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Appelée quand le joueur clique sur une case de la grille de bingo.  <a href="#abfeb7216e44286f2e395e134dfcb324"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage__Bingo_8h.html#d1f82c174abc4313309a3356616e76f1">affichage_bingo_aJoue</a> (<a class="el" href="struct__Joueur.html">Joueur</a> *joueur)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Appelée quand le joueur a joué, affiche le bouton pour quitter le bingo.  <a href="#d1f82c174abc4313309a3356616e76f1"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage__Bingo_8h.html#e77726f99310a904245a31df81ec084a">affichage_bingo_rafraichirLettres</a> (<a class="el" href="struct__Joueur.html">Joueur</a> *joueur)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Raffraichit l'affichage des lettres de la grille de bingo et du mot "MOTUS".  <a href="#e77726f99310a904245a31df81ec084a"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage__Bingo_8h.html#141ebf55ef1834623e49af5379aaed7f">affichage_bingo_terminer</a> (GtkWidget *appelant, gpointer joueur)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Terminer le bingo (ferme la fenêtre et rend le focus à la fenêtre principale).  <a href="#141ebf55ef1834623e49af5379aaed7f"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">gboolean&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage__Bingo_8h.html#635f3d3428d801c410d2d5ae168876b7">affichage_bingo_terminerFenetre</a> (GtkWidget *appelant, gpointer joueur)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Appelée quand le joueur essaie de fermer la fenêtre.  <a href="#635f3d3428d801c410d2d5ae168876b7"></a><br></td></tr>
+<tr><td class="memItemLeft" nowrap align="right" valign="top">void&nbsp;</td><td class="memItemRight" valign="bottom"><a class="el" href="Affichage__Bingo_8h.html#536ecb8cebb944745340147467195425">affichage_erreur</a> (const char *message)</td></tr>
+
+<tr><td class="mdescLeft">&nbsp;</td><td class="mdescRight">Permet d'afficher un message d'erreur.  <a href="#536ecb8cebb944745340147467195425"></a><br></td></tr>
+</table>
+<hr><h2>Description détaillée</h2>
+Contient les définitions de fonctions et macros pour le module d'affichage, partie d'affichage de bingo. 
+<p>
+<dl class="author" compact><dt><b>Auteur:</b></dt><dd>Guillaume Verdier <p>
+Thomas Fock-Chow Tho </dd></dl>
+<hr><h2>Documentation des macros</h2>
+<a class="anchor" name="099fd74495ad6952d4aba69c0c709cc3"></a><!-- doxytag: member="Affichage_Bingo.h::BINGO_VERIFIER_ALLOCATION" ref="099fd74495ad6952d4aba69c0c709cc3" args="(pointeur, message, action)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define BINGO_VERIFIER_ALLOCATION          </td>
+          <td>(</td>
+          <td class="paramtype">pointeur,         <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">message,         <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">action&nbsp;</td>
+          <td class="paramname">          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+<b>Valeur :</b><div class="fragment"><pre class="fragment"><span class="keywordflow">if</span> (pointeur==NULL) {\
+        affichage_erreur(message) ;\
+        action\
+}
+</pre></div>Vérifie l'allocation d'un pointeur. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>pointeur</em>&nbsp;</td><td>Le pointeur à vérifier. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>message</em>&nbsp;</td><td>Le message à afficher en cas d'erreur. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>action</em>&nbsp;</td><td>L'action à effectuer après affichage du message d'erreur en cas d'erreur.</td></tr>
+  </table>
+</dl>
+Le paramètre action doit être une ou plusieurs instructions C valides. Par exemple, BINGO_VERIFIER_ALLOCATION(ptr,"Erreur",return 1;) affichera "Erreur" et renverra 1. 
+</div>
+</div><p>
+<hr><h2>Documentation des fonctions</h2>
+<a class="anchor" name="d1f82c174abc4313309a3356616e76f1"></a><!-- doxytag: member="Affichage_Bingo.h::affichage_bingo_aJoue" ref="d1f82c174abc4313309a3356616e76f1" args="(Joueur *joueur)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_bingo_aJoue           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__Joueur.html">Joueur</a> *&nbsp;</td>
+          <td class="paramname"> <em>joueur</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Appelée quand le joueur a joué, affiche le bouton pour quitter le bingo. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>joueur</em>&nbsp;</td><td>Le joueur jouant le bingo. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="abfeb7216e44286f2e395e134dfcb324"></a><!-- doxytag: member="Affichage_Bingo.h::affichage_bingo_clicCase" ref="abfeb7216e44286f2e395e134dfcb324" args="(GtkWidget *appelant, GdkEventButton *bouton, gpointer joueur)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_bingo_clicCase           </td>
+          <td>(</td>
+          <td class="paramtype">GtkWidget *&nbsp;</td>
+          <td class="paramname"> <em>appelant</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GdkEventButton *&nbsp;</td>
+          <td class="paramname"> <em>bouton</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gpointer&nbsp;</td>
+          <td class="paramname"> <em>joueur</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Appelée quand le joueur clique sur une case de la grille de bingo. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>appelant</em>&nbsp;</td><td>Le widget ayant appelée la fonction de rappel. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>bouton</em>&nbsp;</td><td>Le bouton sur lequel cliqué l'utilisateur. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>joueur</em>&nbsp;</td><td>Le joueur jouant le bingo. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="058d5d98d21be50454b6b2d58bde553c"></a><!-- doxytag: member="Affichage_Bingo.h::affichage_bingo_lancer" ref="058d5d98d21be50454b6b2d58bde553c" args="(Joueur *joueur, GtkWindow *parent)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_bingo_lancer           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__Joueur.html">Joueur</a> *&nbsp;</td>
+          <td class="paramname"> <em>joueur</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">GtkWindow *&nbsp;</td>
+          <td class="paramname"> <em>parent</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Lance le bingo. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>joueur</em>&nbsp;</td><td>Le joueur jouant le bingo. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>parent</em>&nbsp;</td><td>La fenêtre parente. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="84e1a6fd5d8e05ac9a1b74808676a72c"></a><!-- doxytag: member="Affichage_Bingo.h::affichage_bingo_rafficher" ref="84e1a6fd5d8e05ac9a1b74808676a72c" args="(Bingo *bingo)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_bingo_rafficher           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structBingo.html">Bingo</a> *&nbsp;</td>
+          <td class="paramname"> <em>bingo</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Raffiche toutes les cases du bingo. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>bingo</em>&nbsp;</td><td>Le bingo joué.</td></tr>
+  </table>
+</dl>
+Utilisé quand le joueur fait un MOTUS pour remettre l'affichage à 0. Pour mettre à jour la grille après que le joueur ait tiré un mot, préférer <a class="el" href="Affichage__Bingo_8h.html#e77726f99310a904245a31df81ec084a" title="Raffraichit l&#39;affichage des lettres de la grille de bingo et du mot &quot;MOTUS&quot;...">affichage_bingo_rafraichirLettres()</a> qui est plus rapide. 
+</div>
+</div><p>
+<a class="anchor" name="e77726f99310a904245a31df81ec084a"></a><!-- doxytag: member="Affichage_Bingo.h::affichage_bingo_rafraichirLettres" ref="e77726f99310a904245a31df81ec084a" args="(Joueur *joueur)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_bingo_rafraichirLettres           </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="struct__Joueur.html">Joueur</a> *&nbsp;</td>
+          <td class="paramname"> <em>joueur</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Raffraichit l'affichage des lettres de la grille de bingo et du mot "MOTUS". 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>joueur</em>&nbsp;</td><td>Le joueur jouant le bingo. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="141ebf55ef1834623e49af5379aaed7f"></a><!-- doxytag: member="Affichage_Bingo.h::affichage_bingo_terminer" ref="141ebf55ef1834623e49af5379aaed7f" args="(GtkWidget *appelant, gpointer joueur)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_bingo_terminer           </td>
+          <td>(</td>
+          <td class="paramtype">GtkWidget *&nbsp;</td>
+          <td class="paramname"> <em>appelant</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gpointer&nbsp;</td>
+          <td class="paramname"> <em>joueur</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Terminer le bingo (ferme la fenêtre et rend le focus à la fenêtre principale). 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>appelant</em>&nbsp;</td><td>Le widget ayant appelé la fonction de rappel. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>joueur</em>&nbsp;</td><td>Le joueur jouant le bingo. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="635f3d3428d801c410d2d5ae168876b7"></a><!-- doxytag: member="Affichage_Bingo.h::affichage_bingo_terminerFenetre" ref="635f3d3428d801c410d2d5ae168876b7" args="(GtkWidget *appelant, gpointer joueur)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">gboolean affichage_bingo_terminerFenetre           </td>
+          <td>(</td>
+          <td class="paramtype">GtkWidget *&nbsp;</td>
+          <td class="paramname"> <em>appelant</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">gpointer&nbsp;</td>
+          <td class="paramname"> <em>joueur</em></td><td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Appelée quand le joueur essaie de fermer la fenêtre. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>appelant</em>&nbsp;</td><td>Le widget ayant appelé la fonction de rappel. </td></tr>
+    <tr><td valign="top"></td><td valign="top"><em>joueur</em>&nbsp;</td><td>Le joueur jouant le bingo. </td></tr>
+  </table>
+</dl>
+
+</div>
+</div><p>
+<a class="anchor" name="536ecb8cebb944745340147467195425"></a><!-- doxytag: member="Affichage_Bingo.h::affichage_erreur" ref="536ecb8cebb944745340147467195425" args="(const char *message)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void affichage_erreur           </td>
+          <td>(</td>
+          <td class="paramtype">const char *&nbsp;</td>
+          <td class="paramname"> <em>message</em>          </td>
+          <td>&nbsp;)&nbsp;</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>
+Permet d'afficher un message d'erreur. 
+<p>
+<dl compact><dt><b>Paramètres:</b></dt><dd>
+  <table border="0" cellspacing="2" cellpadding="0">
+    <tr><td valign="top"></td><td valign="top"><em>message</em>&nbsp;</td><td>Le message à afficher.</td></tr>
+  </table>
+</dl>
+On peut facilement changer l'affichage des messages d'erreurs avec cette fonction : affichage en console, écriture dans un fichier, boîte de dialogue, ... 
+</div>
+</div><p>
+</div>
+<hr size="1"><address style="text-align: right;"><small>Généré le Mon May 18 16:50:50 2009 pour Motus par&nbsp;
+<a href="http://www.doxygen.org/index.html">
+<img src="doxygen.png" alt="doxygen" align="middle" border="0"></a> 1.5.9 </small></address>
+</body>
+</html>
