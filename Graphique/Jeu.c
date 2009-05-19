@@ -178,8 +178,6 @@ int jeu_tirerMot (char* mot, int taille_mot, int diabolique) {
 	fscanf (dictio, "%s", mot) ;
 	fclose (dictio) ;
 	
-	printf("%s\n",mot);
-	
 	return 0 ;
 }
 

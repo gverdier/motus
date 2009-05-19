@@ -277,15 +277,17 @@ int affichage_trouverMot (Partie* partie, int mode_2joueurs)
 
 	jeu_jeu_initMotTrouve(&((*partie).motCourant));
 
+	/* Chaque passage dans la boucle correspond à une tentative */
+
 	for (i=0;(i<5)&&(leBonMot==0);i++) {
 		printf(" ### Tentative %d\n",i+1);
 		affichage_eltTrouves(partie->motCourant);
 		printf("Joueur courant : %s\nVotre proposition : ",partie->joueurCourant?partie->joueur1.nom:partie->joueur2.nom);
-		mot_valide=affichage_saisieProp(partie->motCourant.motsSaisis[i]);
+		mot_valide=affichage_saisieProp(partie->motCourant.motsSaisis[i]); /* Saisie du mot par l'utilisateur. */
 		printf("  %s.\n",mot_valide?"Ce mot est valide":"Ce mot n'est pas valide");
-		leBonMot=jeu_jeu_corrigerMot(&((*partie).motCourant),i);
+		leBonMot=jeu_jeu_corrigerMot(&((*partie).motCourant),i); /* Correction du mot. */
 		affichage_grilles(partie->motCourant,i+1);
-		if ((!mot_valide)&&(mode_2joueurs)) {
+		if ((!mot_valide)&&(mode_2joueurs)) { /* Cette condition permet le changement de joueur en cas d'erreur. */
 			if (partie->joueurCourant) {
 				partie->joueurCourant=0;
 			}else{
@@ -296,12 +298,12 @@ int affichage_trouverMot (Partie* partie, int mode_2joueurs)
 		}
 	}
 
-	if (leBonMot==1) {
+	if (leBonMot==1) { /* Cas où le mot a été trouvé ---> Attribution des points. */
 		printf("Bravo, vous avez trouvé le bon mot qui était : %s\n",partie->motCourant.mot);
 		if (partie->joueurCourant)  {(*partie).joueur1.score+=50;}
 		else { (*partie).joueur2.score+=50;}
 		return 1;
-	}else{
+	}else{ /* Cas où le mot n'a pas été trouvé -----> Changement de joueur. */
 		printf("Dommage, le mot était : %s\n",partie->motCourant.mot);
 		if (mode_2joueurs) {
 			if (partie->joueurCourant) {
@@ -330,12 +332,15 @@ int affichage_lancerPartie ()
 
 	partie=jeu_initialiserPartie(mode_2joueurs);
 
-	while (i<20) {
-		jeu_jeu_initialiserTabMot(&partie.motCourant);
-		jeu_tirerMot(partie.motCourant.mot,6,0);
-		printf("Le mot cherché est : %s.\n",partie.motCourant.mot);
-		/*affichage_saisieMot(&partie.motCourant);*/
-		choix=affichage_sousMenu(partie,i+1,mode_2joueurs);
+	/* Chaque entrée dans la boucle correspond à une recherche de mot. */
+
+	while (i<10) {
+		jeu_jeu_initialiserTabMot(&partie.motCourant); /* Initialisation des grilles de mots. */
+		jeu_tirerMot(partie.motCourant.mot,6,0); /* Tirage aléatoire d'un mot */
+		printf("Le mot cherché est : %s.\n",partie.motCourant.mot); /* Cette instruction permet de bonnes conditions de tests, mais affiche le mot à trouver ! */
+		choix=affichage_sousMenu(partie,i+1,mode_2joueurs); /* Affichage du menu interne de jeu. */
+
+		/* Cette condition est annulée dans la version graphique. Ici on la laisse pour une question de tests, de toute façon on dispose de la réponse à tout moment. */
 		if (affichage_trouverMot(&partie,mode_2joueurs)) {
 			affichage_pointsBingo(&partie,mode_2joueurs);
 		}
@@ -358,10 +363,10 @@ int affichage_lancerSuperPartie (int* points)
 	do {
 		choix=affichage_sousMenu2(i+1);
 		if (choix!=2) {
-			jeu_jeu_initialiserTabMot(&partie.motCourant);
+			jeu_jeu_initialiserTabMot(&partie.motCourant); /* Initialisation des grilles de mots. */
 			printf(" #### Vous avez pour l'instant %d points.\n",*points);
-			jeu_tirerMot(partie.motCourant.mot,6,0);
-			(*points)+=affichage_trouverMot(&partie,0);
+			jeu_tirerMot(partie.motCourant.mot,6,0); /* Tirage aléatoire du mot. */
+			(*points)+=affichage_trouverMot(&partie,0); /* Lancement de la recherche du mot. */
 			i++;
 		}
 	}while ((choix!=2)&&(*points<10));
@@ -375,11 +380,11 @@ void affichage_lancerJeu (void)
 	int nbpoints;
 
 	choix=affichage_menu();
-	if (choix==1) {
+	if (choix==1) { /* Lancement d'une partie normale. */
 		nbpoints=affichage_lancerPartie();
 		printf("Fin de la partie. Vous finissez avec un total de %d points.\n",nbpoints);
 	}
-	if (choix==2) {
+	if (choix==2) { /* Lancement d'une super partie. */
 		int nb_essais=affichage_lancerSuperPartie(&nbpoints);
 		printf("Fin de la super partie. Vous finissez avec un total de %d points en %d mots.\n",nbpoints,nb_essais);
 	}

@@ -22,8 +22,8 @@ void jeu_bingo_ajouterLettre (Bingo *bingo, char lettre)
 	int numCase;
 
 	do {
-		numCase=(rand()%25);
-	}while (bingo->grilleBingo[numCase/5][numCase%5].lettre!='*');
+		numCase=(rand()%25); 		/* tire les coordonnées de la case au hasard. */
+	}while (bingo->grilleBingo[numCase/5][numCase%5].lettre!='*'); /* Vérifie que la case peut etre occupée. */
 
 	bingo->grilleBingo[numCase/5][numCase%5].lettre=lettre;
 }
@@ -31,6 +31,8 @@ void jeu_bingo_ajouterLettre (Bingo *bingo, char lettre)
 void jeu_bingo_distribuer (Bingo *bingo)
 {
 	int k;
+
+	/* On ajoute 4 exemplaires de chaque lettre, puis 5 exemplaires du 'X', équivalent de la boule noire */
 
 	for(k=0;k<4;++k) {
 		jeu_bingo_ajouterLettre(bingo,'M');
@@ -88,15 +90,19 @@ int jeu_bingo_gratter (Bingo *bingo, int numCase)
 	return jeu_bingo_motusTrouve(*bingo);
 }
 
+/* Cette fonction a servi pour les tests du départ, afin de vérifier que le changement d'options fonctionnait bien, mais par la suite,
+   ces options ont été "gelées" pour les autres tests. Pour pouvoir tester la modification des options, il faut se reporter sur la version graphique */
 Options jeu_optionsDefaut (void)
 {
 	Options opt;
 
 	opt.lettresParMot=6;
+	opt.nbEssais=5;
 	opt.nbJoueurs=1;
 	opt.modeDiabolique=0;
 	opt.tempsReponse=10;
 	opt.bingo=0;
+	opt.historique=1;
 
 	return opt;
 }
@@ -135,6 +141,8 @@ void jeu_jeu_enleverEltTab (char tab[7],int* nbElt, char elt)
 {
 	int i;
 
+	/* On procède à la suppression d'un élément dans un tableau de char statique en utilisant un algorithme classique. */
+
 	for (i=0;i<(*nbElt);i++) {
 		if (tab[i]==elt) {
 			for (i=i;i+1<(*nbElt);i++) {
@@ -150,6 +158,8 @@ void jeu_jeu_initialiserTabMot (Mot* menu_mot)
 {
 	int i;
 	int j;
+
+	/* Chaque varibale de la structure est mise à 0 */
 
 	for (i=0;i<7;++i) menu_mot->mot[i]=0;
 	for (i=0;i<6;++i) menu_mot->motTrouve[i]=0;
@@ -239,7 +249,7 @@ void jeu_jeu_initMotTrouve (Mot* menu_mot)
 {
 	int i;
 
-	menu_mot->motTrouve[0]=1;
+	menu_mot->motTrouve[0]=1; /* La premiere lettre doit tout le temps etre donnée.  */
 
 	for(i=1;i<6;i++) {
 		menu_mot->motTrouve[i]=0;
@@ -254,7 +264,7 @@ void jeu_ajouterLettre (Mot* menu_mot)
 		i++;
 	}
 
-	menu_mot->motTrouve[i]=1;
+	menu_mot->motTrouve[i]=1; /* On pourra ainsi reveler la prochaine lettre non révelée. */
 }
 
 int jeu_jeu_corrigerMot (Mot* menu_mot,int ligne)
@@ -264,31 +274,39 @@ int jeu_jeu_corrigerMot (Mot* menu_mot,int ligne)
 	int nbElt=0;
 	int nbBonsElt=0;
 
+	/* On déplace d'abord le mot tapé dans un tampon qu'on manipulera par la suite. */
+
 	for (i=0;i<6;i++) {
 		tab[i]=menu_mot->mot[i];
 		nbElt++;
 	}
+
+	/* Cas où le mot n'est pas valable (trop ou pas assez de lettres, ou mot inexistant dans le dictionnaire. */
 
 	if (!jeu_motPresent(menu_mot->motsSaisis[ligne],6,0)) {
 		for (i=0;i<6;i++) {
 			menu_mot->corrections[ligne][i]='*';
 		}
 		return 0;
-	}	
+	}
+
+	/* On parcours une première fois le mot tapé pour trouver les lettres bien placées. */	
 
 	for (i=0;i<6;i++) {
 		if (menu_mot->motsSaisis[ligne][i]==menu_mot->mot[i]) {
 			menu_mot->corrections[ligne][i]='O';
 			menu_mot->motTrouve[i]=1;
 			nbBonsElt++;
-			jeu_jeu_enleverEltTab(tab,&nbElt,menu_mot->motsSaisis[ligne][i]);
+			jeu_jeu_enleverEltTab(tab,&nbElt,menu_mot->motsSaisis[ligne][i]); /* On enleve la lettre traitée du tampon. */
 		}
 	}
+
+	/* On parcours une nouvelle fois le mot tapé pour trouvr les lettres mal placées, les lettres restantes sont donc inexistantes dans le mot. */
 
 	for (i=0;i<6;i++) {
 			if ((jeu_jeu_appartientTab(tab,nbElt,(*menu_mot).motsSaisis[ligne][i]))&&(menu_mot->corrections[ligne][i]!='O')) {
 				menu_mot->corrections[ligne][i]='X';
-				jeu_jeu_enleverEltTab(tab,&nbElt,menu_mot->motsSaisis[ligne][i]);
+				jeu_jeu_enleverEltTab(tab,&nbElt,menu_mot->motsSaisis[ligne][i]); /* On enleve la lettre traitée du tampon. */
 			}else{
 				if (menu_mot->corrections[ligne][i]!='O') {
 					menu_mot->corrections[ligne][i]='_';
